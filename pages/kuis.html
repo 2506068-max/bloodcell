@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Sistem Peredaran Darah</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">❤️</span>
+                <span class="logo-text">Sistem Peredaran Darah</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#">Menu ▼</a>
+                    <div class="dropdown-content">
+                        <a href="pengertian.html">1. Pengertian</a>
+                        <a href="organ.html">2. Organ Peredaran Darah</a>
+                        <a href="jenis.html">3. Jenis Peredaran Darah</a>
+                        <a href="gangguan.html">4. Gangguan & Penyakit</a>
+                        <a href="galeri.html">5. Galeri & Animasi</a>
+                        <a href="kuis.html" class="active">6. Kuis Interaktif</a>
+                        <a href="tentang.html">7. Tentang Website</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>❓ Kuis Interaktif</h1>
+            <p>Uji pengetahuan Anda tentang sistem peredaran darah</p>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html">Beranda</a> / 
+            <span>Kuis Interaktif</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Petunjuk -->
+        <div class="info-box-light" style="margin-bottom: 2rem;">
+            <h3>Petunjuk Pengerjaan Kuis</h3>
+            <ul style="margin-left: 1rem;">
+                <li>Pilih satu jawaban yang paling benar untuk setiap pertanyaan</li>
+                <li>Klik tombol "Kirim Jawaban" untuk melihat hasil</li>
+                <li>Jawaban yang benar akan ditandai dengan warna hijau</li>
+                <li>Jawaban yang salah akan ditandai dengan warna merah</li>
+                <li>Nilai Anda akan ditampilkan setelah semua soal dijawab</li>
+            </ul>
+        </div>
+
+        <!-- Soal Kuis -->
+        <form id="quizForm" class="quiz-container">
+            <h2 id="soal">6.1 Soal-Soal Kuis</h2>
+
+            <!-- Soal 1 -->
+            <div class="quiz-question" data-correct="a">
+                <h4>1. Apa fungsi utama jantung dalam sistem peredaran darah?</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="a" required>
+                        <span>Memompa darah ke seluruh tubuh</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="b">
+                        <span>Menyaring limbah dari darah</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="c">
+                        <span>Memproduksi sel darah merah</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="d">
+                        <span>Mengatur suhu tubuh</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="quiz-question" data-correct="c">
+                <h4>2. Berapa kali jantung normal berdetak dalam satu menit pada orang dewasa saat istirahat?</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="a" required>
+                        <span>30-50 kali per menit</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="b">
+                        <span>100-120 kali per menit</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="c">
+                        <span>60-100 kali per menit</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="d">
+                        <span>150-180 kali per menit</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="quiz-question" data-correct="b">
+                <h4>3. Pembuluh darah manakah yang membawa darah kaya oksigen dari paru-paru ke jantung?</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="a" required>
+                        <span>Arteri pulmonalis</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="b">
+                        <span>Vena pulmonalis</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="c">
+                        <span>Aorta</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="d">
+                        <span>Vena cava</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="quiz-question" data-correct="d">
+                <h4>4. Sel darah merah berfungsi untuk:</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="a" required>
+                        <span>Melindungi tubuh dari infeksi</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="b">
+                        <span>Membantu pembekuan darah</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="c">
+                        <span>Mengangkut nutrisi</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="d">
+                        <span>Mengangkut oksigen ke seluruh tubuh</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 5 -->
+            <div class="quiz-question" data-correct="a">
+                <h4>5. Peredaran darah kecil terjadi antara:</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="a" required>
+                        <span>Jantung dan paru-paru</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="b">
+                        <span>Jantung dan seluruh tubuh</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="c">
+                        <span>Paru-paru dan otak</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="d">
+                        <span>Jantung dan ginjal</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 6 -->
+            <div class="quiz-question" data-correct="b">
+                <h4>6. Arteri dibedakan dengan vena karena arteri memiliki:</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="a" required>
+                        <span>Dinding yang tipis dan ada katup</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="b">
+                        <span>Dinding yang tebal dan elastis</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="c">
+                        <span>Ukuran yang lebih kecil</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="d">
+                        <span>Katup yang lebih banyak</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 7 -->
+            <div class="quiz-question" data-correct="c">
+                <h4>7. Hipertensi adalah kondisi di mana:</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="a" required>
+                        <span>Tekanan darah terlalu rendah</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="b">
+                        <span>Detak jantung terlalu cepat</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="c">
+                        <span>Tekanan darah terlalu tinggi</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="d">
+                        <span>Kolesterol tinggi dalam darah</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 8 -->
+            <div class="quiz-question" data-correct="a">
+                <h4>8. Anemia adalah kondisi di mana:</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="a" required>
+                        <span>Jumlah sel darah merah atau hemoglobin lebih rendah dari normal</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="b">
+                        <span>Jumlah sel darah putih terlalu tinggi</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="c">
+                        <span>Darah tidak dapat membeku dengan baik</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="d">
+                        <span>Tekanan darah sangat tinggi</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 9 -->
+            <div class="quiz-question" data-correct="d">
+                <h4>9. Organ mana yang memproduksi sel darah merah?</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="a" required>
+                        <span>Ginjal</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="b">
+                        <span>Hati</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="c">
+                        <span>Limpah</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="d">
+                        <span>Sumsum tulang belakang</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Soal 10 -->
+            <div class="quiz-question" data-correct="b">
+                <h4>10. Berapa volume darah normal dalam tubuh orang dewasa?</h4>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="a" required>
+                        <span>2-3 liter</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="b">
+                        <span>5-6 liter</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="c">
+                        <span>8-9 liter</span>
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="d">
+                        <span>10-12 liter</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="quiz-button-group">
+                <button type="submit" class="btn btn-success" onclick="submitQuiz(event)">Kirim Jawaban</button>
+                <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Ulangi Kuis</button>
+            </div>
+        </form>
+
+        <!-- Hasil Quiz -->
+        <div id="quizResult" class="mt-2"></div>
+
+        <!-- Riwayat Nilai -->
+        <div id="nilai" class="mt-2">
+            <div id="previousScores" class="page-content"></div>
+        </div>
+
+        <!-- Tips Belajar -->
+        <div class="page-content">
+            <h2>💡 Tips Meningkatkan Nilai Kuis</h2>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4>1. Pelajari Kembali Materi</h4>
+                    <p>Jika nilai Anda masih rendah, pelajari kembali materi dari halaman pengertian, organ, jenis peredaran darah, dan gangguan penyakit.</p>
+                </div>
+                <div class="info-box">
+                    <h4>2. Buat Catatan</h4>
+                    <p>Buatlah catatan atau mind map tentang komponen-komponen penting dalam sistem peredaran darah untuk memudahkan pemahaman.</p>
+                </div>
+                <div class="info-box">
+                    <h4>3. Lihat Animasi Berulang Kali</h4>
+                    <p>Kunjungi halaman galeri dan animasi beberapa kali untuk memahami alur peredaran darah dengan lebih baik.</p>
+                </div>
+                <div class="info-box">
+                    <h4>4. Diskusi dengan Teman</h4>
+                    <p>Berdiskusi dengan teman tentang sistem peredaran darah dapat membantu Anda memahami konsep yang lebih dalam.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <section style="text-align: center; margin-top: 3rem;">
+            <h3>Materi Terakhir</h3>
+            <p>Setelah menyelesaikan kuis, pelajari informasi tentang website ini:</p>
+            <a href="tentang.html" class="btn btn-primary" style="margin-top: 1rem;">Lanjut ke Tentang Website →</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Sistem Peredaran Darah - Platform Pembelajaran Interaktif</p>
+            <p>Dibuat untuk memudahkan pembelajaran tentang sistem peredaran darah manusia</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri dan Animasi Sistem Peredaran Darah</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">❤️</span>
+                <span class="logo-text">Sistem Peredaran Darah</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#">Menu ▼</a>
+                    <div class="dropdown-content">
+                        <a href="pengertian.html">1. Pengertian</a>
+                        <a href="organ.html">2. Organ Peredaran Darah</a>
+                        <a href="jenis.html">3. Jenis Peredaran Darah</a>
+                        <a href="gangguan.html">4. Gangguan & Penyakit</a>
+                        <a href="galeri.html" class="active">5. Galeri & Animasi</a>
+                        <a href="kuis.html">6. Kuis Interaktif</a>
+                        <a href="tentang.html">7. Tentang Website</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>🎨 Galeri & Animasi</h1>
+            <p>Visualisasi interaktif sistem peredaran darah dan organ-organnya</p>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html">Beranda</a> / 
+            <span>Galeri & Animasi</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-content">
+            <!-- Animasi Jantung -->
+            <section>
+                <h2>Animasi Jantung Berdenyut</h2>
+                <p>Jantung memompa darah ke seluruh tubuh dengan irama yang teratur. Berikut adalah visualisasi detak jantung:</p>
+                
+                <div class="animation-container">
+                    <div class="animation-box">
+                        <div style="font-size: 5rem; margin: 2rem 0;" class="heartbeat">❤️</div>
+                        <p><strong>Detak Jantung Normal: 60-100 BPM</strong></p>
+                        <p>Detak jantung dipicu oleh impuls listrik yang dimulai dari nodus sinoatrial (SA node)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animasi Aliran Darah -->
+            <section>
+                <h2>Animasi Aliran Darah dalam Pembuluh</h2>
+                <p>Darah mengalir melalui pembuluh darah dengan arah yang teratur. Simbol panah bawah menunjukkan aliran darah:</p>
+                
+                <div class="animation-container">
+                    <div class="animation-box">
+                        <div style="font-size: 3rem; letter-spacing: 1rem; margin: 1rem 0;" class="flow">
+                            🔴 → 🔴 → 🔴
+                        </div>
+                        <p><strong>Aliran Darah dalam Arteri</strong></p>
+                        <p>Darah merah kaya oksigen mengalir dari jantung ke seluruh tubuh</p>
+                        
+                        <div style="margin-top: 2rem; border-top: 1px solid #ccc; padding-top: 2rem;">
+                            <div style="font-size: 3rem; letter-spacing: 1rem; margin: 1rem 0;" class="flow">
+                                🔵 → 🔵 → 🔵
+                            </div>
+                            <p><strong>Aliran Darah dalam Vena</strong></p>
+                            <p>Darah biru miskin oksigen mengalir kembali ke jantung</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diagram Sistem Peredaran -->
+            <section>
+                <h2>Diagram Sistem Peredaran Darah</h2>
+                
+                <div class="animation-container">
+                    <div class="animation-box">
+                        <svg width="100%" height="400" viewBox="0 0 400 400" style="max-width: 400px; margin: 0 auto; display: block;">
+                            <!-- Judul -->
+                            <text x="200" y="20" text-anchor="middle" font-size="16" font-weight="bold">Sistem Peredaran Darah</text>
+                            
+                            <!-- Jantung (pusat) -->
+                            <circle cx="200" cy="200" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                            <text x="200" y="208" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Jantung</text>
+                            
+                            <!-- Paru-paru -->
+                            <ellipse cx="120" cy="120" rx="35" ry="50" fill="#3498db" stroke="#2980b9" stroke-width="2" opacity="0.7"/>
+                            <text x="120" y="125" text-anchor="middle" font-size="10" fill="white">Paru-paru</text>
+                            
+                            <ellipse cx="280" cy="120" rx="35" ry="50" fill="#3498db" stroke="#2980b9" stroke-width="2" opacity="0.7"/>
+                            <text x="280" y="125" text-anchor="middle" font-size="10" fill="white">Paru-paru</text>
+                            
+                            <!-- Otak -->
+                            <ellipse cx="200" cy="50" rx="30" ry="20" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" opacity="0.7"/>
+                            <text x="200" y="55" text-anchor="middle" font-size="10" fill="white">Otak</text>
+                            
+                            <!-- Tubuh (sisi kanan) -->
+                            <rect x="300" y="180" width="60" height="80" fill="#f39c12" stroke="#e67e22" stroke-width="2" opacity="0.7"/>
+                            <text x="330" y="225" text-anchor="middle" font-size="10" fill="white">Tubuh</text>
+                            
+                            <!-- Panah dari jantung ke paru-paru (darah kotor) -->
+                            <path d="M 170 170 Q 130 150 120 100" fill="none" stroke="#1e8bc3" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            <text x="140" y="160" font-size="8" fill="#1e8bc3">Kotor</text>
+                            
+                            <path d="M 230 170 Q 270 150 280 100" fill="none" stroke="#1e8bc3" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            
+                            <!-- Panah dari paru-paru ke jantung (darah bersih) -->
+                            <path d="M 140 100 Q 170 150 185 170" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+                            <text x="145" y="135" font-size="8" fill="#e74c3c">Bersih</text>
+                            
+                            <path d="M 260 100 Q 230 150 215 170" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+                            
+                            <!-- Panah ke otak -->
+                            <path d="M 200 170 L 200 75" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+                            <text x="210" y="120" font-size="8" fill="#e74c3c">O₂</text>
+                            
+                            <!-- Panah dari otak -->
+                            <path d="M 205 75 Q 250 120 280 170" fill="none" stroke="#1e8bc3" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            <text x="245" y="115" font-size="8" fill="#1e8bc3">CO₂</text>
+                            
+                            <!-- Panah ke tubuh -->
+                            <path d="M 230 200 L 300 200" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+                            <text x="260" y="195" font-size="8" fill="#e74c3c">O₂</text>
+                            
+                            <!-- Panah dari tubuh -->
+                            <path d="M 300 220 L 230 200" fill="none" stroke="#1e8bc3" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            <text x="260" y="225" font-size="8" fill="#1e8bc3">CO₂</text>
+                            
+                            <!-- Marker untuk panah -->
+                            <defs>
+                                <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c"/>
+                                </marker>
+                                <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#1e8bc3"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                        
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <p><strong style="color: #e74c3c;">🔴 Merah = Darah Bersih (kaya O₂)</strong></p>
+                            <p><strong style="color: #1e8bc3;">🔵 Biru = Darah Kotor (kaya CO₂)</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Siklus Jantung -->
+            <section>
+                <h2>Siklus Jantung: Diastol dan Sistol</h2>
+                
+                <div class="animation-container">
+                    <div class="animation-box">
+                        <h4>Fase Diastol (Relaksasi) - 0,4 detik</h4>
+                        <svg width="100%" height="150" viewBox="0 0 200 150" style="max-width: 200px; margin: 0 auto; display: block;">
+                            <ellipse cx="100" cy="75" rx="60" ry="50" fill="none" stroke="#3498db" stroke-width="2"/>
+                            <ellipse cx="65" cy="50" rx="35" ry="30" fill="#e8f8f5" stroke="#3498db" stroke-width="2"/>
+                            <text x="65" y="55" text-anchor="middle" font-size="10">Atrium</text>
+                            <ellipse cx="100" cy="95" rx="40" ry="35" fill="#e8f8f5" stroke="#3498db" stroke-width="2"/>
+                            <text x="100" y="100" text-anchor="middle" font-size="10">Ventrikel</text>
+                            <path d="M 80 70 L 120 70" stroke="#3498db" stroke-width="1"/>
+                            <circle cx="100" cy="70" r="3" fill="#3498db"/>
+                        </svg>
+                        <p>• Atrium dan ventrikel rileks</p>
+                        <p>• Darah masuk ke atrium dari vena</p>
+                        <p>• Tekanan darah rendah</p>
+                    </div>
+                    
+                    <div class="animation-box" style="margin-top: 2rem;">
+                        <h4>Fase Sistol (Kontraksi) - 0,3 detik</h4>
+                        <svg width="100%" height="150" viewBox="0 0 200 150" style="max-width: 200px; margin: 0 auto; display: block;">
+                            <ellipse cx="100" cy="75" rx="50" ry="40" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                            <ellipse cx="70" cy="55" rx="25" ry="20" fill="#fdeaea" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="70" y="60" text-anchor="middle" font-size="9">Atrium</text>
+                            <ellipse cx="100" cy="95" rx="30" ry="25" fill="#fdeaea" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="100" y="100" text-anchor="middle" font-size="9">Ventrikel</text>
+                            <path d="M 85 75 L 115 75" stroke="#e74c3c" stroke-width="2"/>
+                            <circle cx="100" cy="75" r="3" fill="#e74c3c"/>
+                        </svg>
+                        <p>• Atrium berkontraksi terlebih dahulu</p>
+                        <p>• Kemudian ventrikel berkontraksi</p>
+                        <p>• Darah dipompa keluar dari jantung</p>
+                        <p>• Tekanan darah tinggi</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galeri Informasi -->
+            <section>
+                <h2>Galeri Informasi Visual</h2>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">❤️</div>
+                            <div style="color: white; font-weight: bold;">JANTUNG</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pompa Darah Utama</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Jantung</h4>
+                            <p>Organ otot yang memompa darah ke seluruh tubuh, berdetak 60-100 kali per menit</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #3498db, #2980b9); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🫀</div>
+                            <div style="color: white; font-weight: bold;">ARTERI</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pembuluh Keluar</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Arteri</h4>
+                            <p>Pembuluh darah yang membawa darah kaya oksigen dari jantung ke seluruh tubuh</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #1e8bc3, #16a085); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🔵</div>
+                            <div style="color: white; font-weight: bold;">VENA</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pembuluh Kembali</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Vena</h4>
+                            <p>Pembuluh darah yang membawa darah miskin oksigen kembali ke jantung</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #e67e22, #d35400); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🔬</div>
+                            <div style="color: white; font-weight: bold;">KAPILER</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pertukaran Nutrisi</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Kapiler</h4>
+                            <p>Pembuluh darah halus tempat terjadinya pertukaran oksigen dan nutrisi dengan jaringan</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #f39c12, #e74c3c); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🔴</div>
+                            <div style="color: white; font-weight: bold;">SEL DARAH MERAH</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pengangkut Oksigen</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Sel Darah Merah</h4>
+                            <p>Sel darah yang mengandung hemoglobin dan berfungsi mengangkut oksigen</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #27ae60, #229954); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🛡️</div>
+                            <div style="color: white; font-weight: bold;">SEL DARAH PUTIH</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Pertahanan Tubuh</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Sel Darah Putih</h4>
+                            <p>Sel darah yang melindungi tubuh dari infeksi dan penyakit</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #8e44ad, #6c3483); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🧬</div>
+                            <div style="color: white; font-weight: bold;">PLASMA</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Cairan Pembawa</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Plasma Darah</h4>
+                            <p>Cairan kuning yang mengangkut nutrisi, hormon, dan limbah metabolisme</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div style="background: linear-gradient(135deg, #c0392b, #a93226); padding: 2rem; text-align: center;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">💪</div>
+                            <div style="color: white; font-weight: bold;">PARU-PARU</div>
+                            <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-top: 0.5rem;">Oksigenasi</div>
+                        </div>
+                        <div class="gallery-item-text">
+                            <h4>Paru-paru</h4>
+                            <p>Organ yang melakukan pertukaran gas antara darah dan udara yang dihirup</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Informasi Tambahan -->
+            <section>
+                <h2>Fakta Menarik Tentang Sistem Peredaran Darah</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                    <div class="success-box">
+                        <h4>Panjang Pembuluh Darah</h4>
+                        <p>Jika semua pembuluh darah dalam tubuh Anda diluruskan, panjangnya sekitar <strong>96,000 km</strong> – cukup untuk mengelilingi bumi 2,5 kali!</p>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>Kecepatan Aliran Darah</h4>
+                        <p>Darah mengalir dengan kecepatan <strong>30 cm per detik</strong> di arteri, tetapi hanya <strong>0,03 cm per detik</strong> di kapiler untuk memungkinkan pertukaran nutrisi.</p>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>Detak Jantung Seumur Hidup</h4>
+                        <p>Jantung Anda berdetak sekitar <strong>100,000 kali per hari</strong> atau <strong>2,5 miliar kali</strong> dalam seumur hidup!</p>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>Produksi Darah Merah</h4>
+                        <p>Tubuh Anda memproduksi <strong>2,4 juta sel darah merah baru</strong> setiap detik untuk menggantikan yang rusak.</p>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>Volume Darah</h4>
+                        <p>Tubuh orang dewasa mengandung sekitar <strong>5-6 liter darah</strong> (sekitar 7% dari berat badan).</p>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>Tekanan Darah</h4>
+                        <p>Tekanan darah normal adalah <strong>120/80 mmHg</strong>. Angka pertama adalah tekanan sistol (saat jantung berkontraksi), angka kedua adalah diastol (saat jantung rileks).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <section style="text-align: center; margin-top: 3rem;">
+                <h3>Materi Berikutnya</h3>
+                <p>Sekarang Anda sudah melihat visualisasi sistem peredaran darah. Uji pengetahuan Anda dengan kuis interaktif:</p>
+                <a href="kuis.html" class="btn btn-primary" style="margin-top: 1rem;">Mulai Kuis Interaktif →</a>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Sistem Peredaran Darah - Platform Pembelajaran Interaktif</p>
+            <p>Dibuat untuk memudahkan pembelajaran tentang sistem peredaran darah manusia</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

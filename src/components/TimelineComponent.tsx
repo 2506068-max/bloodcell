@@ -1,0 +1,62 @@
+import { motion } from 'framer-motion'
+
+interface TimelineStep {
+  icon: string
+  title: string
+  description: string
+}
+
+const steps: TimelineStep[] = [
+  {
+    icon: '🫀',
+    title: 'Jantung Memompa Darah',
+    description: 'Jantung berkontraksi untuk memompa darah ke seluruh tubuh.',
+  },
+  {
+    icon: '🩸',
+    title: 'Darah Menuju Paru-paru',
+    description: 'Darah yang kaya karbon dioksida mengalir ke paru-paru untuk mengambil oksigen.',
+  },
+  {
+    icon: '💨',
+    title: 'Pertukaran Gas',
+    description: 'Di paru-paru, darah melepaskan karbon dioksida dan mengambil oksigen.',
+  },
+  {
+    icon: '🔄',
+    title: 'Darah Oksigen Kembali',
+    description: 'Darah yang kaya oksigen kembali ke jantung.',
+  },
+  {
+    icon: '🩸',
+    title: 'Darah Didistribusikan',
+    description: 'Jantung memompa darah beroksigen ke seluruh tubuh melalui pembuluh darah.',
+  },
+]
+
+export default function TimelineComponent() {
+  return (
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
+      {steps.map((step, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.15, duration: 0.6 }}
+          className="relative flex flex-col items-center text-center max-w-xs"
+        >
+          <div className="text-4xl mb-2 animate-pulse">{step.icon}</div>
+          <h4 className="font-bold text-lg mb-1 text-gradient">{step.title}</h4>
+          <p className="text-text-muted text-sm mb-2">{step.description}</p>
+          {i < steps.length - 1 && (
+            <div className="hidden md:block absolute right-[-48px] top-1/2 -translate-y-1/2 w-24 h-1 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-full" />
+          )}
+          {i < steps.length - 1 && (
+            <div className="md:hidden w-1 h-12 bg-gradient-to-b from-primary/40 to-secondary/40 rounded-full mx-auto mt-2" />
+          )}
+        </motion.div>
+      ))}
+    </div>
+  )
+}

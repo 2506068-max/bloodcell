@@ -1,0 +1,109 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Vite: Chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server"
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Vite: Edge",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Vite: Chrome Mobile",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server",
+      "runtimeArgs": [
+        "--window-size=390,844",
+        "--force-device-scale-factor=1"
+      ]
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Vite: Edge Mobile",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server",
+      "runtimeArgs": [
+        "--window-size=390,844",
+        "--force-device-scale-factor=1"
+      ]
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Vite: Chrome Tablet",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server",
+      "runtimeArgs": [
+        "--window-size=820,1180",
+        "--force-device-scale-factor=1"
+      ]
+    },
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Vite: Edge Tablet",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "vite: dev server",
+      "runtimeArgs": [
+        "--window-size=820,1180",
+        "--force-device-scale-factor=1"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Vite: Chrome Desktop + Mobile",
+      "configurations": [
+        "Vite: Chrome",
+        "Vite: Chrome Mobile"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Vite: Chrome Desktop + Tablet",
+      "configurations": [
+        "Vite: Chrome",
+        "Vite: Chrome Tablet"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Vite: Edge Desktop + Mobile",
+      "configurations": [
+        "Vite: Edge",
+        "Vite: Edge Mobile"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Vite: Edge Desktop + Tablet",
+      "configurations": [
+        "Vite: Edge",
+        "Vite: Edge Tablet"
+      ],
+      "stopAll": true
+    }
+  ]
+}
