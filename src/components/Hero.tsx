@@ -1,132 +1,55 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import RippleButton from './RippleButton'
+import ParallaxHero from './ParallaxHero'
+import { ArrowRight, Play } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[600px] flex items-center py-20 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 gradient-primary opacity-10 blur-3xl rounded-full w-96 h-96 -top-48 -left-48" />
-      <div className="absolute inset-0 gradient-secondary opacity-10 blur-3xl rounded-full w-96 h-96 -bottom-48 -right-48" />
+    <section id="hero" className="relative overflow-hidden px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pb-24">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,_rgba(255,_77,_109,_0.18),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(78,_205,_196,_0.16),_transparent_24%)]" />
+      <div className="pointer-events-none absolute right-0 top-24 h-56 w-56 rounded-full bg-[#FFE66D]/30 blur-3xl" />
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/90 px-4 py-2 text-sm font-semibold text-primary shadow-sm shadow-primary/10 backdrop-blur-xl dark:bg-slate-900/75 dark:border-primary/30">
+            Edukasi Sistem Darah
+          </div>
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="mt-8 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-slate-100">
+            Pelajari Sistem Peredaran Darah dengan Cara yang <span className="text-gradient">Colorful</span> dan Menyenangkan.
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.75 }} className="mt-6 max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+            Tampilan edukatif untuk semua usia — responsif, interaktif, dan nyaman digunakan di ponsel, tablet, maupun desktop.
+          </motion.p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              Jelajahi Sistem
-              <span className="text-gradient ml-2">Peredaran Darah</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-xl text-text-muted mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              Pelajari tentang jantung, pembuluh darah, dan sel darah dengan cara yang menyenangkan dan interaktif!
-            </motion.p>
-
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <Link to="/pengertian">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary w-full sm:w-auto"
-                >
-                  Mulai Belajar
-                </motion.button>
-              </Link>
-              <Link to="/galeri">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-outline w-full sm:w-auto"
-                >
-                  Lihat Galeri
-                </motion.button>
-              </Link>
-            </motion.div>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.75 }} className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <RippleButton variant="primary" size="md" onClick={() => window.location.hash = '#kuis'}>
+              <span>Mulai Kuis Sekarang</span>
+              <ArrowRight size={18} />
+            </RippleButton>
+            <RippleButton variant="outline" size="md" onClick={() => window.location.hash = '#diagram'}>
+              <Play size={18} />
+              <span>Lihat Diagram</span>
+            </RippleButton>
           </motion.div>
 
-          {/* Right Animation */}
-          <motion.div
-            className="relative h-96 hidden lg:block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            {/* Animated Heart */}
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-9xl absolute inset-0 flex items-center justify-center"
-            >
-              ❤️
-            </motion.div>
-
-            {/* Orbiting cells */}
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, delay: i * 0.3 }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <motion.div
-                  className="absolute text-3xl"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    x: 80,
-                    y: -12,
-                  }}
-                >
-                  🔴
-                </motion.div>
-              </motion.div>
+          <div className="grid gap-4 pt-12 sm:grid-cols-2">
+            {[
+              { label: 'Animasi denyut jantung', icon: '❤️' },
+              { label: 'Alur darah interaktif', icon: '🩸' },
+              { label: 'Kuis touch friendly', icon: '🖐️' },
+              { label: 'Mode gelap & responsif', icon: '🌙' },
+            ].map((item) => (
+              <div key={item.label} className="glass-card rounded-3xl border border-white/70 p-5 shadow-soft backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/70">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-secondary/15 text-2xl">{item.icon}</div>
+                  <p className="font-medium text-slate-800 dark:text-slate-100">{item.label}</p>
+                </div>
+              </div>
             ))}
+          </div>
+        </div>
 
-            {/* Pulsing circles */}
-            {[1, 2, 3].map((i) => (
-              <motion.div
-                key={`circle-${i}`}
-                animate={{
-                  scale: [0.5, 1.2, 0.5],
-                  opacity: [0.5, 0, 0.5],
-                }}
-                transition={{
-                  duration: 3 + i * 0.5,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-                className={`absolute rounded-full border-2 ${
-                  i === 1 ? 'border-primary' : i === 2 ? 'border-secondary' : 'border-accent'
-                }`}
-                style={{
-                  width: `${100 + i * 80}px`,
-                  height: `${100 + i * 80}px`,
-                  top: '50%',
-                  left: '50%',
-                  marginTop: `${-50 - (i * 40)}px`,
-                  marginLeft: `${-50 - (i * 40)}px`,
-                }}
-              />
-            ))}
-          </motion.div>
+        <div className="relative flex items-center justify-center">
+          <ParallaxHero />
         </div>
       </div>
     </section>

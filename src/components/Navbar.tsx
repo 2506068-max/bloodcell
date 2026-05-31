@@ -1,105 +1,64 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import DarkModeToggle from './DarkModeToggle'
 
 const navLinks = [
-  { label: 'Beranda', path: '/' },
-  { label: 'Pengertian', path: '/pengertian' },
-  { label: 'Organ', path: '/organ' },
-  { label: 'Jenis Peredaran', path: '/jenis' },
-  { label: 'Gangguan & Penyakit', path: '/gangguan' },
-  { label: 'Galeri', path: '/galeri' },
-  { label: 'Kuis', path: '/kuis' },
-  { label: 'Tentang', path: '/tentang' },
+  { label: 'Beranda', href: '#hero' },
+  { label: 'Organ', href: '#organ' },
+  { label: 'Diagram', href: '#diagram' },
+  { label: 'Gangguan', href: '#penyakit' },
+  { label: 'Kuis', href: '#kuis' },
 ]
 
 export default function Navbar() {
-  const location = useLocation()
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 24)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <nav className="sticky top-0 z-40 backdrop-blur-lg bg-white/80 shadow-soft">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-4xl"
-            >
-              ❤️
-            </motion.div>
-            <div className="font-display text-xl font-bold text-gradient hidden sm:block">
-              BloodCell Edu
-            </div>
-          </Link>
+    <header className={`sticky top-0 z-50 transition duration-500 ${scrolled ? 'backdrop-blur-2xl bg-white/75 shadow-soft dark:bg-slate-950/80' : 'bg-transparent'}`}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
+          <a href="#hero" className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold shadow-sm shadow-slate-200/40 dark:bg-slate-900/90 dark:shadow-black/10">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white">❤️</span>
+            <span className="hidden sm:inline">BloodCell Edu</span>
+          </a>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="relative group"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    location.pathname === link.path
-                      ? 'text-primary font-bold'
-                      : 'text-text-muted hover:text-text-dark'
-                  }`}
-                >
-                  {link.label}
-                </motion.div>
-                {location.pathname === link.path && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-1 gradient-primary rounded-full"
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </Link>
+              <a key={link.href} href={link.href} className="rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <DarkModeToggle />
+            <button type="button" className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white/90 p-2 text-slate-700 shadow-sm shadow-slate-200/40 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100 dark:hover:bg-slate-800 lg:hidden" onClick={() => setOpen((prev) => !prev)}>
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {open && (
+        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="lg:hidden border-t border-slate-200 bg-white/95 py-4 shadow-soft dark:border-slate-700 dark:bg-slate-950/95">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 sm:px-6 pb-4">
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">
+                {link.label}
+              </a>
             ))}
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-text-dark p-2"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden pb-4 border-t border-primary/20"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`block px-4 py-2 rounded-lg font-medium transition-all ${
-                  location.pathname === link.path
-                    ? 'text-primary bg-primary/10 font-bold'
-                    : 'text-text-muted hover:text-text-dark'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </div>
-    </nav>
+        </motion.div>
+      )}
+    </header>
   )
 }

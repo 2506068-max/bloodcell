@@ -1,34 +1,31 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 
 const facts: Record<string, string> = {
-  '/': '💡 Tahukah kamu? Jantung kamu berdetak sekitar 100.000 kali setiap hari!',
-  '/pengertian': '🩸 Sistem peredaran darah Anda memiliki pembuluh darah sepanjang 96.000 km!',
-  '/organ': '❤️ Jantung adalah organ seukuran kepalan tangan tapi sangat kuat!',
-  '/jenis': '🔄 Darah mengalir ke seluruh tubuh Anda dalam waktu kurang dari 60 detik!',
-  '/gangguan': '⚠️ Gaya hidup sehat dapat mencegah 80% penyakit jantung!',
-  '/galeri': '🎨 Setiap sel darah merah berumur sekitar 120 hari!',
-  '/kuis': '🧠 Semakin sering latihan soal, semakin bagus pemahamanmu!',
-  '/tentang': '🌟 Setiap hari tubuhmu memproduksi 2,4 juta sel darah merah baru!',
+  hero: '💡 Halo! Ayo jelajahi sistem peredaran darah dengan cara yang seru dan mudah dipahami.',
+  organ: '❤️ Jantung, darah, dan pembuluh darah bekerja sama agar kamu tetap aktif setiap hari.',
+  anatomy: '🧠 Sentuh bagian organ untuk melihat fakta menarik tentang jantung dan paru-paru.',
+  diagram: '🔴 Vena dan arteri membawa darah dengan warna yang berbeda untuk fungsi khusus.',
+  penyakit: '⚠️ Menjaga pola makan dan olahraga membantu mencegah hipertensi dan penyakit jantung.',
+  badges: '🏅 Kumpulkan lencana dan lihat seberapa jauh kamu sudah belajar.',
+  kuis: '🎉 Yuk coba kuis! Semakin banyak benar, semakin beruntung kamu dapat badge baru.',
 }
 
-export default function Mascot() {
-  const [showFact, setShowFact] = useState(false)
-  const [position, setPosition] = useState({ x: 100, y: 100 })
-  const location = useLocation()
+export default function Mascot({ section = 'hero' }: { section?: string }) {
+  const [showFact, setShowFact] = useState(true)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setShowFact(true)
-    const timer = setTimeout(() => setShowFact(false), 5000)
+    const timer = window.setTimeout(() => setShowFact(false), 5500)
     return () => clearTimeout(timer)
-  }, [location.pathname])
+  }, [section])
 
   return (
     <motion.div
-      className="fixed bottom-8 right-8 z-30"
+      className="fixed bottom-8 right-8 z-40 hidden sm:block"
       drag
-      dragConstraints={{ left: -500, right: 0, top: 0, bottom: 500 }}
+      dragConstraints={{ left: -120, right: 0, top: 0, bottom: 120 }}
       initial={{ x: 0, y: 0 }}
       animate={{ x: position.x, y: position.y }}
       onDragEnd={(_event, info) => {
@@ -42,15 +39,18 @@ export default function Mascot() {
       <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setShowFact(!showFact)}
+        onClick={() => setShowFact((prev) => !prev)}
         className="cursor-grab active:cursor-grabbing"
       >
         <motion.div
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-6xl filter drop-shadow-lg"
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary shadow-glow"
         >
-          🔴
+          <div className="absolute top-4 left-6 w-4 h-4 rounded-full bg-white/70 blur-sm" />
+          <div className="absolute top-7 left-8 w-3 h-3 rounded-full bg-white/90" />
+          <div className="absolute right-6 top-6 w-3 h-3 rounded-full bg-white/70" />
+          <div className="text-4xl">❤️</div>
         </motion.div>
       </motion.div>
 
@@ -59,13 +59,15 @@ export default function Mascot() {
         {showFact && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
-            animate={{ opacity: 1, y: -80, scale: 1 }}
+            animate={{ opacity: 1, y: -90, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.8 }}
-            className="absolute bottom-full right-0 mb-4 w-64"
+            className="absolute bottom-full right-0 mb-4 w-72 sm:w-80"
           >
-            <div className="bg-white rounded-xl shadow-glow border-2 border-primary p-4 text-sm font-medium text-text-dark">
-              {facts[location.pathname] || facts['/']}
-              <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-2 border-primary border-t-transparent border-l-transparent transform rotate-45" />
+            <div className="relative rounded-3xl border border-primary/20 bg-white/95 p-4 shadow-glow dark:bg-slate-950/90 dark:border-slate-700/50">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 leading-relaxed">
+                {facts[section] || facts.hero}
+              </p>
+              <div className="absolute -bottom-2 right-6 h-4 w-4 rotate-45 bg-white border-l border-t border-primary/20 dark:bg-slate-950/90 dark:border-slate-700/50" />
             </div>
           </motion.div>
         )}
