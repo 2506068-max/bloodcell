@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Website Sistem Peredaran Darah
 ## Platform Pembelajaran Interaktif
 
@@ -347,3 +348,6 @@ Materi disusun berdasarkan:
 
 **Selamat Belajar! Semoga website ini membantu Anda memahami sistem peredaran darah dengan lebih baik.** ❤️
 >>>>>>> 9240bb951cf8f659ca3ab8691a0d2d23505313de
+=======
+# bloodcell
+>>>>>>> e6b21a694502bf9ba502286633226a7c8db3be53
