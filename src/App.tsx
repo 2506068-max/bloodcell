@@ -3,7 +3,10 @@ import { useEffect, useState } from "react"
 type Cell = {
   id: number
   name: string
+  latin: string
   function: string
+  color: string
+  icon: string
 }
 
 function App() {
@@ -15,8 +18,8 @@ function App() {
       .then((data) => {
         setCells(data.data)
       })
-      .catch((err) => {
-        console.error("Gagal ambil data:", err)
+      .catch((error) => {
+        console.error("Gagal ambil data:", error)
       })
   }, [])
 
@@ -26,8 +29,10 @@ function App() {
 
       {cells.map((cell) => (
         <div key={cell.id}>
-          <h2>{cell.name}</h2>
+          <h2>{cell.icon} {cell.name}</h2>
+          <p>{cell.latin}</p>
           <p>{cell.function}</p>
+          <p>{cell.color}</p>
         </div>
       ))}
     </div>

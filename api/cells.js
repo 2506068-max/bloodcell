@@ -7,7 +7,26 @@ export default function handler(req, res) {
         {
           id: 1,
           name: "Sel Darah Merah",
-          function: "Mengangkut oksigen"
+          latin: "Erythrocyte",
+          function: "Mengangkut oksigen ke seluruh tubuh",
+          color: "Merah",
+          icon: "🩸"
+        },
+        {
+          id: 2,
+          name: "Sel Darah Putih",
+          latin: "Leukocyte",
+          function: "Melawan infeksi dan menjaga imun tubuh",
+          color: "Putih",
+          icon: "🛡️"
+        },
+        {
+          id: 3,
+          name: "Trombosit",
+          latin: "Platelet",
+          function: "Membantu proses pembekuan darah",
+          color: "Ungu",
+          icon: "🧬"
         }
       ]
     })
