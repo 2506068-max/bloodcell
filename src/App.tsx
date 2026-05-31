@@ -12,6 +12,7 @@ import BottomNav from './components/BottomNav'
 import LoadingScreen from './components/LoadingScreen'
 import InteractiveAnatomy from './components/InteractiveAnatomy'
 import BadgeSystem from './components/BadgeSystem'
+import Mascot from './components/Mascot' // Tambahan: komponen Mascot perlu diimpor
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -19,8 +20,8 @@ function App() {
   const [activeSection, setActiveSection] = useState('hero')
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 1200)
-    return () => window.clearTimeout(timer)
+    const timer = setTimeout(() => setLoading(false), 1200) // Tidak perlu window.setTimeout
+    return () => clearTimeout(timer) // Langsung panggil clearTimeout
   }, [])
 
   useEffect(() => {
@@ -41,17 +42,61 @@ function App() {
       { rootMargin: '-40% 0px -55% 0px', threshold: 0.25 }
     )
     sections.forEach((section) => observer.observe(section))
-    return () => sections.forEach((section) => observer.unobserve(section))
+    return () => {
+      sections.forEach((section) => observer.unobserve(section))
+      observer.disconnect() // Penting: disconnect observer saat cleanup
+    }
   }, [])
 
   const handleBadgeUnlock = (badgeId: string) => {
+    if (unlockedBadges.includes(badgeId)) return // Mencegah duplikasi badge
+    
     const updated = [...unlockedBadges, badgeId]
     setUnlockedBadges(updated)
     localStorage.setItem('badges', JSON.stringify(updated))
   }
 
+  // Style untuk flip card (sebaiknya dipindahkan ke file CSS terpisah)
+  const flipCardStyles = `
+    .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      min-height: 240px;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flip-card-face, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+  `
+
   return (
     <div className="min-h-screen bg-[color:var(--bg)] text-[color:var(--text)] transition-colors duration-500 overflow-x-hidden pb-24 lg:pb-0">
+      <style>{flipCardStyles}</style> {/* Tambahan: inject styles untuk flip card */}
       <ScrollProgress />
       <FloatingCells />
       <Navbar />
@@ -105,9 +150,10 @@ function App() {
               <p className="text-[color:var(--muted)] max-w-2xl">Flip card memberikan pengalaman belajar yang interaktif untuk memahami gejala dan pencegahan secara menyenangkan.</p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Anemia Card */}
               <div className="flip-card">
-                <div className="flip-card-inner glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
-                  <div className="flip-card-face">
+                <div className="flip-card-inner">
+                  <div className="flip-card-face glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
                     <div className="text-5xl">🤒</div>
                     <h3 className="mt-5 text-xl font-bold">Anemia</h3>
                     <p className="mt-3 text-[color:var(--muted)]">Darah kekurangan sel darah merah atau hemoglobin.</p>
@@ -122,9 +168,11 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Hipertensi Card */}
               <div className="flip-card">
-                <div className="flip-card-inner glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
-                  <div className="flip-card-face">
+                <div className="flip-card-inner">
+                  <div className="flip-card-face glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
                     <div className="text-5xl">🩸</div>
                     <h3 className="mt-5 text-xl font-bold">Hipertensi</h3>
                     <p className="mt-3 text-[color:var(--muted)]">Tekanan darah tinggi membuat pembuluh darah bekerja lebih keras.</p>
@@ -139,9 +187,11 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Stroke Card */}
               <div className="flip-card">
-                <div className="flip-card-inner glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
-                  <div className="flip-card-face">
+                <div className="flip-card-inner">
+                  <div className="flip-card-face glass-card rounded-[2rem] p-6 min-h-[240px] shadow-soft hover:shadow-glow transition-all duration-500">
                     <div className="text-5xl">⚡</div>
                     <h3 className="mt-5 text-xl font-bold">Stroke</h3>
                     <p className="mt-3 text-[color:var(--muted)]">Aliran darah ke otak terganggu, butuh penanganan cepat.</p>
