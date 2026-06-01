@@ -8,7 +8,7 @@ const sample = [
   { q: 'Pembuluh darah yang membawa darah kembali ke jantung adalah?', opts: ['Arteri','Vena','Kapiler'], a: 1 },
 ]
 
-export default function Quiz({ onComplete }: { onComplete?: () => void }){
+export default function Quiz({ onComplete, onAnswer }: { onComplete?: () => void; onAnswer?: (correct: boolean) => void }){
   const [index, setIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [done, setDone] = useState(false)
@@ -16,9 +16,12 @@ export default function Quiz({ onComplete }: { onComplete?: () => void }){
 
   function choose(i:number){
     if(done) return
-    if(i===sample[index].a) setScore(s=>s+1)
-    if(index+1 < sample.length) setIndex(index+1)
-    else {
+    const correct = i === sample[index].a
+    onAnswer?.(correct)
+    if(correct) setScore(s => s + 1)
+    if(index + 1 < sample.length) {
+      setIndex(index + 1)
+    } else {
       setDone(true)
       setCelebrate(true)
       window.setTimeout(() => setCelebrate(false), 2200)

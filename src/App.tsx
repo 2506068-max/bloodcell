@@ -3,6 +3,10 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import FloatingCells from './components/FloatingCells'
 import EnhancedBloodFlowDiagram from './components/EnhancedBloodFlowDiagram'
+import CirculatoryAnimation from './components/CirculatoryAnimation'
+import CirculatorySystemInfographic from './components/CirculatorySystemInfographic'
+import BloodCellDetail from './components/BloodCellDetail'
+import VesselAnatomy from './components/VesselAnatomy'
 import OrganCards from './components/OrganCard'
 import Quiz from './components/Quiz'
 import Footer from './components/Footer'
@@ -18,6 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [unlockedBadges, setUnlockedBadges] = useState<string[]>([])
   const [activeSection, setActiveSection] = useState('hero')
+  const [quizMood, setQuizMood] = useState<'idle' | 'happy' | 'sad' | 'celebrate'>('idle')
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200) // Tidak perlu window.setTimeout
@@ -28,6 +33,18 @@ function App() {
     const stored = localStorage.getItem('badges')
     if (stored) setUnlockedBadges(JSON.parse(stored))
   }, [])
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined
+
+    if (quizMood === 'happy' || quizMood === 'sad' || quizMood === 'celebrate') {
+      timer = window.setTimeout(() => setQuizMood('idle'), 2200)
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [quizMood])
 
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]')
@@ -100,7 +117,7 @@ function App() {
       <ScrollProgress />
       <FloatingCells />
       <Navbar />
-      <Mascot section={activeSection} />
+      <Mascot section={activeSection} mood={quizMood} />
 
       <main className="relative z-10">
         <Hero />
@@ -137,6 +154,36 @@ function App() {
               <p className="text-[color:var(--muted)] max-w-2xl">Animasi interaktif menunjukkan bagaimana darah bergerak dari paru-paru melalui jantung ke seluruh tubuh dan kembali lagi.</p>
             </div>
             <EnhancedBloodFlowDiagram />
+          </div>
+        </section>
+
+        <section id="sirkulasi-animasi" className="px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-white to-slate-50">
+          <CirculatoryAnimation />
+        </section>
+
+        <section id="infografis" className="px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
+          <CirculatorySystemInfographic />
+        </section>
+
+        <section id="sel-darah" className="px-4 sm:px-6 lg:px-8 py-16">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-12 space-y-4 text-center">
+              <p className="text-sm uppercase tracking-[0.3em] text-secondary font-bold">Komponen Darah</p>
+              <h2 className="text-3xl sm:text-4xl font-extrabold">Sel-sel Kecil Penjaga Kesehatan</h2>
+              <p className="text-[color:var(--muted)] max-w-2xl mx-auto">Pelajari tentang sel darah merah, sel darah putih, trombosit, dan molekul penting yang mengalir dalam darah Anda</p>
+            </div>
+            <BloodCellDetail cellType="rbc" />
+          </div>
+        </section>
+
+        <section id="pembuluh-darah" className="px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-12 space-y-4 text-center">
+              <p className="text-sm uppercase tracking-[0.3em] text-secondary font-bold">Anatomis Pembuluh</p>
+              <h2 className="text-3xl sm:text-4xl font-extrabold">Struktur Pembuluh Darah</h2>
+              <p className="text-[color:var(--muted)] max-w-2xl mx-auto">Pahami perbedaan antara arteri, vena, dan kapiler serta bagaimana mereka bekerja dalam sistem sirkulasi</p>
+            </div>
+            <VesselAnatomy />
           </div>
         </section>
 
@@ -228,7 +275,13 @@ function App() {
               <h2 className="text-3xl sm:text-4xl font-extrabold">Tantang pemahamanmu dengan soal yang mudah disentuh.</h2>
               <p className="text-[color:var(--muted)] max-w-xl">Setiap jawaban dibuat responsive untuk ukuran layar kecil, sehingga kuis tetap nyaman bagi semua usia.</p>
             </div>
-            <Quiz onComplete={() => handleBadgeUnlock('first_quiz')} />
+            <Quiz
+              onComplete={() => {
+                handleBadgeUnlock('first_quiz')
+                setQuizMood('celebrate')
+              }}
+              onAnswer={(correct) => setQuizMood(correct ? 'happy' : 'sad')}
+            />
           </div>
         </section>
       </main>

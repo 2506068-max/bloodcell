@@ -6,41 +6,51 @@ import { ArrowRight, Play } from 'lucide-react'
 export default function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pb-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,_rgba(255,_77,_109,_0.18),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(78,_205,_196,_0.16),_transparent_24%)]" />
-      <div className="pointer-events-none absolute right-0 top-24 h-56 w-56 rounded-full bg-[#FFE66D]/30 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_top_left,_rgba(255,77,109,0.16),_transparent_24%),radial-gradient(circle_at_70%_20%,_rgba(78,205,196,0.14),_transparent_20%),radial-gradient(circle_at_bottom_right,_rgba(189,178,255,0.14),_transparent_24%)]" />
+      <div className="pointer-events-none absolute left-10 top-12 h-28 w-28 rounded-full bg-[#FF8FA3]/20 blur-3xl sm:left-16 sm:h-36 sm:w-36" />
+      <div className="pointer-events-none absolute right-8 top-24 h-24 w-24 rounded-full bg-[#4ECDC4]/20 blur-3xl sm:right-16 sm:h-32 sm:w-32" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/90 via-transparent to-transparent" />
+
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/90 px-4 py-2 text-sm font-semibold text-primary shadow-sm shadow-primary/10 backdrop-blur-xl dark:bg-slate-900/75 dark:border-primary/30">
-            Edukasi Sistem Darah
-          </div>
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="mt-8 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-slate-100">
-            Pelajari Sistem Peredaran Darah dengan Cara yang <span className="text-gradient">Colorful</span> dan Menyenangkan.
+        <div className="relative z-10 flex flex-col justify-center gap-8">
+          <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 rounded-full border border-slate-200/70 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-900 shadow-soft backdrop-blur-xl dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-100">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF4D6D] to-[#4ECDC4] text-white shadow-[0_18px_40px_-24px_rgba(255,77,109,0.75)]">+</span>
+            Futuristik • Medis • Interaktif
+          </motion.div>
+
+          <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.85 }} className="text-[3.2rem] font-black leading-[0.92] tracking-[-0.04em] text-slate-950 sm:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem] dark:text-slate-100">
+            <span className="block">SISTEM</span>
+            <span className="block bg-gradient-to-r from-[#FF4D6D] via-[#FF8FA3] to-[#4ECDC4] bg-clip-text text-transparent">PEREDARAN</span>
+            <span className="block">DARAH</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.75 }} className="mt-6 max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
-            Tampilan edukatif untuk semua usia — responsif, interaktif, dan nyaman digunakan di ponsel, tablet, maupun desktop.
+
+          <motion.p initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.85 }} className="max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+            Platform edukasi interaktif dengan nuansa medis futuristik, minimalis, dan ramah untuk anak-anak maupun dewasa.
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.75 }} className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <RippleButton variant="primary" size="md" onClick={() => window.location.hash = '#kuis'}>
-              <span>Mulai Kuis Sekarang</span>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.85 }} className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <RippleButton variant="primary" size="lg" onClick={() => window.location.hash = '#kuis'}>
+              <span>Mulai Belajar</span>
               <ArrowRight size={18} />
             </RippleButton>
-            <RippleButton variant="outline" size="md" onClick={() => window.location.hash = '#diagram'}>
+            <RippleButton variant="outline" size="lg" onClick={() => window.location.hash = '#diagram'}>
               <Play size={18} />
               <span>Lihat Diagram</span>
             </RippleButton>
           </motion.div>
 
-          <div className="grid gap-4 pt-12 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:max-w-xl">
             {[
-              { label: 'Animasi denyut jantung', icon: '❤️' },
-              { label: 'Alur darah interaktif', icon: '🩸' },
-              { label: 'Kuis touch friendly', icon: '🖐️' },
-              { label: 'Mode gelap & responsif', icon: '🌙' },
+              { label: 'Heartbeat animation', icon: '💓' },
+              { label: 'Glassmorphism UI', icon: '🧊' },
+              { label: 'Floating particles', icon: '✨' },
+              { label: 'Responsive & clean', icon: '📱' },
             ].map((item) => (
-              <div key={item.label} className="glass-card rounded-3xl border border-white/70 p-5 shadow-soft backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/70">
+              <div key={item.label} className="rounded-3xl border border-white/70 bg-white/80 px-5 py-4 shadow-soft backdrop-blur-xl dark:border-slate-700 dark:bg-slate-950/70">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-secondary/15 text-2xl">{item.icon}</div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-[#FF4D6D]/15 to-[#4ECDC4]/20 text-2xl">
+                    {item.icon}
+                  </div>
                   <p className="font-medium text-slate-800 dark:text-slate-100">{item.label}</p>
                 </div>
               </div>
@@ -48,8 +58,17 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative flex items-center justify-center">
-          <ParallaxHero />
+        <div className="relative flex items-center justify-center px-4 sm:px-0">
+          <motion.div initial={{ opacity: 0, scale: 0.92, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.9, ease: 'easeOut' }} className="relative w-full max-w-xl rounded-[2.25rem] border border-white/80 bg-white/90 p-6 shadow-[0_40px_120px_-50px_rgba(15,23,42,0.35)] backdrop-blur-2xl dark:border-slate-700 dark:bg-slate-950/80">
+            <div className="pointer-events-none absolute -left-10 top-8 h-24 w-24 rounded-full bg-[#FF8FA3]/20 blur-3xl" />
+            <div className="pointer-events-none absolute right-8 top-16 h-20 w-20 rounded-full bg-[#4ECDC4]/20 blur-3xl" />
+            <div className="pointer-events-none absolute left-10 bottom-10 h-20 w-20 rounded-full bg-[#BDB2FF]/20 blur-3xl" />
+
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#FFF1F4] via-[#FCE8F0] to-[#FCFCFF] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.5)]">
+              <ParallaxHero />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#FF4D6D] via-[#FF8FA3] to-[#4ECDC4] opacity-80" />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

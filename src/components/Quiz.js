@@ -7,7 +7,7 @@ const sample = [
     { q: 'Sel yang membawa oksigen?', opts: ['Sel darah merah', 'Leukosit', 'Trombosit'], a: 0 },
     { q: 'Pembuluh darah yang membawa darah kembali ke jantung adalah?', opts: ['Arteri', 'Vena', 'Kapiler'], a: 1 },
 ];
-export default function Quiz({ onComplete }) {
+export default function Quiz({ onComplete, onAnswer }) {
     const [index, setIndex] = useState(0);
     const [score, setScore] = useState(0);
     const [done, setDone] = useState(false);
@@ -15,10 +15,13 @@ export default function Quiz({ onComplete }) {
     function choose(i) {
         if (done)
             return;
-        if (i === sample[index].a)
+        const correct = i === sample[index].a;
+        onAnswer?.(correct);
+        if (correct)
             setScore(s => s + 1);
-        if (index + 1 < sample.length)
+        if (index + 1 < sample.length) {
             setIndex(index + 1);
+        }
         else {
             setDone(true);
             setCelebrate(true);
