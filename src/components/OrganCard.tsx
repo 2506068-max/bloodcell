@@ -44,6 +44,7 @@ export const medicalOrgans: OrganDetailItem[] = [
     title: 'Paru-Paru (Pulmo)',
     latin: 'Pulmones',
     subtitle: 'Organ Respirasi & Oksigenasi Darah',
+    imageSrc: '/assets/lungs_anatomical.png',
     anatomicalType: 'lungs',
     stats: [
       { label: 'Luas Difusi Alveoli', value: '70 – 100 m²' },
@@ -153,9 +154,13 @@ export default function OrganCards() {
 
               {organ.anatomicalType === 'lungs' && (
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <LungsVignetteSVG />
+                  <img
+                    src="/assets/lungs_anatomical.png"
+                    alt="Anatomi Paru-Paru Manusia"
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(2,132,199,0.15)] group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                  />
                   <div className="absolute right-3 bottom-2 text-[10px] font-mono text-slate-400 bg-white/80 dark:bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                    Arbor Alveolaris
+                    Arbor Bronchialis & Pulmo
                   </div>
                 </div>
               )}
@@ -277,7 +282,18 @@ export default function OrganCards() {
                       />
                     </div>
                   )}
-                  {selectedOrgan.anatomicalType === 'lungs' && <LungsVignetteSVG />}
+                  {selectedOrgan.anatomicalType === 'lungs' && (
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <img
+                        src="/assets/lungs_anatomical.png"
+                        alt="Anatomi Paru-Paru Manusia"
+                        className="max-h-56 object-contain filter drop-shadow-md rounded-xl"
+                      />
+                      <span className="text-[10px] font-mono text-slate-400 mt-2">
+                        Trakea • Percabangan Bronkus • Lobus Pulmonalis
+                      </span>
+                    </div>
+                  )}
                   {selectedOrgan.anatomicalType === 'vessels' && <VascularNetworkSVG />}
                   {selectedOrgan.anatomicalType === 'perfusion' && <PerfusionOrgansSVG />}
                 </div>

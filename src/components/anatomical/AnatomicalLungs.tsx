@@ -14,64 +14,65 @@ export interface LungStructure {
 
 export const lungStructures: LungStructure[] = [
   {
-    id: 'trachea',
-    name: 'Trakea (Batang Tenggorokan)',
-    latin: 'Trachea',
+    id: 'larynx_trachea',
+    name: 'Laring & Trakea (Cincin Kartilago)',
+    latin: 'Larynx & Trachea',
     x: 50,
-    y: 16,
-    description: 'Saluran udara tulang rawan fleksibel dengan cincin hialin berbentuk C yang menghubungkan laring ke bronkus primer.',
-    clinicalNote: 'Silia pada epitel trakea menyaring dan menyapu partikel debu ke atas menuju faring.',
+    y: 18,
+    description: 'Saluran pernapasan atas berongga yang dilindungi kartilago tiroid dan cincin kartilago hialin fleksibel berbentuk C.',
+    clinicalNote: 'Silia pada epitel bertingkat menyapu partikel kotoran dan mukus ke arah faring untuk dibatukkan.',
   },
   {
     id: 'right_bronchus',
     name: 'Bronkus Utama Kanan',
     latin: 'Bronchus Principalis Dexter',
-    x: 42,
-    y: 32,
-    description: 'Bercabang lebih pendek, lebih lebar, dan lebih vertikal dibanding bronkus kiri.',
-    clinicalNote: 'Benda asing yang terhirup lebih sering tersangkut di bronkus kanan karena posisinya yang lebih vertikal.',
+    x: 44,
+    y: 40,
+    description: 'Cabang bronkus primer kanan yang lebih pendek, lebih lebar, dan arahnya lebih vertikal menuju hilus paru kanan.',
+    clinicalNote: 'Benda asing yang terhirup secara tidak sengaja lebih mudah tersangkut di bronkus kanan karena kemiringannya yang curam.',
   },
   {
     id: 'left_bronchus',
     name: 'Bronkus Utama Kiri',
     latin: 'Bronchus Principalis Sinister',
-    x: 58,
-    y: 33,
-    description: 'Bercabang lebih panjang dan melengkung di bawah arkus aorta menuju hilus paru kiri.',
-    clinicalNote: 'Membawa oksigen ke dua lobus paru kiri.',
+    x: 56,
+    y: 40,
+    description: 'Cabang bronkus primer kiri yang lebih panjang dan mendatar melintas di bawah arkus aorta menuju kedua lobus paru kiri.',
+    clinicalNote: 'Menyuplai ventilasi udara kaya O₂ secara merata ke paru kiri.',
   },
   {
     id: 'right_lung_lobes',
     name: 'Lobus Paru Kanan (3 Lobus)',
     latin: 'Pulmo Dexter (Superior, Medius, Inferior)',
-    x: 28,
-    y: 54,
-    description: 'Paru kanan memiliki 3 lobus yang dipisahkan oleh fisura horizontalis dan fisura obliqua. Kapasitasnya sekitar 55% dari total volume paru.',
-    clinicalNote: 'Dikelilingi pleura viseralis untuk mencegah gesekan saat inspirasi-ekspirasi.',
+    x: 25,
+    y: 58,
+    description: 'Paru kanan memiliki 3 lobus yang dipisahkan oleh fisura horizontalis dan fisura obliqua. Kapasitas fungsionalnya mencakup ~55% volume respirasi total.',
+    clinicalNote: 'Bermuara pada cabang-cabang arteri dan vena pulmonalis kanan untuk pertukaran gas hematik.',
   },
   {
     id: 'cardiac_notch',
-    name: 'Incisura Cardiaca & Paru Kiri (2 Lobus)',
-    latin: 'Incisura Cardiaca Pulmonis Sinistri',
-    x: 72,
-    y: 56,
-    description: 'Lekukan khusus pada batas anterior paru kiri yang menyediakan ruang bagi apeks jantung manusia.',
-    clinicalNote: 'Hanya memiliki 2 lobus (superior dan inferior) untuk mengakomodasi posisi jantung.',
+    name: 'Paru Kiri & Lekukan Jantung (Incisura)',
+    latin: 'Pulmo Sinister & Incisura Cardiaca',
+    x: 75,
+    y: 58,
+    description: 'Paru kiri memiliki 2 lobus (superior dan inferior) dengan lekukan khusus (incisura cardiaca) tempat bertumpunya apeks jantung manusia.',
+    clinicalNote: 'Volume sedikit lebih kecil (~45%) untuk mengakomodasi rongga mediastinum jantung.',
   },
   {
     id: 'pulmonary_capillaries',
-    name: 'Anyaman Kapiler Alveolus',
-    latin: 'Plexus Capillaris Alveolaris',
-    x: 50,
-    y: 78,
-    description: 'Tempat terjadinya difusi respirasi: hemoglobin dalam eritrosit mengikat molekul O₂ dan melepaskan CO₂ melalui membran alveolar-kapiler tipis (0.5 mikron).',
-    clinicalNote: 'Luas permukaan difusi alveolus manusia mencapai sekitar 70-100 meter persegi!',
+    name: 'Pohon Bronkial & Kapiler Alveolus',
+    latin: 'Arbor Bronchialis & Plexus Alveolaris',
+    x: 64,
+    y: 68,
+    description: 'Percabangan cabang bronkiolus terminalis dan anyaman kapiler alveolus halus tempat eritrosit mengikat O₂ dan melepas CO₂ melalui membran tipis (0.5 μm).',
+    clinicalNote: 'Total luas permukaan difusi alveolus kedua paru mencapai sekitar 70-100 meter persegi!',
   },
 ]
 
 export default function AnatomicalLungs() {
   const [selected, setSelected] = useState<LungStructure | null>(null)
   const [isBreathing, setIsBreathing] = useState(true)
+  const [imageError, setImageError] = useState(false)
 
   return (
     <div className="relative flex flex-col items-center w-full">
@@ -83,30 +84,38 @@ export default function AnatomicalLungs() {
         </span>
         <button
           onClick={() => setIsBreathing(!isBreathing)}
-          className="text-xs px-3 py-1 rounded-full border border-slate-200 bg-white/90 text-slate-700 hover:bg-slate-50 font-medium dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+          className="text-xs px-3 py-1 rounded-full border border-slate-200 bg-white/90 text-slate-700 hover:bg-slate-50 font-medium dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
         >
           {isBreathing ? 'Jeda Ritme Nafas' : 'Mulai Ritme Nafas'}
         </button>
       </div>
 
-      {/* SVG Scientific Illustration */}
-      <div className="relative w-full max-w-xl h-[420px] flex items-center justify-center">
+      {/* Main Lung Display Container */}
+      <div className="relative w-full max-w-xl h-[440px] flex items-center justify-center select-none">
         <motion.div
-          className="w-full h-full"
+          className="relative w-full h-full flex items-center justify-center"
           animate={
             isBreathing
               ? {
                   scale: [1, 1.035, 1],
-                  y: [0, -3, 0],
+                  y: [0, -4, 0],
                 }
               : {}
           }
           transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <svg
-            viewBox="0 0 600 500"
-            className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(2,132,199,0.12)]"
-          >
+          {!imageError ? (
+            <img
+              src="/assets/lungs_anatomical.png"
+              alt="Anatomi Paru-Paru Manusia dan Percabangan Bronkial"
+              onError={() => setImageError(true)}
+              className="w-auto h-[92%] max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(2,132,199,0.18)] rounded-2xl"
+            />
+          ) : (
+            <svg
+              viewBox="0 0 600 500"
+              className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(2,132,199,0.12)]"
+            >
             <defs>
               <linearGradient id="lung-right-grad" x1="20%" y1="20%" x2="80%" y2="80%">
                 <stop offset="0%" stopColor="#FBCFE8" />
@@ -242,7 +251,8 @@ export default function AnatomicalLungs() {
               (Mediastinum)
             </text>
           </svg>
-        </motion.div>
+        )}
+      </motion.div>
 
         {/* Anatomical Pins */}
         {lungStructures.map((s) => {
