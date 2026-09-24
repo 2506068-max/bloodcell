@@ -15,17 +15,17 @@ export default function Hero() {
         <div className="relative z-10 flex flex-col justify-center gap-8">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 rounded-full border border-slate-200/70 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-900 shadow-soft backdrop-blur-xl dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-100">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF4D6D] to-[#4ECDC4] text-white shadow-[0_18px_40px_-24px_rgba(255,77,109,0.75)]">+</span>
-            Futuristik • Medis • Interaktif
+            Edukasi Darah yang Jelas
           </motion.div>
 
-          <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.85 }} className="text-[3.2rem] font-black leading-[0.92] tracking-[-0.04em] text-slate-950 sm:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem] dark:text-slate-100">
+          <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.85 }} className="text-[3rem] font-black leading-[0.92] tracking-[-0.04em] text-slate-950 sm:text-[3.5rem] lg:text-[4.2rem] xl:text-[4.8rem] dark:text-slate-100">
             <span className="block">SISTEM</span>
             <span className="block bg-gradient-to-r from-[#FF4D6D] via-[#FF8FA3] to-[#4ECDC4] bg-clip-text text-transparent">PEREDARAN</span>
             <span className="block">DARAH</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.85 }} className="max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
-            Platform edukasi interaktif dengan nuansa medis futuristik, minimalis, dan ramah untuk anak-anak maupun dewasa.
+            Platform edukasi sistem peredaran darah yang bersih, ramah, dan mudah dipahami.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.85 }} className="flex flex-col gap-4 sm:flex-row sm:items-center">

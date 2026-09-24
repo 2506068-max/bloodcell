@@ -105,7 +105,7 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
 
   return (
     <motion.div
-      className="fixed right-4 bottom-20 z-50 flex max-w-[22rem] flex-col items-end gap-4 sm:right-6"
+      className="fixed right-4 bottom-20 z-50 flex max-w-[18rem] flex-col items-end gap-4 sm:right-6"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.75, ease: 'easeOut' }}
@@ -150,7 +150,7 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
         />
 
         <motion.div
-          className="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 via-red-500 to-pink-500 border border-white/70 shadow-[0_35px_90px_-45px_rgba(255,77,109,0.85)]"
+          className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 via-red-500 to-pink-500 border border-white/70 shadow-[0_35px_90px_-45px_rgba(255,77,109,0.85)]"
           animate={showWave ? { rotate: [0, 6, -4, 6, 0] } : { rotate: 0 }}
           transition={{ duration: 1.6, repeat: showWave ? Infinity : 0, ease: 'easeInOut', delay: 0.3 }}
         >
@@ -165,7 +165,7 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
             animate={{ scale: [1, 1.03, 1] }}
             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-rose-500 via-red-600 to-fuchsia-500 border-2 border-white/80 shadow-soft">
+            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-rose-500 via-red-600 to-fuchsia-500 border-2 border-white/80 shadow-soft">
               <motion.div
                 className="absolute left-1/3 top-1/3 h-3 w-3 rounded-full bg-white"
                 style={{ x: eyeX, y: eyeY }}
