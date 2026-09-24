@@ -1,68 +1,336 @@
 import { useState } from 'react'
-import { Wind, Droplet, Play, Pause } from 'lucide-react'
+import { Wind, Droplet, Play, Pause, ListOrdered, Activity, CheckCircle2 } from 'lucide-react'
+
+export interface CirculationStep {
+  number: number
+  title: string
+  latin: string
+  circuit: 'pulmonary' | 'systemic'
+  oxygenated: boolean
+  description: string
+  clinicalNote: string
+}
+
+export const circulationSteps: CirculationStep[] = [
+  {
+    number: 1,
+    title: 'Bilik Kanan (Ventrikel Kanan)',
+    latin: 'Ventriculus Dexter',
+    circuit: 'pulmonary',
+    oxygenated: false,
+    description: 'Titik awal sirkulasi pulmonalis (peredaran darah kecil). Ruang jantung yang memompa darah miskin O₂ (kaya CO₂) menuju truncus pulmonalis.',
+    clinicalNote: 'Tekanan sistolik ventrikel kanan normalnya hanya ~25 mmHg karena resistensi pembuluh paru rendah.',
+  },
+  {
+    number: 2,
+    title: 'Arteri Pulmonalis (Kanan & Kiri)',
+    latin: 'Arteria Pulmonalis (Dextra & Sinistra)',
+    circuit: 'pulmonary',
+    oxygenated: false,
+    description: 'Satu-satunya arteri dalam tubuh yang membawa darah deoksigenasi (miskin O₂), mengalirkan darah dari ventrikel kanan menuju paru-paru.',
+    clinicalNote: 'Emboli paru (thrombus yang menyumbat arteri ini) adalah kondisi gawat darurat yang menghalangi oksigenasi darah.',
+  },
+  {
+    number: 3,
+    title: 'Kapiler Paru-Paru (Alveolus)',
+    latin: 'Plexus Capillaris Pulmonalis',
+    circuit: 'pulmonary',
+    oxygenated: true,
+    description: 'Anyaman mikroskopis di dinding alveolus paru tempat terjadinya difusi respirasi: melepaskan CO₂ dan mengikat oksigen segar (O₂) ke hemoglobin.',
+    clinicalNote: 'Ketebalan membran difusi hanya 0.5 mikrometer dengan luas total seukuran lapangan tenis (~70-100 m²).',
+  },
+  {
+    number: 4,
+    title: 'Vena Pulmonalis',
+    latin: 'Vena Pulmonalis',
+    circuit: 'pulmonary',
+    oxygenated: true,
+    description: 'Empat saluran vena yang membawa darah yang baru saja dioksigenasi (merah terang, kaya O₂) dari paru-paru kembali ke serambi kiri jantung.',
+    clinicalNote: 'Satu-satunya vena dalam tubuh yang mengangkut darah kaya oksigen.',
+  },
+  {
+    number: 5,
+    title: 'Serambi Kiri (Atrium Kiri)',
+    latin: 'Atrium Sinistrum',
+    circuit: 'pulmonary',
+    oxygenated: true,
+    description: 'Ruang penerima darah kaya oksigen dari paru-paru. Darah kemudian mengalir melalui katup mitral (bikuspid) ke bilik kiri.',
+    clinicalNote: 'Mengakhiri sirkuit peredaran darah kecil dan menyiapkan darah untuk sirkuit sistemik besar.',
+  },
+  {
+    number: 6,
+    title: 'Bilik Kiri (Ventrikel Kiri)',
+    latin: 'Ventriculus Sinister',
+    circuit: 'systemic',
+    oxygenated: true,
+    description: 'Titik awal sirkulasi sistemik (peredaran darah besar). Ruang pompa paling bertenaga dengan dinding miokardium paling tebal (10-15 mm).',
+    clinicalNote: 'Menghasilkan tekanan sistolik masif (~120 mmHg) untuk mendorong darah ke seluruh organ dan ujung jari tubuh.',
+  },
+  {
+    number: 7,
+    title: 'Aorta (Arteri Utama)',
+    latin: 'Aorta Ascendens & Arcus Aortae',
+    circuit: 'systemic',
+    oxygenated: true,
+    description: 'Pembuluh nadi terbesar tubuh yang bercabang menyuplai darah beroksigen ke otak, leher, lengan, organ dada, rongga perut, dan tungkai.',
+    clinicalNote: 'Dinding aorta kaya serat elastin sehingga mampu meregang saat sistol dan berkontraksi kembali saat diastol (Windkessel effect).',
+  },
+  {
+    number: 8,
+    title: 'Kapiler Daerah Kepala, Dada, Perut, & Kaki',
+    latin: 'Capillaria Systemica (Kranial & Kaudal)',
+    circuit: 'systemic',
+    oxygenated: false,
+    description: 'Jejaring pembuluh mikroskopis tempat molekul O₂, glukosa, dan elektrolit diserahkan ke sel-sel tubuh, sementara limbah metabolik CO₂ diserap.',
+    clinicalNote: 'Eritrosit harus berbaris satu per satu saat melintasi lumen kapiler yang diameternya hanya 5-8 mikron.',
+  },
+  {
+    number: 9,
+    title: 'Vena & Vena Kava (Superior & Inferior)',
+    latin: 'Vena Cava Superior & Inferior',
+    circuit: 'systemic',
+    oxygenated: false,
+    description: 'Pembuluh balik besar bertekanan rendah yang membawa darah yang telah digunakan (miskin O₂, kaya CO₂) dari seluruh bagian tubuh kembali ke jantung.',
+    clinicalNote: 'Dilengkapi katup-katup satu arah di ekstremitas bawah untuk melawan gaya gravitasi dan mencegah refluks darah.',
+  },
+  {
+    number: 10,
+    title: 'Serambi Kanan (Atrium Kanan)',
+    latin: 'Atrium Dextrum',
+    circuit: 'systemic',
+    oxygenated: false,
+    description: 'Muara penampung darah vena deoksigenasi dari vena kava superior, vena kava inferior, dan sinus koronarius sebelum dialirkan kembali ke nomor 1.',
+    clinicalNote: 'Terdapat nodus sinoatrial (SA node) yang mencetuskan impuls listrik detak jantung manusia.',
+  },
+]
 
 export default function EnhancedBloodFlowDiagram() {
+  const [viewMode, setViewMode] = useState<'diagram' | 'simulation'>('diagram')
   const [activeCircuit, setActiveCircuit] = useState<'both' | 'pulmonary' | 'systemic'>('both')
+  const [selectedStep, setSelectedStep] = useState<number>(1)
   const [isPlaying, setIsPlaying] = useState<boolean>(true)
+
+  const filteredSteps = circulationSteps.filter((s) => {
+    if (activeCircuit === 'pulmonary') return s.circuit === 'pulmonary'
+    if (activeCircuit === 'systemic') return s.circuit === 'systemic'
+    return true
+  })
+
+  const currentStepData = circulationSteps.find((s) => s.number === selectedStep) || circulationSteps[0]
 
   return (
     <div className="w-full rounded-3xl border border-slate-200/90 bg-white/95 p-6 sm:p-10 shadow-xl backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/95 overflow-hidden">
-      {/* Top Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
+      {/* Top Controls & Mode Switcher */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
-            Fisiologi Hemodinamika
+          <span className="text-xs font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 font-bold">
+            Fisiologi Hemodinamika Medis
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-            Sirkuit Aliran Darah Pulmonal & Sistemik
+          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
+            Sistem Sirkulasi & Pembuluh Darah (1–10)
           </h3>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Circuit Tabs */}
-          <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800 text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Main Mode Toggle */}
+          <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
             <button
-              onClick={() => setActiveCircuit('both')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeCircuit === 'both'
-                  ? 'bg-rose-700 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+              onClick={() => setViewMode('diagram')}
+              className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                viewMode === 'diagram'
+                  ? 'bg-rose-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Kedua Sirkuit
+              <ListOrdered size={14} />
+              Diagram Skematik Bernomor
             </button>
             <button
-              onClick={() => setActiveCircuit('pulmonary')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeCircuit === 'pulmonary'
-                  ? 'bg-rose-700 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+              onClick={() => setViewMode('simulation')}
+              className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                viewMode === 'simulation'
+                  ? 'bg-rose-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Peredaran Darah Kecil
-            </button>
-            <button
-              onClick={() => setActiveCircuit('systemic')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeCircuit === 'systemic'
-                  ? 'bg-rose-700 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
-              }`}
-            >
-              Peredaran Darah Besar
+              <Activity size={14} />
+              Simulasi Dinamis
             </button>
           </div>
 
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="p-2 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium flex items-center gap-1"
-          >
-            {isPlaying ? <Pause size={14} /> : <Play size={14} />}
-          </button>
+          {/* Circuit Filter Tabs */}
+          <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800/80 text-xs font-semibold">
+            <button
+              onClick={() => setActiveCircuit('both')}
+              className={`px-3 py-1 rounded-full transition-all ${
+                activeCircuit === 'both'
+                  ? 'bg-white dark:bg-slate-700 text-rose-700 dark:text-rose-300 shadow-xs'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+              }`}
+            >
+              Semua (1–10)
+            </button>
+            <button
+              onClick={() => setActiveCircuit('pulmonary')}
+              className={`px-3 py-1 rounded-full transition-all ${
+                activeCircuit === 'pulmonary'
+                  ? 'bg-white dark:bg-slate-700 text-sky-700 dark:text-sky-300 shadow-xs'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+              }`}
+            >
+              Peredaran Kecil (1–5)
+            </button>
+            <button
+              onClick={() => setActiveCircuit('systemic')}
+              className={`px-3 py-1 rounded-full transition-all ${
+                activeCircuit === 'systemic'
+                  ? 'bg-white dark:bg-slate-700 text-rose-700 dark:text-rose-300 shadow-xs'
+                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+              }`}
+            >
+              Peredaran Besar (6–10)
+            </button>
+          </div>
+
+          {viewMode === 'simulation' && (
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="p-2 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium flex items-center gap-1"
+              title={isPlaying ? 'Jeda Aliran' : 'Jalankan Aliran'}
+            >
+              {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Main Flow SVG Viewport */}
+      {/* VIEW MODE 1: Interactive Numbered Diagram (1-10) */}
+      {viewMode === 'diagram' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-6">
+          {/* Diagram Image Container */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center p-5 rounded-2xl bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-inner">
+            <div className="relative w-full max-w-sm flex items-center justify-center">
+              <img
+                src="/assets/vessels_system.png"
+                alt="Diagram Anatomi Sistem Pembuluh Darah Bernomor 1-10"
+                className="w-full h-auto max-h-[500px] object-contain filter drop-shadow-[0_12px_24px_rgba(2,132,199,0.12)] rounded-xl"
+              />
+            </div>
+            <div className="mt-4 flex items-center gap-4 text-xs font-semibold">
+              <span className="flex items-center gap-1.5 text-sky-700 dark:text-sky-400">
+                <span className="w-3 h-3 rounded-full bg-sky-500 inline-block" />
+                Darah Deoksigenasi (Kaya CO₂)
+              </span>
+              <span className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
+                <span className="w-3 h-3 rounded-full bg-rose-600 inline-block" />
+                Darah Beroksigen (Kaya O₂)
+              </span>
+            </div>
+          </div>
+
+          {/* Interactive Checkpoint List (1-10) & Detail Card */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                Pilih Titik Sirkulasi (Klik Angka):
+              </h4>
+              <span className="text-xs text-slate-400 font-mono">
+                {currentStepData.circuit === 'pulmonary' ? 'Sirkulasi Pulmonal' : 'Sirkulasi Sistemik'}
+              </span>
+            </div>
+
+            {/* Quick Numbers Bar */}
+            <div className="flex flex-wrap gap-1.5">
+              {filteredSteps.map((step) => {
+                const isSelected = selectedStep === step.number
+                return (
+                  <button
+                    key={step.number}
+                    onClick={() => setSelectedStep(step.number)}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                      isSelected
+                        ? step.oxygenated
+                          ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30 scale-105'
+                          : 'bg-sky-600 text-white shadow-md shadow-sky-600/30 scale-105'
+                        : step.oxygenated
+                        ? 'bg-rose-50 text-rose-800 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300'
+                        : 'bg-sky-50 text-sky-800 hover:bg-sky-100 dark:bg-sky-950/40 dark:text-sky-300'
+                    }`}
+                  >
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20 text-[10px]">
+                      {step.number}
+                    </span>
+                    <span className="truncate max-w-[110px]">{step.title.split(' ')[0]}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Detail Focus Panel */}
+            {currentStepData && (
+              <div className="p-5 rounded-2xl border border-slate-200 bg-white/90 shadow-lg dark:border-slate-800 dark:bg-slate-900/90 text-left transition-all">
+                <div className="flex items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3 mb-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-extrabold text-white ${
+                          currentStepData.oxygenated ? 'bg-rose-600' : 'bg-sky-600'
+                        }`}
+                      >
+                        {currentStepData.number}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                          currentStepData.oxygenated
+                            ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300'
+                            : 'bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300'
+                        }`}
+                      >
+                        {currentStepData.oxygenated ? 'Darah Bersih (O₂)' : 'Darah Kotor (CO₂)'}
+                      </span>
+                      <span className="text-xs italic text-slate-400 font-serif">
+                        {currentStepData.latin}
+                      </span>
+                    </div>
+                    <h5 className="mt-2 text-xl font-bold text-slate-900 dark:text-white">
+                      {currentStepData.title}
+                    </h5>
+                  </div>
+                </div>
+
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  {currentStepData.description}
+                </p>
+
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 flex items-start gap-2">
+                  <Activity size={15} className="text-rose-500 mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong className="text-slate-900 dark:text-white">Signifikansi Hemodinamik: </strong>
+                    {currentStepData.clinicalNote}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Quick Sequence Navigation */}
+            <div className="p-4 rounded-xl bg-gradient-to-r from-sky-50/50 to-rose-50/50 dark:from-sky-950/20 dark:to-rose-950/20 border border-slate-200/60 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1.5">
+              <p className="font-bold flex items-center gap-1.5 text-slate-900 dark:text-white">
+                <CheckCircle2 size={14} className="text-rose-600" />
+                Alur Lengkap Sirkulasi Tubuh Manusia:
+              </p>
+              <p className="font-mono text-[11px] text-sky-700 dark:text-sky-300">
+                • <strong>Peredaran Kecil:</strong> 1 (Bilik Kanan) → 2 (Arteri Pulmonalis) → 3 (Kapiler Paru) → 4 (Vena Pulmonalis) → 5 (Serambi Kiri)
+              </p>
+              <p className="font-mono text-[11px] text-rose-700 dark:text-rose-300">
+                • <strong>Peredaran Besar:</strong> 6 (Bilik Kiri) → 7 (Aorta) → 8 (Kapiler Tubuh) → 9 (Vena Kava) → 10 (Serambi Kanan)
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* VIEW MODE 2: Animated SVG Simulation Viewport */}
+      {viewMode === 'simulation' && (
       <div className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border border-slate-200/60 dark:border-slate-800/80 p-4">
         <svg viewBox="0 0 1000 480" className="w-full h-auto select-none">
           <defs>
@@ -282,6 +550,7 @@ export default function EnhancedBloodFlowDiagram() {
           </g>
         </svg>
       </div>
+      )}
 
       {/* Hemodynamic Circuit Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">

@@ -67,6 +67,7 @@ export const medicalOrgans: OrganDetailItem[] = [
     title: 'Sistem Pembuluh Darah',
     latin: 'Systema Vasorum',
     subtitle: 'Jaringan Konduksi & Mikrosirkulasi',
+    imageSrc: '/assets/vessels_system.png',
     anatomicalType: 'vessels',
     stats: [
       { label: 'Panjang Total', value: '~100.000 km' },
@@ -167,9 +168,13 @@ export default function OrganCards() {
 
               {organ.anatomicalType === 'vessels' && (
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <VascularNetworkSVG />
+                  <img
+                    src="/assets/vessels_system.png"
+                    alt="Sistem Pembuluh Darah & Sirkulasi Hemodinamik"
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(2,132,199,0.15)] group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                  />
                   <div className="absolute right-3 bottom-2 text-[10px] font-mono text-slate-400 bg-white/80 dark:bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                    Arteri • Vena • Kapiler
+                    Sirkulasi Pulmonal & Sistemik
                   </div>
                 </div>
               )}
@@ -294,7 +299,18 @@ export default function OrganCards() {
                       </span>
                     </div>
                   )}
-                  {selectedOrgan.anatomicalType === 'vessels' && <VascularNetworkSVG />}
+                  {selectedOrgan.anatomicalType === 'vessels' && (
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <img
+                        src="/assets/vessels_system.png"
+                        alt="Sistem Pembuluh Darah & Sirkulasi Hemodinamik"
+                        className="max-h-64 object-contain filter drop-shadow-md rounded-xl"
+                      />
+                      <span className="text-[10px] font-mono text-slate-400 mt-2">
+                        Peredaran Darah Kecil (1–5) & Peredaran Darah Besar (6–10)
+                      </span>
+                    </div>
+                  )}
                   {selectedOrgan.anatomicalType === 'perfusion' && <PerfusionOrgansSVG />}
                 </div>
 
