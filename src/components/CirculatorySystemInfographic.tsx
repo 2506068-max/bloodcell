@@ -28,13 +28,6 @@ export default function CirculatorySystemInfographic() {
     },
   }
 
-  const glowVariants = {
-    glow: {
-      opacity: [0.4, 0.8, 0.4],
-      transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
-    },
-  }
-
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-[#F8FAFC] via-[#FFF5F8] to-[#E8F3FF] overflow-hidden flex items-center justify-center p-4 lg:p-8">
       {/* Background floating particles */}
@@ -313,43 +306,50 @@ export default function CirculatorySystemInfographic() {
             </g>
 
             {/* ===== HEART ===== */}
-
-            <g onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'heart' }))}
-               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}>
-              {/* Heart glow */}
-              <motion.circle
-                cx="600"
-                cy="340"
-                r="95"
-                fill="none"
-                stroke="#FF4D6D"
-                strokeWidth="1"
-                opacity="0.3"
-                animate={state.hoveredOrgan === 'heart' ? glowVariants.glow : {}}
-              />
-
-              {/* Heart shape */}
-              <motion.path
-                d="M 600 280 C 580 260 540 260 530 290 C 520 310 530 340 600 400 C 670 340 680 310 670 290 C 660 260 620 260 600 280 Z"
-                fill="url(#heart-gradient)"
-                stroke="#FF4D6D"
-                strokeWidth="1.5"
-                filter="url(#glow-red)"
+            <g
+              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'heart' }))}
+              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
+            >
+              {/* Anatomical Heart Structure */}
+              <motion.g
                 variants={pulseVariants}
                 animate={state.hoveredOrgan === 'heart' ? ['pulse'] : 'pulse'}
-              />
+              >
+                {/* Aorta Arch atop heart */}
+                <path
+                  d="M 585 270 C 585 240 600 230 615 230 C 630 230 635 245 635 270"
+                  fill="none"
+                  stroke="#BE123C"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
+                {/* Vena cava superior */}
+                <path d="M 570 240 L 570 270" stroke="#0284C7" strokeWidth="6" strokeLinecap="round" fill="none" />
 
-              {/* Heart chambers detail */}
-              <g opacity="0.6">
-                {/* Left ventricle */}
-                <ellipse cx="580" cy="360" rx="18" ry="25" fill="none" stroke="#FF8FA3" strokeWidth="1" />
-                {/* Right ventricle */}
-                <ellipse cx="620" cy="360" rx="18" ry="25" fill="none" stroke="#FF8FA3" strokeWidth="1" />
-              </g>
+                {/* Anatomical Heart Body */}
+                <path
+                  d="M 560 270 
+                     C 535 290 535 330 555 365 
+                     C 575 400 600 425 615 435 
+                     C 635 410 665 360 665 310 
+                     C 660 275 630 270 605 275 
+                     C 585 270 570 265 560 270 Z"
+                  fill="#991B1B"
+                  stroke="#BE123C"
+                  strokeWidth="2"
+                  filter="url(#glow-red)"
+                />
 
-              {/* Heart valves indicator */}
-              <circle cx="580" cy="340" r="3" fill="#FF8FA3" opacity="0.7" />
-              <circle cx="620" cy="340" r="3" fill="#FF8FA3" opacity="0.7" />
+                {/* Coronary Vessels */}
+                <path d="M 595 285 Q 602 340 615 425" stroke="#450A0A" strokeWidth="2" fill="none" opacity="0.6" />
+                <path d="M 598 290 Q 606 335 613 415" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
+                <path d="M 602 305 Q 615 320 625 335" stroke="#F43F5E" strokeWidth="1" fill="none" />
+                <path d="M 599 340 Q 590 355 580 370" stroke="#F43F5E" strokeWidth="1" fill="none" />
+
+                {/* Chambers Highlight */}
+                <ellipse cx="575" cy="330" rx="14" ry="20" fill="#0284C7" opacity="0.3" />
+                <ellipse cx="625" cy="330" rx="15" ry="22" fill="#E11D48" opacity="0.35" />
+              </motion.g>
             </g>
 
             {/* ===== BLOOD CELLS & EDUCATIONAL ELEMENTS ===== */}

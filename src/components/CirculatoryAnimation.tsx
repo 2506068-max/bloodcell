@@ -450,58 +450,81 @@ export default function CirculatoryAnimation() {
               onMouseLeave={() => setHoveredLabel(null)}
               style={{ cursor: 'pointer' }}
             >
-              <motion.path
-                d="M 300 200 C 300 180 320 160 340 160 C 360 160 370 180 300 230 C 230 180 240 160 260 160 C 280 160 300 180 300 200 Z"
-                fill="url(#red-gradient)"
-                filter="url(#glow-heart)"
-                animate={isPlaying ? { scale: [1, 1.1, 1] } : {}}
-                transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              {/* Anatomical Heart - Muscular myocardium, chambers, and great vessels */}
+              <motion.g
+                animate={isPlaying ? { scale: [1, 1.025, 0.995, 1.015, 1] } : {}}
+                transition={{ duration: 1.0, repeat: Infinity, times: [0, 0.15, 0.3, 0.45, 1], ease: 'easeInOut' }}
+              >
+                {/* Aorta Arch */}
+                <path
+                  d="M 285 180 C 285 140 300 130 320 130 C 340 130 345 150 345 175"
+                  fill="none"
+                  stroke="#BE123C"
+                  strokeWidth="10"
+                  strokeLinecap="round"
+                />
+                {/* Superior Vena Cava */}
+                <path
+                  d="M 265 135 L 265 180"
+                  fill="none"
+                  stroke="#0284C7"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
 
-              {/* Heart chambers */}
-              <circle
-                cx="280"
-                cy="190"
-                r="12"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="1"
-                opacity="0.7"
-              />
-              <circle
-                cx="320"
-                cy="190"
-                r="12"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="1"
-                opacity="0.7"
-              />
+                {/* Main Ventricular Myocardium (Anatomical asymmetrical shape) */}
+                <path
+                  d="M 255 180 
+                     C 235 200 235 240 255 270 
+                     C 275 300 300 325 320 335 
+                     C 340 315 365 270 365 220 
+                     C 360 185 330 180 305 185 
+                     C 285 180 265 175 255 180 Z"
+                  fill="#991B1B"
+                  stroke="#7F1D1D"
+                  strokeWidth="2.5"
+                  filter="url(#glow-heart)"
+                />
 
-              {/* Labels on heart */}
-              <text x="265" y="220" fontSize="10" fill="white" fontWeight="bold" textAnchor="middle">
-                RA
-              </text>
-              <text x="335" y="220" fontSize="10" fill="white" fontWeight="bold" textAnchor="middle">
-                LA
-              </text>
-              <text x="265" y="245" fontSize="10" fill="white" fontWeight="bold" textAnchor="middle">
-                RV
-              </text>
-              <text x="335" y="245" fontSize="10" fill="white" fontWeight="bold" textAnchor="middle">
-                LV
-              </text>
+                {/* Sulcus groove & Coronary vessels */}
+                <path d="M 295 190 Q 302 250 318 330" stroke="#450A0A" strokeWidth="2.5" fill="none" opacity="0.6" />
+                <path d="M 297 195 Q 305 240 315 320" stroke="#F43F5E" strokeWidth="1.8" fill="none" />
+                <path d="M 302 210 Q 315 225 330 240" stroke="#F43F5E" strokeWidth="1.2" fill="none" />
+                <path d="M 298 250 Q 285 270 275 285" stroke="#F43F5E" strokeWidth="1.2" fill="none" />
+                <path d="M 300 205 Q 308 260 317 325" stroke="#38BDF8" strokeWidth="1.2" fill="none" opacity="0.8" />
+
+                {/* 4 Chamber Divisions */}
+                <rect x="252" y="195" width="38" height="32" rx="10" fill="#0284C7" opacity="0.35" />
+                <text x="271" y="215" fontSize="10" fill="#E0F2FE" fontWeight="bold" textAnchor="middle">
+                  RA
+                </text>
+
+                <rect x="312" y="195" width="38" height="32" rx="10" fill="#E11D48" opacity="0.35" />
+                <text x="331" y="215" fontSize="10" fill="#FFE4E6" fontWeight="bold" textAnchor="middle">
+                  LA
+                </text>
+
+                <rect x="258" y="235" width="40" height="42" rx="12" fill="#0284C7" opacity="0.45" />
+                <text x="278" y="260" fontSize="10" fill="#E0F2FE" fontWeight="bold" textAnchor="middle">
+                  RV
+                </text>
+
+                <rect x="306" y="235" width="45" height="52" rx="12" fill="#BE123C" opacity="0.5" />
+                <text x="328" y="262" fontSize="10" fill="#FFE4E6" fontWeight="bold" textAnchor="middle">
+                  LV
+                </text>
+              </motion.g>
             </g>
 
-            {/* Lungs */}
+            {/* Lungs (Anatomical Lobes) */}
             <g id="lungs">
-              {/* Left Lung */}
+              {/* Left Lung (Pulmo Sinister - 2 Lobes with cardiac notch) */}
               <g
                 id="lungs-left"
                 onClick={() =>
                   showPopup(
                     'Paru-paru Kiri',
-                    'Tempat pertukaran gas. Karbon dioksida dilepas dan oksigen diserap.',
+                    'Organ respirasi dengan 2 lobus dan incisura cardiaca tempat jantung berada. Darah menyerap O₂ dan membuang CO₂.',
                     200,
                     80
                   )
@@ -510,32 +533,37 @@ export default function CirculatoryAnimation() {
                 onMouseLeave={() => setHoveredLabel(null)}
                 style={{ cursor: 'pointer' }}
               >
-                <motion.ellipse
-                  cx="200"
-                  cy="80"
-                  rx="50"
-                  ry="60"
-                  fill="#E8F4F8"
-                  stroke="#4FC3F7"
+                <motion.path
+                  d="M 180 30 
+                     C 155 30 140 50 135 80 
+                     C 130 110 135 140 145 155 
+                     C 160 165 190 160 215 145 
+                     C 215 130 205 110 205 90 
+                     C 205 65 200 40 180 30 Z"
+                  fill="#FCE7F3"
+                  stroke="#DB2777"
                   strokeWidth="2"
-                  animate={isPlaying ? { opacity: [0.8, 1, 0.8] } : {}}
-                  transition={{ duration: 1, repeat: Infinity }}
+                  animate={isPlaying ? { scale: [1, 1.025, 1] } : {}}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <text x="200" y="85" textAnchor="middle" className="text-xs font-bold" fill="#0277BD">
-                  Paru-paru
+                {/* Bronchial branches inside lung */}
+                <path d="M 195 55 Q 170 75 150 110" stroke="#0284C7" strokeWidth="1.5" fill="none" opacity="0.7" />
+                <path d="M 155 115 Q 175 105 190 90" stroke="#E11D48" strokeWidth="1.5" fill="none" opacity="0.7" />
+                <text x="175" y="100" textAnchor="middle" className="text-xs font-bold" fill="#831843">
+                  Paru Kiri
                 </text>
-                <text x="200" y="100" textAnchor="middle" className="text-xs" fill="#0277BD">
-                  Kiri
+                <text x="175" y="115" textAnchor="middle" className="text-[10px]" fill="#9D174D">
+                  2 Lobus
                 </text>
               </g>
 
-              {/* Right Lung */}
+              {/* Right Lung (Pulmo Dexter - 3 Lobes) */}
               <g
                 id="lungs-right"
                 onClick={() =>
                   showPopup(
                     'Paru-paru Kanan',
-                    'Tempat pertukaran gas. Karbon dioksida dilepas dan oksigen diserap.',
+                    'Organ respirasi dengan 3 lobus (superior, medius, inferior). Tempat terjadinya difusi gas darah dalam kapiler alveolus.',
                     400,
                     80
                   )
@@ -544,22 +572,29 @@ export default function CirculatoryAnimation() {
                 onMouseLeave={() => setHoveredLabel(null)}
                 style={{ cursor: 'pointer' }}
               >
-                <motion.ellipse
-                  cx="400"
-                  cy="80"
-                  rx="50"
-                  ry="60"
-                  fill="#E8F4F8"
-                  stroke="#4FC3F7"
+                <motion.path
+                  d="M 420 30 
+                     C 445 30 460 50 465 80 
+                     C 470 110 465 140 455 155 
+                     C 440 165 410 160 385 145 
+                     C 385 125 395 100 395 80 
+                     C 395 55 400 40 420 30 Z"
+                  fill="#FCE7F3"
+                  stroke="#DB2777"
                   strokeWidth="2"
-                  animate={isPlaying ? { opacity: [0.8, 1, 0.8] } : {}}
-                  transition={{ duration: 1, repeat: Infinity }}
+                  animate={isPlaying ? { scale: [1, 1.025, 1] } : {}}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <text x="400" y="85" textAnchor="middle" className="text-xs font-bold" fill="#0277BD">
-                  Paru-paru
+                {/* Horizontal fissure */}
+                <path d="M 465 85 Q 430 80 395 90" stroke="#BE185D" strokeWidth="1" fill="none" opacity="0.5" />
+                {/* Bronchial branches inside lung */}
+                <path d="M 405 55 Q 430 75 450 110" stroke="#0284C7" strokeWidth="1.5" fill="none" opacity="0.7" />
+                <path d="M 445 115 Q 425 105 410 90" stroke="#E11D48" strokeWidth="1.5" fill="none" opacity="0.7" />
+                <text x="425" y="100" textAnchor="middle" className="text-xs font-bold" fill="#831843">
+                  Paru Kanan
                 </text>
-                <text x="400" y="100" textAnchor="middle" className="text-xs" fill="#0277BD">
-                  Kanan
+                <text x="425" y="115" textAnchor="middle" className="text-[10px]" fill="#9D174D">
+                  3 Lobus
                 </text>
               </g>
             </g>

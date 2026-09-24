@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,15 +7,19 @@
 :root {
   color-scheme: light;
   --bg: #F8FAFC;
-  --surface: rgba(255,255,255,0.8);
-  --surface-strong: rgba(255,255,255,0.92);
-  --text: #1E293B;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --text: #0F172A;
   --muted: #475569;
-  --primary: #FF4D6D;
-  --secondary: #4ECDC4;
-  --accent: #A0E7E5;
-  --highlight: #FFE66D;
-  --lavender: #BDB2FF;
+  --primary: #BE123C;
+  --primary-light: #E11D48;
+  --secondary: #0284C7;
+  --secondary-light: #38BDF8;
+  --accent: #0EA5E9;
+  --highlight: #F59E0B;
+  --tissue: #FFF1F2;
+  --tissue-warm: #FEF2F2;
+  --border-subtle: rgba(148, 163, 184, 0.22);
 }
 
 html {
@@ -25,20 +29,22 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: radial-gradient(circle at 10% 10%, rgba(255, 77, 109, 0.18), transparent 20%),
-    radial-gradient(circle at 92% 10%, rgba(78, 205, 196, 0.16), transparent 18%),
-    radial-gradient(circle at 50% 30%, rgba(189, 178, 255, 0.18), transparent 20%),
-    linear-gradient(180deg, #fff9fb 0%, #f8fafc 38%, #eff6ff 100%);
+  background: 
+    radial-gradient(circle at 15% 12%, rgba(190, 18, 60, 0.04), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(2, 132, 199, 0.05), transparent 30%),
+    radial-gradient(circle at 50% 45%, rgba(225, 29, 72, 0.03), transparent 35%),
+    linear-gradient(180deg, #FAFAFB 0%, #F8FAFC 40%, #F1F5F9 100%);
   color: var(--text);
-  font-family: 'Nunito', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.dark {
-  background: radial-gradient(circle at 10% 10%, rgba(255, 77, 109, 0.12), transparent 20%),
-    radial-gradient(circle at 92% 10%, rgba(78, 205, 196, 0.14), transparent 18%),
-    radial-gradient(circle at 50% 30%, rgba(189, 178, 255, 0.12), transparent 20%),
-    linear-gradient(180deg, #020617 0%, #0F172A 38%, #111827 100%);
+  background: 
+    radial-gradient(circle at 15% 12%, rgba(190, 18, 60, 0.08), transparent 30%),
+    radial-gradient(circle at 85% 15%, rgba(2, 132, 199, 0.08), transparent 30%),
+    linear-gradient(180deg, #090D16 0%, #0F172A 45%, #0B1120 100%);
   color: #E2E8F0;
 }
 
