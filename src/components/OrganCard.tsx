@@ -109,6 +109,7 @@ export const medicalOrgans: OrganDetailItem[] = [
 
 export default function OrganCards() {
   const [selectedOrgan, setSelectedOrgan] = useState<OrganDetailItem | null>(null)
+  const [heartModalView, setHeartModalView] = useState<'surface' | 'internal'>('surface')
 
   return (
     <div className="w-full">
@@ -244,11 +245,37 @@ export default function OrganCards() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-6">
                 <div className="flex items-center justify-center p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 min-h-[220px]">
                   {selectedOrgan.anatomicalType === 'heart' && (
-                    <img
-                      src="/assets/heart_anatomical.jpg"
-                      alt="Anatomi Jantung"
-                      className="max-h-56 object-contain filter drop-shadow-md rounded-xl"
-                    />
+                    <div className="flex flex-col items-center gap-2.5 w-full">
+                      <div className="inline-flex rounded-full bg-slate-200/80 dark:bg-slate-800 p-1 text-xs font-semibold">
+                        <button
+                          type="button"
+                          onClick={() => setHeartModalView('surface')}
+                          className={`px-3 py-1 rounded-full transition-all ${
+                            heartModalView === 'surface'
+                              ? 'bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-300 font-bold'
+                              : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                          }`}
+                        >
+                          Anterior (Luar)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setHeartModalView('internal')}
+                          className={`px-3 py-1 rounded-full transition-all ${
+                            heartModalView === 'internal'
+                              ? 'bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-300 font-bold'
+                              : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                          }`}
+                        >
+                          Potongan Ruang
+                        </button>
+                      </div>
+                      <img
+                        src={heartModalView === 'surface' ? '/assets/heart_anatomical.jpg' : '/assets/heart_internal.png'}
+                        alt="Anatomi Jantung"
+                        className="max-h-52 object-contain filter drop-shadow-md rounded-xl transition-all"
+                      />
+                    </div>
                   )}
                   {selectedOrgan.anatomicalType === 'lungs' && <LungsVignetteSVG />}
                   {selectedOrgan.anatomicalType === 'vessels' && <VascularNetworkSVG />}

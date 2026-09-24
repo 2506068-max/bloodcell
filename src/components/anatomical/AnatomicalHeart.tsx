@@ -105,6 +105,119 @@ export const heartStructures: HeartStructure[] = [
   },
 ]
 
+export const heartStructuresInternal: HeartStructure[] = [
+  {
+    id: 'aorta_internal',
+    name: 'Arkus Aorta',
+    latin: 'Arcus Aortae',
+    type: 'artery',
+    oxygenated: true,
+    x: 48,
+    y: 15,
+    description: 'Lengkung arteri utama berotot elastis yang menerima semburan darah kaya O₂ bertekanan tinggi (~120 mmHg) dari ventrikel kiri untuk didistribusikan ke seluruh tubuh.',
+    clinicalNote: 'Mempercabangkan arteri brakiosefalika, karotis komunis sinistra, dan subklavia sinistra untuk perfusi tubuh atas dan ensefalon (otak).',
+  },
+  {
+    id: 'superior_vena_cava_internal',
+    name: 'Vena Kava Superior',
+    latin: 'Vena Cava Superior',
+    type: 'vein',
+    oxygenated: false,
+    x: 32,
+    y: 18,
+    description: 'Pembuluh balik besar yang mengalirkan darah deoksigenasi dari kepala, leher, rongga dada, dan ekstremitas atas langsung ke atrium kanan.',
+    clinicalNote: 'Muara vena tanpa katup, mengalir pasif berdasarkan gradien tekanan intratoraks.',
+  },
+  {
+    id: 'pulmonary_trunk_internal',
+    name: 'Batang Pulmonalis',
+    latin: 'Truncus Pulmonalis',
+    type: 'artery',
+    oxygenated: false,
+    x: 62,
+    y: 29,
+    description: 'Pangkal pembuluh darah yang mengalirkan darah kaya CO₂ dari ventrikel kanan menuju kapiler alveolus kedua paru-paru.',
+    clinicalNote: 'Dilengkapi katup semilunaris pulmonalis dengan 3 kuspis berbentuk bulan sabit.',
+  },
+  {
+    id: 'right_atrium_internal',
+    name: 'Atrium Kanan (Ruang)',
+    latin: 'Cavitas Atrii Dextri',
+    type: 'chamber',
+    oxygenated: false,
+    x: 30,
+    y: 46,
+    description: 'Ruang penerima darah vena sistemik. Dinding interiornya dihiasi otot pektinati dan menampung darah sebelum diteruskan ke ventrikel kanan.',
+    clinicalNote: 'Terdapat nodus SA (pacu jantung) dan fossa ovalis sisa sirkulasi janin.',
+  },
+  {
+    id: 'tricuspid_valve_internal',
+    name: 'Katup Trikuspid & Korda',
+    latin: 'Valvula Tricuspidalis & Chordae Tendineae',
+    type: 'chamber',
+    oxygenated: false,
+    x: 37,
+    y: 56,
+    description: 'Katup tiga daun dengan tali-tali fibrosa kuat (korda tendinea) yang tertambat pada muskulus papilaris ventrikel kanan.',
+    clinicalNote: 'Mencegah regurgitasi atau pembalikan arah aliran darah ke atrium kanan saat ventrikel berkontraksi (sistol).',
+  },
+  {
+    id: 'right_ventricle_internal',
+    name: 'Ventrikel Kanan (Kavitas)',
+    latin: 'Cavitas Ventriculi Dextri',
+    type: 'chamber',
+    oxygenated: false,
+    x: 42,
+    y: 69,
+    description: 'Rongga berdinding otot trabekula yang memompa darah bertekanan rendah ke dalam sirkuit mikrovaskular paru-paru.',
+    clinicalNote: 'Ketebalan dinding miokardium sekitar 4-5 mm, cukup untuk menaklukkan resistensi vaskular paru yang rendah.',
+  },
+  {
+    id: 'interventricular_septum',
+    name: 'Septum Interventrikular',
+    latin: 'Septum Interventriculare',
+    type: 'muscle',
+    oxygenated: true,
+    x: 53,
+    y: 71,
+    description: 'Partisi tebal berotot yang memisahkan rongga ventrikel kanan dan kiri, menjaga pemisahan mutlak darah kaya O₂ dan kaya CO₂.',
+    clinicalNote: 'Defek septum ventrikel (VSD) memicu percampuran darah dan beban volume sirkulasi berlebih.',
+  },
+  {
+    id: 'left_atrium_internal',
+    name: 'Atrium Kiri (Ruang)',
+    latin: 'Cavitas Atrii Sinistri',
+    type: 'chamber',
+    oxygenated: true,
+    x: 64,
+    y: 45,
+    description: 'Rongga bertekanan sedang yang menerima darah yang baru saja dioksigenasi dari paru-paru lewat empat muara vena pulmonalis.',
+    clinicalNote: 'Stasis akibat gangguan irama (seperti fibrilasi atrium) rentan membentuk trombus bekuan darah.',
+  },
+  {
+    id: 'mitral_valve_internal',
+    name: 'Katup Mitral (Bikuspid)',
+    latin: 'Valvula Mitralis (Bicuspidalis)',
+    type: 'chamber',
+    oxygenated: true,
+    x: 60,
+    y: 54,
+    description: 'Katup dua daun berkekuatan mekanik tinggi yang menahan tekanan ejeksi masif ventrikel kiri dibantu korda tendinea kokoh.',
+    clinicalNote: 'Insufisiensi katup mitral menyebabkan darah terdorong balik ke atrium kiri dan memicu kongesti paru.',
+  },
+  {
+    id: 'left_ventricle_internal',
+    name: 'Ventrikel Kiri & Miokardium',
+    latin: 'Cavitas Ventriculi Sinistri & Myocardium',
+    type: 'chamber',
+    oxygenated: true,
+    x: 66,
+    y: 73,
+    description: 'Kavitas pompa utama sirkulasi sistemik tubuh yang dikelilingi lapisan miokardium sangat tebal (10-15 mm) untuk memompa darah ke seluruh organ vital.',
+    clinicalNote: 'Kekuatan ejeksi diukur dengan LVEF (normal 55-70%). Hipertensi kronis memicu hipertrofi ventrikel kiri (LVH).',
+  },
+]
+
 interface AnatomicalHeartProps {
   interactive?: boolean
   showLabels?: boolean
@@ -123,13 +236,23 @@ export default function AnatomicalHeart({
   const [selected, setSelected] = useState<HeartStructure | null>(null)
   const [viewMode, setViewMode] = useState<'surface' | 'cutaway'>('surface')
   const [imageError, setImageError] = useState(false)
+  const [internalImageError, setInternalImageError] = useState(false)
 
-  const active = heartStructures.find((s) => s.id === activeStructureId) || selected
+  const activeStructures = viewMode === 'surface' ? heartStructures : heartStructuresInternal
+  const active =
+    activeStructures.find((s) => s.id === activeStructureId) ||
+    (selected && activeStructures.some((s) => s.id === selected.id) ? selected : null)
 
   const handlePinClick = (structure: HeartStructure) => {
     const next = active?.id === structure.id ? null : structure
     setSelected(next)
     onStructureSelect?.(next)
+  }
+
+  const handleViewModeChange = (mode: 'surface' | 'cutaway') => {
+    setViewMode(mode)
+    setSelected(null)
+    onStructureSelect?.(null)
   }
 
   const containerSizes = {
@@ -143,7 +266,7 @@ export default function AnatomicalHeart({
       {/* View Mode Switcher */}
       <div className="mb-4 inline-flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 text-xs font-semibold shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90">
         <button
-          onClick={() => setViewMode('surface')}
+          onClick={() => handleViewModeChange('surface')}
           className={`rounded-full px-3.5 py-1.5 transition-all ${
             viewMode === 'surface'
               ? 'bg-rose-600 text-white shadow-sm'
@@ -153,7 +276,7 @@ export default function AnatomicalHeart({
           Anatomi Luar (Anterior)
         </button>
         <button
-          onClick={() => setViewMode('cutaway')}
+          onClick={() => handleViewModeChange('cutaway')}
           className={`rounded-full px-3.5 py-1.5 transition-all ${
             viewMode === 'cutaway'
               ? 'bg-rose-600 text-white shadow-sm'
@@ -193,13 +316,23 @@ export default function AnatomicalHeart({
               )}
             </div>
           ) : (
-            <CutawayHeartSVG activeId={active?.id} />
+            <div className="relative w-full h-full flex items-center justify-center">
+              {!internalImageError ? (
+                <img
+                  src="/assets/heart_internal.png"
+                  alt="Penampang Potongan Internal Ruang Jantung Manusia"
+                  onError={() => setInternalImageError(true)}
+                  className="w-auto h-[92%] max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(190,18,60,0.18)]"
+                />
+              ) : (
+                <CutawayHeartSVG activeId={active?.id} />
+              )}
+            </div>
           )}
 
           {/* Interactive Anatomical Callout Pins */}
           {interactive &&
-            viewMode === 'surface' &&
-            heartStructures.map((structure) => {
+            activeStructures.map((structure) => {
               const isSelected = active?.id === structure.id
               return (
                 <div
