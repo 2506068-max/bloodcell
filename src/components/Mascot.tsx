@@ -10,70 +10,247 @@ type MascotProps = {
 
 const sectionGuidance: Record<string, { title: string; description: string }> = {
   hero: {
-    title: 'Hai, aku Miko!',
-    description: 'Scroll ke bawah dan temukan rahasia sistem peredaran darah dengan cara yang seru.'
+    title: 'Hai, aku AI-cope!',
+    description: 'Scroll ke bawah dan temukan rahasia sistem peredaran darah dengan visual anatomi medis presisi.'
   },
   organ: {
     title: 'Organ Tubuh',
-    description: 'Organ-organ ini bekerja sama menjaga darah tetap sehat dan mengalir ke seluruh tubuh.'
+    description: 'Organ-organ ini bekerja sama menjaga darah tetap teroksigenasi dan terdistribusi sempurna ke seluruh tubuh.'
   },
   anatomy: {
     title: 'Anatomi Interaktif',
-    description: 'Sentuh organ untuk melihat bagaimana tiap bagian membantu peredaran darahmu.'
+    description: 'Sentuh organ untuk mengamati struktur mikroskopis dan sirkulasi hemodinamika tubuh manusia.'
   },
   diagram: {
     title: 'Diagram Aliran Darah',
-    description: 'Lihat perjalanan darah dari jantung ke paru-paru dan kembali lagi.'
+    description: 'Lihat siklus sirkulasi darah sistemik dan pulmonal dengan detail kapiler dan katup.'
   },
   badges: {
     title: 'Pencapaian',
-    description: 'Kumpulkan lencana saat kamu menyelesaikan aktivitas belajar. Ayo teruskan!'
+    description: 'Kumpulkan lencana eksplorasi medis seiring kamu menyelesaikan materi pembelajaran!'
   },
   kuis: {
     title: 'Kuis Interaktif',
-    description: 'Jawab pertanyaan dan buktikan seberapa paham kamu tentang sistem peredaran darah.'
+    description: 'Uji pemahaman biologis dan diagnosis klinis sistem kardiovaskularmu di sini.'
   }
 }
 
 const heroFacts = [
-  'Jantung manusia berdetak sekitar 100.000 kali per hari!',
-  'Darah membawa oksigen, nutrisi, dan sinyal penting ke seluruh tubuh.',
-  'Sel darah merah berkeliling tubuh hingga 120 hari sebelum diganti.'
+  'Jantung manusia memompa sekitar 5 liter darah setiap menit!',
+  'Eritrosit berbentuk cakram bikonkaf fleksibel agar dapat melewati kapiler sempit.',
+  'AI-cope mengamati jutaan sel darah dengan resolusi mikroskopis digital.',
+  'Dinding ventrikel kiri 3x lebih tebal untuk memompa darah ke seluruh tubuh!'
 ]
+
+function MicroscopeSVG({ hovered }: { hovered: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className="w-20 h-20 filter drop-shadow-[0_6px_14px_rgba(6,182,212,0.45)]"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        {/* Metal Body Gradients */}
+        <linearGradient id="scope-metal-arm" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f8fafc" />
+          <stop offset="30%" stopColor="#94a3b8" />
+          <stop offset="70%" stopColor="#475569" />
+          <stop offset="100%" stopColor="#1e293b" />
+        </linearGradient>
+        <linearGradient id="scope-base-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#475569" />
+          <stop offset="50%" stopColor="#1e293b" />
+          <stop offset="100%" stopColor="#0f172a" />
+        </linearGradient>
+        <linearGradient id="scope-beam" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stopColor="#38bdf8" stopOpacity={hovered ? 0.95 : 0.75} />
+          <stop offset="50%" stopColor="#22d3ee" stopOpacity={hovered ? 0.65 : 0.4} />
+          <stop offset="100%" stopColor="#a5f3fc" stopOpacity={0.1} />
+        </linearGradient>
+        <linearGradient id="scope-lens-glass" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#67e8f9" />
+          <stop offset="60%" stopColor="#06b6d4" />
+          <stop offset="100%" stopColor="#0284c7" />
+        </linearGradient>
+        <radialGradient id="stage-cell-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#f43f5e" stopOpacity="1" />
+          <stop offset="60%" stopColor="#e11d48" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#be123c" stopOpacity="0" />
+        </radialGradient>
+        <filter id="ai-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" mode="over" />
+        </filter>
+      </defs>
+
+      {/* Substage Illuminator Cone (Transmitted Light Beam through Specimen) */}
+      <polygon
+        points="46,74 54,74 59,58 41,58"
+        fill="url(#scope-beam)"
+        className={hovered ? 'animate-pulse' : ''}
+      />
+
+      {/* Microscope Heavy Stable Base */}
+      <path
+        d="M 22 84 C 22 80, 78 80, 78 84 L 81 89 C 81 91, 19 91, 19 89 Z"
+        fill="url(#scope-base-grad)"
+        stroke="#0284c7"
+        strokeWidth="0.8"
+      />
+      {/* Base metallic bevel highlight */}
+      <path
+        d="M 24 83 C 27 81.5, 73 81.5, 76 83"
+        stroke="#94a3b8"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+      />
+      {/* AI Status Core Indicator on Base */}
+      <circle cx="50" cy="86.5" r="2.2" fill="#06b6d4" filter="url(#ai-glow)" />
+      <circle cx="50" cy="86.5" r="1.1" fill="#ffffff" />
+
+      {/* Substage Condenser & Light Source Housing */}
+      <rect x="44" y="72" width="12" height="6" rx="1.5" fill="#334155" stroke="#64748b" strokeWidth="0.6" />
+      <ellipse cx="50" cy="73" rx="4.5" ry="1.2" fill="#38bdf8" />
+
+      {/* Stative / Curved Ergonomic Arm (Struktur Lengkung Kokoh) */}
+      <path
+        d="M 28 84 C 23 72, 23 46, 31 35 C 37 25, 48 21, 56 21 C 60 21, 62 24, 60 27 C 54 27, 43 30, 39 41 C 34 52, 35 73, 39 84 Z"
+        fill="url(#scope-metal-arm)"
+        stroke="#334155"
+        strokeWidth="0.9"
+      />
+      {/* AI Cyan Contour Racing Line on Arm */}
+      <path
+        d="M 29 76 C 26 63, 26 44, 34 35 C 38 30, 46 26, 53 25"
+        stroke="#06b6d4"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.9"
+      />
+
+      {/* Coarse & Fine Focus Adjustment Knobs (Makrometer & Mikrometer) */}
+      <circle cx="33" cy="65" r="5.5" fill="#1e293b" stroke="#64748b" strokeWidth="0.8" />
+      <circle cx="33" cy="65" r="3.5" fill="#334155" stroke="#38bdf8" strokeWidth="0.5" />
+      <circle cx="33" cy="65" r="1.5" fill="#94a3b8" />
+
+      {/* Mechanical Stage (Meja Preparat) */}
+      <rect x="35" y="59" width="8" height="4" rx="1" fill="#1e293b" />
+      <path
+        d="M 36 58 L 68 58 L 65 62 L 33 62 Z"
+        fill="#0f172a"
+        stroke="#475569"
+        strokeWidth="0.6"
+      />
+
+      {/* Glass Specimen Slide */}
+      <rect
+        x="40"
+        y="56.5"
+        width="22"
+        height="2"
+        rx="0.5"
+        fill="#e0f2fe"
+        fillOpacity="0.9"
+        stroke="#38bdf8"
+        strokeWidth="0.5"
+      />
+      {/* Blood Cell Sample on Slide */}
+      <ellipse cx="50" cy="57.5" rx="3.5" ry="1.2" fill="url(#stage-cell-glow)" />
+      <circle cx="50" cy="57.5" r="1.2" fill="#e11d48" />
+
+      {/* Slide Clips */}
+      <path d="M 41 56.5 L 43 55.5 L 46 56.5" stroke="#cbd5e1" strokeWidth="0.6" fill="none" />
+      <path d="M 61 56.5 L 59 55.5 L 56 56.5" stroke="#cbd5e1" strokeWidth="0.6" fill="none" />
+
+      {/* Revolving Nosepiece / Turret (Revolver) */}
+      <ellipse cx="51" cy="35" rx="7" ry="3.5" fill="#1e293b" stroke="#64748b" strokeWidth="0.8" />
+      <ellipse cx="51" cy="34" rx="5.2" ry="2.2" fill="#475569" />
+
+      {/* Inactive Objective Lenses (Angled) */}
+      <path d="M 45 35 L 40 44 L 43 45 L 48 36 Z" fill="#334155" stroke="#1e293b" strokeWidth="0.5" />
+      <path d="M 56 35 L 62 42 L 60 43 L 54 36 Z" fill="#334155" stroke="#1e293b" strokeWidth="0.5" />
+
+      {/* Active Objective Lens (Center, Vertical to Slide) */}
+      <path
+        d="M 48 35 L 48 47 L 49 52 L 52 52 L 53 47 L 53 35 Z"
+        fill="url(#scope-metal-arm)"
+        stroke="#1e293b"
+        strokeWidth="0.6"
+      />
+      {/* 40x Cyan Magnification Ring */}
+      <rect x="48" y="43" width="5" height="2" fill="#06b6d4" />
+      <rect x="49" y="51" width="3" height="1.2" fill="#f8fafc" />
+
+      {/* Optical Head & Inclined Eyepiece Tube (Tabung Okuler) */}
+      <path
+        d="M 48 23 L 57 23 L 59 30 L 46 30 Z"
+        fill="#1e293b"
+        stroke="#475569"
+        strokeWidth="0.6"
+      />
+      {/* Ocular tube inclined ~40 deg */}
+      <path
+        d="M 55 23 L 70 10 L 75 15 L 58 27 Z"
+        fill="url(#scope-metal-arm)"
+        stroke="#334155"
+        strokeWidth="0.6"
+      />
+      {/* Eyepiece Rubber/Metal Ring */}
+      <path
+        d="M 69 9 L 74 5 L 78 9 L 74 14 Z"
+        fill="#0f172a"
+        stroke="#0284c7"
+        strokeWidth="0.6"
+      />
+      {/* Ocular Lens Glass (Glowing Cyan Lens Pupil) */}
+      <ellipse
+        cx="75"
+        cy="8"
+        rx="3.2"
+        ry="2.2"
+        transform="rotate(-40 75 8)"
+        fill="url(#scope-lens-glass)"
+        filter="url(#ai-glow)"
+      />
+      <ellipse
+        cx="75.5"
+        cy="7.5"
+        rx="1.4"
+        ry="0.9"
+        transform="rotate(-40 75.5 7.5)"
+        fill="#ffffff"
+      />
+
+      {/* AI Reticle Scan Crosshair on Specimen */}
+      <g opacity={hovered ? 0.95 : 0.75}>
+        <circle cx="50" cy="57.5" r="4.5" stroke="#22d3ee" strokeWidth="0.5" strokeDasharray="1.5 1.5" />
+        <line x1="50" y1="51" x2="50" y2="54" stroke="#22d3ee" strokeWidth="0.6" />
+        <line x1="50" y1="61" x2="50" y2="64" stroke="#22d3ee" strokeWidth="0.6" />
+      </g>
+    </svg>
+  )
+}
 
 export default function Mascot({ section, mood = 'idle' }: MascotProps) {
   const [hovered, setHovered] = useState(false)
   const [factIndex, setFactIndex] = useState(0)
-  const [blinking, setBlinking] = useState(false)
 
   const headX = useSpring(0, { stiffness: 140, damping: 18 })
   const headY = useSpring(0, { stiffness: 140, damping: 18 })
-  const eyeX = useSpring(0, { stiffness: 180, damping: 16 })
-  const eyeY = useSpring(0, { stiffness: 180, damping: 16 })
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const x = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth - 0.5) * 2))
       const y = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight - 0.5) * 2))
 
-      headX.set(x * 8)
-      headY.set(y * 6)
-      eyeX.set(x * 2.2)
-      eyeY.set(y * 1.8)
+      headX.set(x * 6)
+      headY.set(y * 4)
     }
 
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [headX, headY, eyeX, eyeY])
-
-  useEffect(() => {
-    const blinkInterval = window.setInterval(() => {
-      setBlinking(true)
-      window.setTimeout(() => setBlinking(false), 120)
-    }, 4200 + Math.random() * 2200)
-
-    return () => window.clearInterval(blinkInterval)
-  }, [])
+  }, [headX, headY])
 
   useEffect(() => {
     if (section !== 'hero') return
@@ -87,30 +264,30 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
 
   const guidance = sectionGuidance[section] ?? {
     title: 'Selamat datang!',
-    description: 'Ayo jelajahi area pembelajaran dan lihat saran dari Miko si sel darah.'
+    description: 'Ayo jelajahi area pembelajaran dan lihat saran dari AI-cope si asisten mikroskop cerdas.'
   }
 
   const bubbleText = section === 'hero' && hovered ? heroFacts[factIndex] : guidance.description
   const feedbackText = mood === 'happy'
-    ? 'Betul! Kamu makin paham.'
+    ? 'Betul! Analisis sel darahmu tepat sekali.'
     : mood === 'sad'
-      ? 'Wah, coba lagi, kamu pasti bisa!'
+      ? 'Fokus kembali lensamu, coba lagi pasti bisa!'
       : mood === 'celebrate'
-        ? 'Luar biasa! Kamu mendapat skor tinggi!'
+        ? 'Luar biasa! Skor analisis mikroskopikmu sempurna!'
         : ''
 
-  const showWave = section === 'hero'
   const bubbleTitle = guidance.title
-  const moodEmoji = mood === 'happy' ? '✨' : mood === 'sad' ? '💧' : mood === 'celebrate' ? '🎉' : '🩸'
+  const moodEmoji = mood === 'happy' ? '✨' : mood === 'sad' ? '💡' : mood === 'celebrate' ? '🎉' : '🔬'
 
   return (
     <motion.div
-      className="fixed right-4 bottom-20 z-50 flex max-w-[18rem] flex-col items-end gap-4 sm:right-6"
+      className="fixed right-4 bottom-20 z-50 flex max-w-[18rem] flex-col items-end gap-3 sm:right-6"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.75, ease: 'easeOut' }}
       layout
     >
+      {/* Speech / Guidance Bubble */}
       <motion.div
         className="pointer-events-auto relative w-full rounded-[1.75rem] border border-white/80 bg-white/95 px-4 py-3 text-sm shadow-2xl shadow-slate-900/10 backdrop-blur-xl text-slate-900 dark:border-slate-700 dark:bg-slate-950/90 dark:text-slate-100"
         whileHover={{ y: -4 }}
@@ -120,88 +297,49 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
       >
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="font-semibold text-slate-900 dark:text-slate-100">{bubbleTitle}</p>
-            <p className="mt-2 leading-6 text-[0.95rem] text-slate-700 dark:text-slate-300">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-cyan-500 animate-ping" />
+              <p className="font-bold text-slate-900 dark:text-slate-100">{bubbleTitle}</p>
+            </div>
+            <p className="mt-2 leading-6 text-[0.92rem] text-slate-700 dark:text-slate-300">
               {feedbackText || bubbleText}
             </p>
           </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-400 via-fuchsia-500 to-cyan-400 text-base text-white shadow-soft">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 via-sky-600 to-indigo-600 text-lg text-white shadow-soft">
             {moodEmoji}
           </div>
         </div>
-        <span className="absolute -bottom-2 right-5 h-4 w-4 rotate-45 rounded-sm bg-white/95 border-l border-t border-slate-200/80 dark:bg-slate-950/90 dark:border-slate-700" />
+        <span className="absolute -bottom-2 right-6 h-4 w-4 rotate-45 rounded-sm bg-white/95 border-l border-t border-slate-200/80 dark:bg-slate-950/90 dark:border-slate-700" />
       </motion.div>
 
+      {/* AI-cope Interactive Microscope Avatar */}
       <motion.div
-        className="relative flex items-center justify-center"
+        className="relative flex items-center justify-center cursor-pointer select-none"
         style={{ x: headX, y: headY }}
-        animate={{ y: [0, -8, 0], rotate: [0, 1, -1, 0] }}
-        transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ y: [0, -6, 0] }}
+        transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => setFactIndex((prev) => (prev + 1) % heroFacts.length)}
       >
+        {/* Glow halo */}
         <motion.div
-          className="absolute -right-4 top-8 h-10 w-10 rounded-full bg-cyan-300/25 blur-2xl"
-          animate={{ opacity: [0.35, 0.8, 0.35] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute -left-4 bottom-0 h-8 w-8 rounded-full bg-pink-300/40 blur-2xl"
-          animate={{ opacity: [0.2, 0.8, 0.2] }}
-          transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -inset-2 rounded-full bg-cyan-400/25 blur-xl pointer-events-none"
+          animate={{ opacity: hovered ? [0.4, 0.8, 0.4] : [0.25, 0.5, 0.25] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <motion.div
-          className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 via-red-500 to-pink-500 border border-white/70 shadow-[0_35px_90px_-45px_rgba(255,77,109,0.85)]"
-          animate={showWave ? { rotate: [0, 6, -4, 6, 0] } : { rotate: 0 }}
-          transition={{ duration: 1.6, repeat: showWave ? Infinity : 0, ease: 'easeInOut', delay: 0.3 }}
-        >
-          <motion.div
-            className="absolute left-[-8px] top-6 h-10 w-10 rounded-full bg-white/80 shadow-soft"
-            animate={showWave ? { rotate: [35, 10, 35, 10] } : { rotate: 15 }}
-            transition={{ duration: 1.2, repeat: showWave ? Infinity : 0, ease: 'easeInOut' }}
-          />
+        {/* Podium Glassmorphic Circle */}
+        <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-slate-900/95 via-indigo-950/95 to-slate-950/95 border-2 border-cyan-400/50 shadow-[0_15px_35px_rgba(6,182,212,0.35)] backdrop-blur-xl group overflow-visible transition-all duration-300 hover:border-cyan-300 hover:shadow-[0_20px_45px_rgba(6,182,212,0.5)]">
+          {/* Microscope SVG */}
+          <MicroscopeSVG hovered={hovered} />
 
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            animate={{ scale: [1, 1.03, 1] }}
-            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-rose-500 via-red-600 to-fuchsia-500 border-2 border-white/80 shadow-soft">
-              <motion.div
-                className="absolute left-1/3 top-1/3 h-3 w-3 rounded-full bg-white"
-                style={{ x: eyeX, y: eyeY }}
-                animate={{ scaleY: blinking ? 0.24 : 1 }}
-                transition={{ duration: 0.08 }}
-              />
-              <motion.div
-                className="absolute right-1/3 top-1/3 h-3 w-3 rounded-full bg-white"
-                style={{ x: eyeX, y: eyeY }}
-                animate={{ scaleY: blinking ? 0.24 : 1 }}
-                transition={{ duration: 0.08 }}
-              />
-              <motion.div
-                className="absolute left-1/2 top-3/4 h-2 w-10 -translate-x-1/2 rounded-full bg-white/90"
-                animate={{ scaleX: hovered ? 1.1 : 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.span
-          className="absolute right-8 bottom-0 block h-2 w-2 rounded-full bg-white/80 shadow-glow"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-        />
-        <motion.span
-          className="absolute left-6 bottom-2 block h-3 w-3 rounded-full bg-pink-200/80 shadow-glow"
-          animate={{ y: [0, -7, 0] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
-        />
-        <motion.span
-          className="absolute -bottom-2 left-14 block h-3 w-3 rounded-full bg-cyan-300/80 shadow-glow"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 1.1 }}
-        />
+          {/* Mini name badge */}
+          <div className="absolute -bottom-2.5 px-2.5 py-0.5 rounded-full bg-slate-900/95 border border-cyan-400/70 shadow-lg flex items-center gap-1.5 text-[10px] font-extrabold tracking-wider text-cyan-300 uppercase">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            AI-cope
+          </div>
+        </div>
       </motion.div>
     </motion.div>
   )
