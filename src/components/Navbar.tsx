@@ -25,6 +25,7 @@ export default function Navbar() {
   return (
     <header className={`sticky top-0 z-50 transition duration-500 ${scrolled ? 'backdrop-blur-2xl bg-white/75 shadow-soft dark:bg-slate-950/80' : 'bg-transparent'}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
           <a href="#hero" className="inline-flex items-center gap-3 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold shadow-sm shadow-slate-200/40 dark:bg-slate-900/90 dark:shadow-black/10">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-600 via-rose-700 to-rose-900 text-white shadow-md shadow-rose-900/25 ring-1 ring-white/20">
               <svg viewBox="0 0 32 32" className="w-5 h-5" fill="none">
