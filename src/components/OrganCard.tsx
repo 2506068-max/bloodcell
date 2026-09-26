@@ -169,12 +169,12 @@ export default function OrganCards() {
               {organ.anatomicalType === 'vessels' && (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <img
-                    src="/assets/vessels_system.png"
-                    alt="Sistem Pembuluh Darah & Sirkulasi Hemodinamik"
+                    src="/assets/vessels_microcirculation.jpg"
+                    alt="Sistem Pembuluh Darah & Mikrosirkulasi Hemodinamik"
                     className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(2,132,199,0.15)] group-hover:scale-105 transition-transform duration-500 rounded-xl"
                   />
                   <div className="absolute right-3 bottom-2 text-[10px] font-mono text-slate-400 bg-white/80 dark:bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                    Sirkulasi Pulmonal & Sistemik
+                    Arteri • Kapiler • Vena
                   </div>
                 </div>
               )}
@@ -302,12 +302,12 @@ export default function OrganCards() {
                   {selectedOrgan.anatomicalType === 'vessels' && (
                     <div className="flex flex-col items-center justify-center w-full">
                       <img
-                        src="/assets/vessels_system.png"
-                        alt="Sistem Pembuluh Darah & Sirkulasi Hemodinamik"
+                        src="/assets/vessels_microcirculation.jpg"
+                        alt="Mikrosirkulasi Pembuluh Darah (Arteri, Kapiler, Vena)"
                         className="max-h-64 object-contain filter drop-shadow-md rounded-xl"
                       />
                       <span className="text-[10px] font-mono text-slate-400 mt-2">
-                        Peredaran Darah Kecil (1–5) & Peredaran Darah Besar (6–10)
+                        Arteri • Arteriol • Jaringan Anyaman Kapiler • Venula • Vena
                       </span>
                     </div>
                   )}
@@ -403,19 +403,13 @@ function LungsVignetteSVG() {
 
 function VascularNetworkSVG() {
   return (
-    <svg viewBox="0 0 240 180" className="w-48 h-36">
-      {/* Artery & Vein Pairing with Capillary Mesh */}
-      <path d="M 40 40 Q 90 35 120 70 Q 150 105 200 100" stroke="#BE123C" strokeWidth="7" fill="none" strokeLinecap="round" />
-      <path d="M 40 140 Q 90 145 120 110 Q 150 75 200 80" stroke="#0284C7" strokeWidth="7" fill="none" strokeLinecap="round" />
-      {/* Capillary anastomoses */}
-      <g stroke="#9333EA" strokeWidth="1.5" opacity="0.75" fill="none">
-        <path d="M 105 50 Q 115 90 110 130" />
-        <path d="M 120 70 Q 130 90 125 110" />
-        <path d="M 135 90 Q 140 85 145 95" />
-      </g>
-      <circle cx="120" cy="70" r="4" fill="#BE123C" />
-      <circle cx="120" cy="110" r="4" fill="#0284C7" />
-    </svg>
+    <div className="relative w-full h-full flex items-center justify-center">
+      <img
+        src="/assets/vessels_microcirculation.jpg"
+        alt="Mikrosirkulasi Pembuluh Darah: Arteri, Arteriol, Anyaman Kapiler, Venula, Vena"
+        className="max-h-full max-w-full object-contain filter drop-shadow-md rounded-xl"
+      />
+    </div>
   )
 }
 
