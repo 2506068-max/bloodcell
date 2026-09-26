@@ -21,6 +21,7 @@
     "isolatedModules": true,
 
     "jsx": "react-jsx",
+    "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
 

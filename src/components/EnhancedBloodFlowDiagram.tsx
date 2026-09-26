@@ -332,7 +332,7 @@ export default function EnhancedBloodFlowDiagram() {
       {/* VIEW MODE 2: Animated SVG Simulation Viewport */}
       {viewMode === 'simulation' && (
       <div className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border border-slate-200/60 dark:border-slate-800/80 p-4">
-        <svg viewBox="0 0 1000 480" className="w-full h-auto select-none">
+        <svg viewBox="0 0 1000 520" className="w-full h-auto select-none">
           <defs>
             <linearGradient id="pulmonary-artery-grad" x1="0%" y1="100%" x2="0%" y2="0%">
               <stop offset="0%" stopColor="#0369A1" />
@@ -359,28 +359,28 @@ export default function EnhancedBloodFlowDiagram() {
           <g opacity={activeCircuit === 'systemic' ? 0.25 : 1} className="transition-opacity duration-300">
             {/* Lungs Background Silhouette with Alveolar Texture */}
             <path
-              d="M 380 40 C 440 20 560 20 620 40 C 650 60 650 110 610 130 C 550 145 450 145 390 130 C 350 110 350 60 380 40 Z"
+              d="M 370 25 C 430 10 570 10 630 25 C 670 45 670 95 630 115 C 570 125 430 125 370 115 C 330 95 330 45 370 25 Z"
               fill="rgba(244, 114, 182, 0.12)"
               stroke="#F472B6"
               strokeWidth="1.5"
             />
             {/* Alveolar capillary mesh */}
-            <g stroke="#9333EA" strokeWidth="1" opacity="0.35" fill="none">
-              <path d="M 420 50 Q 500 80 580 50" />
-              <path d="M 400 85 Q 500 115 600 85" />
-              <path d="M 440 70 Q 500 60 560 70" />
+            <g stroke="#9333EA" strokeWidth="1" opacity="0.3" fill="none">
+              <path d="M 420 40 Q 500 65 580 40" />
+              <path d="M 400 70 Q 500 95 600 70" />
+              <path d="M 440 55 Q 500 45 560 55" />
             </g>
 
-            <text x="500" y="75" textAnchor="middle" fill="#BE123C" fontSize="13" fontWeight="bold">
+            <text x="500" y="58" textAnchor="middle" fill="#BE123C" fontSize="13" fontWeight="bold">
               Kapiler Alveolus Paru-Paru (Pulmo)
             </text>
-            <text x="500" y="95" textAnchor="middle" fill="#64748B" fontSize="10">
+            <text x="500" y="78" textAnchor="middle" fill="#64748B" fontSize="10">
               Pertukaran Gas: O₂ Masuk ke Darah • CO₂ Dikeluarkan ke Udara
             </text>
 
-            {/* Pulmonary Arteries (Blue - Upward from Right Ventricle to Lungs) */}
+            {/* Pulmonary Arteries (Blue - Upward from Right Ventricle conus to Lungs) */}
             <path
-              d="M 460 210 C 460 160 440 140 440 130"
+              d="M 445 258 C 445 210 455 160 455 118"
               stroke="url(#pulmonary-artery-grad)"
               strokeWidth="8"
               fill="none"
@@ -388,14 +388,14 @@ export default function EnhancedBloodFlowDiagram() {
             />
             {/* Flow particle */}
             {isPlaying && (
-              <circle cx="450" cy="170" r="4.5" fill="#38BDF8">
-                <animate attributeName="cy" values="210;130" dur="2s" repeatCount="indefinite" />
+              <circle cx="450" cy="180" r="4.5" fill="#38BDF8">
+                <animate attributeName="cy" values="258;118" dur="1.8s" repeatCount="indefinite" />
               </circle>
             )}
 
             {/* Pulmonary Veins (Red - Downward from Lungs to Left Atrium) */}
             <path
-              d="M 560 130 C 560 140 540 160 540 210"
+              d="M 550 118 C 550 142 555 165 555 188"
               stroke="url(#pulmonary-vein-grad)"
               strokeWidth="8"
               fill="none"
@@ -403,21 +403,29 @@ export default function EnhancedBloodFlowDiagram() {
             />
             {/* Flow particle */}
             {isPlaying && (
-              <circle cx="550" cy="170" r="4.5" fill="#FDA4AF">
-                <animate attributeName="cy" values="130;210" dur="2s" repeatCount="indefinite" />
+              <circle cx="552" cy="150" r="4.5" fill="#FDA4AF">
+                <animate attributeName="cy" values="118;188" dur="1.8s" repeatCount="indefinite" />
               </circle>
             )}
 
-            <text x="375" y="175" fill="#0284C7" fontSize="10" fontWeight="bold">
-              A. Pulmonalis (Miskin O₂) ↑
-            </text>
-            <text x="565" y="175" fill="#BE123C" fontSize="10" fontWeight="bold">
-              ↓ V. Pulmonalis (Kaya O₂)
-            </text>
+            {/* Non-overlapping Upper Vessel Labels with Background Plaques */}
+            <g transform="translate(255, 142)">
+              <rect x="-95" y="-14" width="190" height="28" rx="8" fill="#F0F9FF" stroke="#BAE6FD" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-xs" />
+              <text x="0" y="4" textAnchor="middle" fill="#0284C7" fontSize="11" fontWeight="bold">
+                A. Pulmonalis (Miskin O₂) ↑
+              </text>
+            </g>
+
+            <g transform="translate(745, 142)">
+              <rect x="-95" y="-14" width="190" height="28" rx="8" fill="#FFF1F2" stroke="#FECDD3" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-xs" />
+              <text x="0" y="4" textAnchor="middle" fill="#BE123C" fontSize="11" fontWeight="bold">
+                ↓ V. Pulmonalis (Kaya O₂)
+              </text>
+            </g>
           </g>
 
           {/* ===== 2. MIDDLE SECTION: CENTRAL 4-CHAMBER ANATOMICAL HEART ===== */}
-          <g transform="translate(375, 190)">
+          <g transform="translate(375, 188)">
             {/* Heart Muscle Body */}
             <rect
               x="0"
@@ -439,38 +447,55 @@ export default function EnhancedBloodFlowDiagram() {
             {/* 4 Chamber Divisions */}
             {/* Right Atrium (Miskin O2) */}
             <rect x="6" y="6" width="113" height="60" rx="18" fill="#E0F2FE" opacity="0.6" />
-            <text x="62" y="32" textAnchor="middle" fill="#0369A1" fontSize="11" fontWeight="bold">
+            <text x="62" y="28" textAnchor="middle" fill="#0369A1" fontSize="11" fontWeight="bold">
               Atrium Kanan (RA)
             </text>
-            <text x="62" y="47" textAnchor="middle" fill="#0284C7" fontSize="9">
+            <text x="62" y="44" textAnchor="middle" fill="#0284C7" fontSize="8.5">
               Terima CO₂ dari Tubuh
             </text>
 
             {/* Left Atrium (Kaya O2) */}
             <rect x="131" y="6" width="113" height="60" rx="18" fill="#FFE4E6" opacity="0.6" />
-            <text x="187" y="32" textAnchor="middle" fill="#9F1239" fontSize="11" fontWeight="bold">
+            <text x="187" y="28" textAnchor="middle" fill="#9F1239" fontSize="11" fontWeight="bold">
               Atrium Kiri (LA)
             </text>
-            <text x="187" y="47" textAnchor="middle" fill="#BE123C" fontSize="9">
+            <text x="187" y="44" textAnchor="middle" fill="#BE123C" fontSize="8.5">
               Terima O₂ dari Paru
             </text>
 
+            {/* Atrioventricular Flow Arrows with Valve Labels */}
+            {/* Tricuspid Flow (RA -> RV) */}
+            <g opacity={isPlaying ? 0.9 : 0.6}>
+              <path d="M 62 55 L 62 76" stroke="#0284C7" strokeWidth="2.5" markerEnd="url(#arrow-blue)" fill="none" />
+              <text x="62" y="70" textAnchor="middle" fill="#0369A1" fontSize="7" fontWeight="bold" opacity="0.8">
+                Katup Trikuspid
+              </text>
+            </g>
+
+            {/* Mitral Flow (LA -> LV) */}
+            <g opacity={isPlaying ? 0.9 : 0.6}>
+              <path d="M 187 55 L 187 76" stroke="#E11D48" strokeWidth="2.5" markerEnd="url(#arrow-red)" fill="none" />
+              <text x="187" y="70" textAnchor="middle" fill="#9F1239" fontSize="7" fontWeight="bold" opacity="0.8">
+                Katup Mitral
+              </text>
+            </g>
+
             {/* Right Ventricle (Pompa ke Paru) */}
-            <rect x="6" y="74" width="113" height="60" rx="18" fill="#BAE6FD" opacity="0.6" />
-            <text x="62" y="100" textAnchor="middle" fill="#0369A1" fontSize="11" fontWeight="bold">
+            <rect x="6" y="80" width="113" height="54" rx="16" fill="#BAE6FD" opacity="0.6" />
+            <text x="62" y="103" textAnchor="middle" fill="#0369A1" fontSize="11" fontWeight="bold">
               Ventrikel Kanan (RV)
             </text>
-            <text x="62" y="115" textAnchor="middle" fill="#0284C7" fontSize="9">
-              Pompa ke Paru-Paru
+            <text x="62" y="119" textAnchor="middle" fill="#0284C7" fontSize="8.5">
+              Pompa ke A. Pulmonalis
             </text>
 
             {/* Left Ventricle (Pompa ke Seluruh Tubuh) */}
-            <rect x="131" y="74" width="113" height="60" rx="18" fill="#FDA4AF" opacity="0.6" />
-            <text x="187" y="100" textAnchor="middle" fill="#9F1239" fontSize="11" fontWeight="bold">
+            <rect x="131" y="80" width="113" height="54" rx="16" fill="#FDA4AF" opacity="0.6" />
+            <text x="187" y="103" textAnchor="middle" fill="#9F1239" fontSize="11" fontWeight="bold">
               Ventrikel Kiri (LV)
             </text>
-            <text x="187" y="115" textAnchor="middle" fill="#BE123C" fontSize="9">
-              Pompa Sistemik (Aorta)
+            <text x="187" y="119" textAnchor="middle" fill="#BE123C" fontSize="8.5">
+              Pompa ke Aorta
             </text>
           </g>
 
@@ -478,7 +503,7 @@ export default function EnhancedBloodFlowDiagram() {
           <g opacity={activeCircuit === 'pulmonary' ? 0.25 : 1} className="transition-opacity duration-300">
             {/* Aorta Downward (Red - Ventricle Left to Systemic Organs) */}
             <path
-              d="M 560 330 C 560 370 540 390 540 400"
+              d="M 562 328 C 562 360 565 390 565 415"
               stroke="url(#systemic-aorta-grad)"
               strokeWidth="8"
               fill="none"
@@ -486,51 +511,60 @@ export default function EnhancedBloodFlowDiagram() {
             />
             {/* Flow particle */}
             {isPlaying && (
-              <circle cx="550" cy="365" r="4.5" fill="#FDA4AF">
-                <animate attributeName="cy" values="330;400" dur="2s" repeatCount="indefinite" />
+              <circle cx="563" cy="370" r="4.5" fill="#FDA4AF">
+                <animate attributeName="cy" values="328;415" dur="1.8s" repeatCount="indefinite" />
               </circle>
             )}
 
-            {/* Vena Cava Upward (Blue - Systemic Organs to Right Atrium) */}
+            {/* Vena Cava Upward (Blue - Systemic Organs to Right Atrium lateral wall) */}
             <path
-              d="M 440 400 C 440 390 460 370 460 330"
+              d="M 380 415 C 330 375 320 270 375 218"
               stroke="url(#systemic-vena-grad)"
               strokeWidth="8"
               fill="none"
               strokeLinecap="round"
             />
-            {/* Flow particle */}
+            {/* Flow particle moving from body up along curve to RA */}
             {isPlaying && (
-              <circle cx="450" cy="365" r="4.5" fill="#38BDF8">
-                <animate attributeName="cy" values="400;330" dur="2s" repeatCount="indefinite" />
+              <circle cx="340" cy="310" r="4.5" fill="#38BDF8">
+                <animate attributeName="cx" values="380;335;375" dur="2.2s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="415;310;218" dur="2.2s" repeatCount="indefinite" />
               </circle>
             )}
 
-            <text x="565" y="370" fill="#BE123C" fontSize="10" fontWeight="bold">
-              ↓ Aorta (Kaya O₂ ke Tubuh)
-            </text>
-            <text x="360" y="370" fill="#0284C7" fontSize="10" fontWeight="bold">
-              Vena Kava (Miskin O₂) ↑
-            </text>
+            {/* Non-overlapping Lower Vessel Labels with Background Plaques */}
+            <g transform="translate(205, 330)">
+              <rect x="-95" y="-14" width="190" height="28" rx="8" fill="#F0F9FF" stroke="#BAE6FD" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-xs" />
+              <text x="0" y="4" textAnchor="middle" fill="#0284C7" fontSize="11" fontWeight="bold">
+                Vena Kava (Miskin O₂) ↑
+              </text>
+            </g>
+
+            <g transform="translate(745, 370)">
+              <rect x="-95" y="-14" width="190" height="28" rx="8" fill="#FFF1F2" stroke="#FECDD3" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-xs" />
+              <text x="0" y="4" textAnchor="middle" fill="#BE123C" fontSize="11" fontWeight="bold">
+                ↓ Aorta (Kaya O₂ ke Tubuh)
+              </text>
+            </g>
 
             {/* Systemic Capillary Bed (Tissue Organs) */}
             <path
-              d="M 380 400 C 440 380 560 380 620 400 C 650 420 650 460 610 470 C 550 480 450 480 390 470 C 350 460 350 420 380 400 Z"
+              d="M 370 415 C 430 398 570 398 630 415 C 670 435 670 480 630 495 C 570 508 430 508 370 495 C 330 480 330 435 370 415 Z"
               fill="rgba(147, 51, 234, 0.08)"
               stroke="#A855F7"
               strokeWidth="1.5"
             />
-            <text x="500" y="430" textAnchor="middle" fill="#7E22CE" fontSize="13" fontWeight="bold">
+            <text x="500" y="448" textAnchor="middle" fill="#7E22CE" fontSize="13" fontWeight="bold">
               Jaringan Tubuh & Mikrosirkulasi Sistemik
             </text>
-            <text x="500" y="448" textAnchor="middle" fill="#64748B" fontSize="10">
+            <text x="500" y="468" textAnchor="middle" fill="#64748B" fontSize="10">
               O₂ & Nutrisi Diterima Sel • CO₂ & Limbah Metabolisme Diangkut Vena
             </text>
           </g>
 
           {/* Legend Details in SVG corners */}
-          <g transform="translate(40, 40)" className="text-[11px]">
-            <rect width="180" height="90" rx="12" fill="rgba(255,255,255,0.9)" stroke="#E2E8F0" className="dark:fill-slate-900/90 dark:stroke-slate-800" />
+          <g transform="translate(35, 35)" className="text-[11px]">
+            <rect width="180" height="90" rx="12" fill="rgba(255,255,255,0.92)" stroke="#E2E8F0" className="dark:fill-slate-900/90 dark:stroke-slate-800" />
             <text x="15" y="24" fontWeight="bold" fill="#0F172A" className="dark:fill-white">
               Sirkulasi Pulmonal:
             </text>
@@ -539,8 +573,8 @@ export default function EnhancedBloodFlowDiagram() {
             <text x="15" y="76" fill="#BE123C">3. Darah O₂ masuk LA</text>
           </g>
 
-          <g transform="translate(780, 40)" className="text-[11px]">
-            <rect width="180" height="90" rx="12" fill="rgba(255,255,255,0.9)" stroke="#E2E8F0" className="dark:fill-slate-900/90 dark:stroke-slate-800" />
+          <g transform="translate(785, 35)" className="text-[11px]">
+            <rect width="180" height="90" rx="12" fill="rgba(255,255,255,0.92)" stroke="#E2E8F0" className="dark:fill-slate-900/90 dark:stroke-slate-800" />
             <text x="15" y="24" fontWeight="bold" fill="#0F172A" className="dark:fill-white">
               Sirkulasi Sistemik:
             </text>

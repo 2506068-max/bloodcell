@@ -16,49 +16,49 @@ interface PopupDetail {
 }
 
 const bloodParticles: BloodParticle[] = [
-  // Deoxygenated (blue) - Vena kava ke jantung dan paru-paru
+  // Deoxygenated (blue) - Vena Kava (Tubuh ke RA) & Arteri Pulmonalis (ke kedua Paru)
   {
     id: 'blue-1',
     type: 'deoxygenated',
-    path: 'M 50 400 Q 150 350 200 250 Q 250 150 300 100',
-    duration: 12,
+    path: 'M 240 385 Q 240 330 255 270',
+    duration: 5,
     delay: 0,
   },
   {
     id: 'blue-2',
     type: 'deoxygenated',
-    path: 'M 50 420 Q 150 370 200 270 Q 250 170 300 100',
-    duration: 12,
-    delay: 2,
+    path: 'M 285 175 Q 250 140 210 115',
+    duration: 5,
+    delay: 1.5,
   },
   {
     id: 'blue-3',
     type: 'deoxygenated',
-    path: 'M 50 440 Q 150 390 200 290 Q 250 190 300 100',
-    duration: 12,
-    delay: 4,
+    path: 'M 315 175 Q 350 140 390 115',
+    duration: 5,
+    delay: 3,
   },
-  // Oxygenated (red) - Paru-paru ke jantung dan tubuh
+  // Oxygenated (red) - Vena Pulmonalis (Paru ke LA) & Aorta (ke Tubuh)
   {
     id: 'red-1',
     type: 'oxygenated',
-    path: 'M 300 100 Q 250 150 200 250 Q 150 350 50 400',
-    duration: 12,
-    delay: 6,
+    path: 'M 210 115 Q 260 145 310 168',
+    duration: 5,
+    delay: 0.8,
   },
   {
     id: 'red-2',
     type: 'oxygenated',
-    path: 'M 300 100 Q 250 170 200 270 Q 150 370 50 420',
-    duration: 12,
-    delay: 8,
+    path: 'M 390 115 Q 340 145 320 168',
+    duration: 5,
+    delay: 2.2,
   },
   {
     id: 'red-3',
     type: 'oxygenated',
-    path: 'M 300 100 Q 250 190 200 290 Q 150 390 50 440',
-    duration: 12,
-    delay: 10,
+    path: 'M 345 270 Q 360 330 360 385',
+    duration: 5,
+    delay: 3.8,
   },
 ]
 
@@ -333,7 +333,7 @@ export default function CirculatoryAnimation() {
 
             {/* Vena Kava (blue) - from body to right atrium */}
             <path
-              d="M 220 380 Q 240 340 260 280 Q 270 250 280 220"
+              d="M 240 385 Q 240 330 255 270"
               stroke="#1E88E5"
               strokeWidth="6"
               fill="none"
@@ -343,7 +343,7 @@ export default function CirculatoryAnimation() {
 
             {/* Aorta (red) - from left ventricle to body */}
             <path
-              d="M 320 220 Q 330 250 350 300 Q 370 360 380 390"
+              d="M 345 270 Q 360 330 360 385"
               stroke="#E53935"
               strokeWidth="6"
               fill="none"
@@ -351,9 +351,9 @@ export default function CirculatoryAnimation() {
               strokeLinecap="round"
             />
 
-            {/* Arteri Pulmonari (blue) - from right ventricle to lungs */}
+            {/* Arteri Pulmonalis (blue) - from right ventricle to lungs hilum */}
             <path
-              d="M 300 180 Q 250 130 200 80"
+              d="M 285 175 Q 250 140 210 115"
               stroke="#1E88E5"
               strokeWidth="5"
               fill="none"
@@ -363,7 +363,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 300 180 Q 350 130 400 80"
+              d="M 315 175 Q 350 140 390 115"
               stroke="#1E88E5"
               strokeWidth="5"
               fill="none"
@@ -372,9 +372,9 @@ export default function CirculatoryAnimation() {
               markerEnd="url(#arrowhead-blue)"
             />
 
-            {/* Vena Pulmonari (red) - from lungs to left atrium */}
+            {/* Vena Pulmonalis (red) - from lungs hilum to left atrium */}
             <path
-              d="M 200 80 Q 250 120 310 160"
+              d="M 210 115 Q 260 145 310 168"
               stroke="#E53935"
               strokeWidth="5"
               fill="none"
@@ -384,7 +384,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 400 80 Q 350 120 310 160"
+              d="M 390 115 Q 340 145 320 168"
               stroke="#E53935"
               strokeWidth="5"
               fill="none"
@@ -397,7 +397,7 @@ export default function CirculatoryAnimation() {
 
             {/* Blue paths with glow */}
             <path
-              d="M 220 380 Q 240 340 260 280 Q 270 250 280 220"
+              d="M 240 385 Q 240 330 255 270"
               stroke="#1E88E5"
               strokeWidth="6"
               fill="none"
@@ -412,7 +412,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 300 180 Q 250 130 200 80"
+              d="M 285 175 Q 250 140 210 115"
               stroke="#1E88E5"
               strokeWidth="5"
               fill="none"
@@ -426,7 +426,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 300 180 Q 350 130 400 80"
+              d="M 315 175 Q 350 140 390 115"
               stroke="#1E88E5"
               strokeWidth="5"
               fill="none"
@@ -441,7 +441,7 @@ export default function CirculatoryAnimation() {
 
             {/* Red paths with glow */}
             <path
-              d="M 200 80 Q 250 120 310 160"
+              d="M 210 115 Q 260 145 310 168"
               stroke="#E53935"
               strokeWidth="5"
               fill="none"
@@ -455,7 +455,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 400 80 Q 350 120 310 160"
+              d="M 390 115 Q 340 145 320 168"
               stroke="#E53935"
               strokeWidth="5"
               fill="none"
@@ -469,7 +469,7 @@ export default function CirculatoryAnimation() {
             />
 
             <path
-              d="M 320 220 Q 330 250 350 300 Q 370 360 380 390"
+              d="M 345 270 Q 360 330 360 385"
               stroke="#E53935"
               strokeWidth="6"
               fill="none"
@@ -703,13 +703,13 @@ export default function CirculatoryAnimation() {
                 />
               </g>
 
-              {/* Left Lung (Pulmo Sinister - 2 Anatomical Lobes & Incisura Cardiaca) */}
+              {/* Right Lung (Pulmo Dexter - 3 Anatomical Lobes: Superior, Medius, Inferior) - Patient's Right / Viewer's Left */}
               <g
                 id="lungs-left"
                 onClick={() =>
                   showPopup(
-                    'Paru-paru Kiri (Pulmo Sinister)',
-                    'Memiliki 2 lobus (Lobus Superior & Inferior) dipisahkan oleh Fissura Obliqua. Memiliki Incisura Cardiaca dan Lingula yang mengakomodasi letak apeks jantung.',
+                    'Paru-paru Kanan (Pulmo Dexter)',
+                    'Memiliki 3 lobus: Lobus Superior, Medius, dan Inferior yang dipisahkan oleh Fissura Horizontalis dan Fissura Obliqua. Volume paru kanan sekitar 10% lebih besar daripada paru kiri.',
                     200,
                     80
                   )
@@ -723,8 +723,7 @@ export default function CirculatoryAnimation() {
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                   filter="url(#shadow-organ)"
                 >
-                  {/* Anatomical Left Lung Parenchyma */}
-                  {/* Superior & Inferior Lobes with cardiac notch */}
+                  {/* Anatomical Right Lung Parenchyma (3 Lobes) */}
                   <path
                     d="M 185 24 
                        C 160 25 138 46 132 75 
@@ -738,9 +737,17 @@ export default function CirculatoryAnimation() {
                     strokeWidth="1.8"
                   />
 
-                  {/* Fissura Obliqua dividing Superior & Inferior lobes */}
+                  {/* Fissura Horizontalis & Fissura Obliqua (3 lobes) */}
                   <path
-                    d="M 136 95 Q 165 118 204 145"
+                    d="M 134 85 Q 165 90 204 95"
+                    stroke="#4C0519"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.65"
+                  />
+                  <path
+                    d="M 136 120 Q 170 135 204 145"
                     stroke="#4C0519"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -749,34 +756,33 @@ export default function CirculatoryAnimation() {
                   />
 
                   {/* Internal Bronchial Tree & Microvascular Arborization */}
-                  {/* Secondary bronchi */}
                   <path d="M 215 75 Q 185 82 155 95" stroke="#CBD5E1" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.8" />
                   <path d="M 185 85 Q 170 65 160 48" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
                   <path d="M 175 90 Q 155 120 148 142" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
-                  {/* Alveolar capillary branching (blue pulmonary artery + red pulmonary vein) */}
+                  {/* Alveolar capillary branching */}
                   <path d="M 210 80 Q 180 95 150 115" stroke="#0284C7" strokeWidth="1.6" fill="none" opacity="0.75" />
                   <path d="M 152 118 Q 175 108 204 94" stroke="#FFE4E6" strokeWidth="1.4" fill="none" opacity="0.75" />
 
                   {/* Anatomical Label Plaque */}
                   <g transform="translate(170, 96)">
-                    <rect x="-35" y="-12" width="70" height="24" rx="6" fill="#1E293B" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                    <rect x="-38" y="-12" width="76" height="24" rx="6" fill="#1E293B" fillOpacity="0.88" stroke="#FB7185" strokeWidth="0.8" />
                     <text x="0" y="-1" textAnchor="middle" fontSize="9.5" fontWeight="bold" fill="#FFE4E6">
-                      Pulmo Sinister
+                      Pulmo Dexter
                     </text>
                     <text x="0" y="9" textAnchor="middle" fontSize="7.5" fill="#FCA5A5">
-                      2 Lobus • Incisura
+                      3 Lobus • Fissura
                     </text>
                   </g>
                 </motion.g>
               </g>
 
-              {/* Right Lung (Pulmo Dexter - 3 Anatomical Lobes: Superior, Medius, Inferior) */}
+              {/* Left Lung (Pulmo Sinister - 2 Anatomical Lobes & Incisura Cardiaca) - Patient's Left / Viewer's Right */}
               <g
                 id="lungs-right"
                 onClick={() =>
                   showPopup(
-                    'Paru-paru Kanan (Pulmo Dexter)',
-                    'Memiliki 3 lobus: Lobus Superior, Medius, dan Inferior yang dipisahkan oleh Fissura Horizontalis dan Fissura Obliqua. Volume paru kanan sekitar 10% lebih besar daripada paru kiri.',
+                    'Paru-paru Kiri (Pulmo Sinister)',
+                    'Memiliki 2 lobus (Lobus Superior & Inferior) dipisahkan oleh Fissura Obliqua. Memiliki Incisura Cardiaca dan Lingula yang mengakomodasi letak apeks jantung.',
                     400,
                     80
                   )
@@ -790,7 +796,7 @@ export default function CirculatoryAnimation() {
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                   filter="url(#shadow-organ)"
                 >
-                  {/* Anatomical Right Lung Parenchyma */}
+                  {/* Anatomical Left Lung Parenchyma (2 Lobes & Cardiac Notch) */}
                   <path
                     d="M 415 24 
                        C 440 25 462 46 468 75 
@@ -803,19 +809,9 @@ export default function CirculatoryAnimation() {
                     strokeWidth="1.8"
                   />
 
-                  {/* Fissura Horizontalis (separates Superior and Middle lobes) */}
+                  {/* Fissura Obliqua (separates Superior and Inferior lobes) */}
                   <path
-                    d="M 466 78 Q 430 80 392 88"
-                    stroke="#4C0519"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity="0.65"
-                  />
-
-                  {/* Fissura Obliqua (separates Middle and Inferior lobes) */}
-                  <path
-                    d="M 460 115 Q 425 125 396 148"
+                    d="M 464 85 Q 425 110 396 142"
                     stroke="#4C0519"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -824,22 +820,20 @@ export default function CirculatoryAnimation() {
                   />
 
                   {/* Internal Bronchial Tree & Microvascular Arborization */}
-                  {/* Secondary bronchi */}
                   <path d="M 385 75 Q 415 82 445 95" stroke="#CBD5E1" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.8" />
                   <path d="M 415 85 Q 430 65 440 48" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
                   <path d="M 425 90 Q 445 120 452 142" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
-                  {/* Alveolar capillary branching (blue pulmonary artery + red pulmonary vein) */}
                   <path d="M 390 80 Q 420 95 450 115" stroke="#0284C7" strokeWidth="1.6" fill="none" opacity="0.75" />
                   <path d="M 448 118 Q 425 108 396 94" stroke="#FFE4E6" strokeWidth="1.4" fill="none" opacity="0.75" />
 
                   {/* Anatomical Label Plaque */}
                   <g transform="translate(430, 96)">
-                    <rect x="-35" y="-12" width="70" height="24" rx="6" fill="#1E293B" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                    <rect x="-38" y="-12" width="76" height="24" rx="6" fill="#1E293B" fillOpacity="0.88" stroke="#FB7185" strokeWidth="0.8" />
                     <text x="0" y="-1" textAnchor="middle" fontSize="9.5" fontWeight="bold" fill="#FFE4E6">
-                      Pulmo Dexter
+                      Pulmo Sinister
                     </text>
                     <text x="0" y="9" textAnchor="middle" fontSize="7.5" fill="#FCA5A5">
-                      3 Lobus • Fissura
+                      2 Lobus • Incisura
                     </text>
                   </g>
                 </motion.g>

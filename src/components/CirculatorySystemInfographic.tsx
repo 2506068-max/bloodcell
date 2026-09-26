@@ -274,14 +274,14 @@ export default function CirculatorySystemInfographic() {
 
             {/* ===== LUNGS (Anatomical Respiratory Organs) ===== */}
 
-            {/* Left Lung (Pulmo Sinister - 2 Lobes) */}
+            {/* Right Lung (Pulmo Dexter - 3 Lobes, located on Patient's Right / Viewer's Left) */}
             <g
-              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'left-lung' }))}
+              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'right-lung' }))}
               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
               className="cursor-pointer"
             >
               <motion.g
-                animate={state.hoveredOrgan === 'left-lung' ? { scale: 1.05 } : { scale: 1 }}
+                animate={state.hoveredOrgan === 'right-lung' ? { scale: 1.05 } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
                 <path
@@ -297,8 +297,9 @@ export default function CirculatorySystemInfographic() {
                   filter="url(#glow-red)"
                 />
 
-                {/* Fissura Obliqua */}
-                <path d="M 276 345 Q 315 375 354 405" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+                {/* Fissura Horizontalis & Fissura Obliqua (3 lobes) */}
+                <path d="M 272 335 Q 310 338 354 345" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+                <path d="M 278 385 Q 315 400 352 418" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
 
                 {/* Bronchial Tree Arborization */}
                 <path d="M 350 310 Q 320 325 295 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
@@ -309,20 +310,23 @@ export default function CirculatorySystemInfographic() {
                 <path d="M 345 320 Q 315 338 290 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
                 <path d="M 292 365 Q 320 350 348 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
 
-                <text x="315" y="445" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                  Paru Kiri (2 Lobus)
-                </text>
+                <g transform="translate(315, 455)">
+                  <rect x="-65" y="-12" width="130" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
+                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                    Paru Kanan (3 Lobus)
+                  </text>
+                </g>
               </motion.g>
             </g>
 
-            {/* Right Lung (Pulmo Dexter - 3 Lobes) */}
+            {/* Left Lung (Pulmo Sinister - 2 Lobes & Incisura Cardiaca, located on Patient's Left / Viewer's Right) */}
             <g
-              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'right-lung' }))}
+              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'left-lung' }))}
               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
               className="cursor-pointer"
             >
               <motion.g
-                animate={state.hoveredOrgan === 'right-lung' ? { scale: 1.05 } : { scale: 1 }}
+                animate={state.hoveredOrgan === 'left-lung' ? { scale: 1.05 } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
                 <path
@@ -338,9 +342,8 @@ export default function CirculatorySystemInfographic() {
                   filter="url(#glow-red)"
                 />
 
-                {/* Fissura Horizontalis & Fissura Obliqua */}
-                <path d="M 928 325 Q 890 328 846 335" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
-                <path d="M 922 375 Q 885 390 848 408" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+                {/* Fissura Obliqua (2 lobes) */}
+                <path d="M 924 345 Q 885 375 846 405" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
 
                 {/* Bronchial Tree Arborization */}
                 <path d="M 850 310 Q 880 325 905 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
@@ -351,9 +354,12 @@ export default function CirculatorySystemInfographic() {
                 <path d="M 855 320 Q 885 338 910 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
                 <path d="M 908 365 Q 880 350 852 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
 
-                <text x="885" y="445" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                  Paru Kanan (3 Lobus)
-                </text>
+                <g transform="translate(885, 455)">
+                  <rect x="-65" y="-12" width="130" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
+                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                    Paru Kiri (2 Lobus)
+                  </text>
+                </g>
               </motion.g>
             </g>
 
@@ -414,9 +420,12 @@ export default function CirculatorySystemInfographic() {
                 <path d="M 606 300 Q 614 365 620 440" stroke="#38BDF8" strokeWidth="1.5" fill="none" opacity="0.85" />
 
                 {/* Latin Medical Label */}
-                <text x="614" y="470" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                  Cor Humanum
-                </text>
+                <g transform="translate(614, 475)">
+                  <rect x="-55" y="-12" width="110" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
+                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                    Cor Humanum
+                  </text>
+                </g>
               </motion.g>
             </g>
 
@@ -449,8 +458,8 @@ export default function CirculatorySystemInfographic() {
               )
             })}
 
-            {/* Oxygen molecules at lungs */}
-            {[...Array(6)].map((_, i) => (
+            {/* Oxygen molecules at right lung (pulmonary gas exchange) */}
+            {[...Array(5)].map((_, i) => (
               <motion.g
                 key={`o2-${i}`}
                 initial={{ opacity: 0 }}
@@ -458,14 +467,14 @@ export default function CirculatorySystemInfographic() {
                 transition={{ delay: i * 0.1 }}
               >
                 <motion.circle
-                  cx={300 + i * 20}
-                  cy={250 + Math.sin(i) * 30}
+                  cx={290 + i * 16}
+                  cy={370 + Math.sin(i) * 15}
                   r="5"
                   fill="#FF4D6D"
-                  opacity="0.6"
+                  opacity="0.65"
                   animate={{
-                    x: [0, Math.cos(i) * 20, 0],
-                    y: [0, Math.sin(i) * 20, 0],
+                    x: [0, Math.cos(i) * 10, 0],
+                    y: [0, Math.sin(i) * 10, 0],
                   }}
                   transition={{
                     duration: 3,
@@ -474,12 +483,11 @@ export default function CirculatorySystemInfographic() {
                   }}
                 />
                 <text
-                  x={300 + i * 20}
-                  y={256}
-                  fill="#FF4D6D"
-                  fontSize="8"
+                  x={290 + i * 16}
+                  y={374 + Math.sin(i) * 15}
+                  fill="#FFFFFF"
+                  fontSize="7.5"
                   textAnchor="middle"
-                  opacity="0.5"
                   fontWeight="bold"
                 >
                   O₂
@@ -487,7 +495,7 @@ export default function CirculatorySystemInfographic() {
               </motion.g>
             ))}
 
-            {/* Carbon dioxide molecules */}
+            {/* Carbon dioxide molecules at left lung */}
             {[...Array(5)].map((_, i) => (
               <motion.g
                 key={`co2-${i}`}
@@ -496,14 +504,14 @@ export default function CirculatorySystemInfographic() {
                 transition={{ delay: i * 0.1 }}
               >
                 <motion.circle
-                  cx={900 + i * 20}
-                  cy={250 + Math.sin(i + 1) * 30}
+                  cx={860 + i * 16}
+                  cy={370 + Math.sin(i + 1) * 15}
                   r="5"
-                  fill="#4ECDC4"
-                  opacity="0.6"
+                  fill="#0284C7"
+                  opacity="0.65"
                   animate={{
-                    x: [0, Math.cos(i + 1) * 20, 0],
-                    y: [0, Math.sin(i + 1) * 20, 0],
+                    x: [0, Math.cos(i + 1) * 10, 0],
+                    y: [0, Math.sin(i + 1) * 10, 0],
                   }}
                   transition={{
                     duration: 3,
@@ -512,12 +520,11 @@ export default function CirculatorySystemInfographic() {
                   }}
                 />
                 <text
-                  x={900 + i * 20}
-                  y={256}
-                  fill="#4ECDC4"
-                  fontSize="8"
+                  x={860 + i * 16}
+                  y={374 + Math.sin(i + 1) * 15}
+                  fill="#FFFFFF"
+                  fontSize="7"
                   textAnchor="middle"
-                  opacity="0.5"
                   fontWeight="bold"
                 >
                   CO₂
@@ -525,114 +532,83 @@ export default function CirculatorySystemInfographic() {
               </motion.g>
             ))}
 
-            {/* ===== LABELS ===== */}
+            {/* ===== NON-OVERLAPPING CLEAR LABELS ===== */}
 
-            {/* Header labels */}
-            <text
-              x="300"
-              y="240"
-              fill="#4ECDC4"
-              fontSize="16"
-              fontWeight="bold"
-              textAnchor="middle"
-              className="font-semibold"
-            >
-              Paru-Paru Kiri
-            </text>
-
-            <text
-              x="900"
-              y="240"
-              fill="#4ECDC4"
-              fontSize="16"
-              fontWeight="bold"
-              textAnchor="middle"
-              className="font-semibold"
-            >
-              Paru-Paru Kanan
-            </text>
-
-            <text
-              x="600"
-              y="480"
-              fill="#FF4D6D"
-              fontSize="18"
-              fontWeight="bold"
-              textAnchor="middle"
-              className="font-semibold"
-            >
-              Jantung
-            </text>
-
-            {/* Circulation labels */}
-            <g opacity="0.7">
-              <rect x="420" y="320" width="140" height="60" fill="white" opacity="0.8" rx="8" />
+            {/* Header labels with dedicated stylish badges */}
+            <g transform="translate(315, 220)">
+              <rect x="-75" y="-14" width="150" height="28" rx="8" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-sm" />
               <text
-                x="490"
-                y="345"
-                fill="#4ECDC4"
-                fontSize="13"
+                x="0"
+                y="4"
+                fill="#0284C7"
+                fontSize="12.5"
+                fontWeight="bold"
+                textAnchor="middle"
+              >
+                Paru-Paru Kanan
+              </text>
+            </g>
+
+            <g transform="translate(885, 220)">
+              <rect x="-75" y="-14" width="150" height="28" rx="8" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700" />
+              <text
+                x="0"
+                y="4"
+                fill="#0284C7"
+                fontSize="12.5"
+                fontWeight="bold"
+                textAnchor="middle"
+              >
+                Paru-Paru Kiri
+              </text>
+            </g>
+
+            {/* Circulation labels positioned away from vessels */}
+            <g transform="translate(420, 110)">
+              <rect x="-65" y="-16" width="130" height="36" rx="10" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-md" />
+              <text
+                x="0"
+                y="-1"
+                fill="#0284C7"
+                fontSize="11.5"
                 fontWeight="bold"
                 textAnchor="middle"
               >
                 Sirkulasi Kecil
               </text>
               <text
-                x="490"
-                y="365"
-                fill="#6B7280"
-                fontSize="11"
+                x="0"
+                y="12"
+                fill="#64748B"
+                fontSize="9.5"
                 textAnchor="middle"
               >
                 (Pulmonal)
               </text>
             </g>
 
-            <g opacity="0.7">
-              <rect x="640" y="540" width="140" height="60" fill="white" opacity="0.8" rx="8" />
+            <g transform="translate(780, 110)">
+              <rect x="-65" y="-16" width="130" height="36" rx="10" fill="#FFFFFF" stroke="#E11D48" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-md" />
               <text
-                x="710"
-                y="565"
-                fill="#FF4D6D"
-                fontSize="13"
+                x="0"
+                y="-1"
+                fill="#BE123C"
+                fontSize="11.5"
                 fontWeight="bold"
                 textAnchor="middle"
               >
                 Sirkulasi Besar
               </text>
               <text
-                x="710"
-                y="585"
-                fill="#6B7280"
-                fontSize="11"
+                x="0"
+                y="12"
+                fill="#64748B"
+                fontSize="9.5"
                 textAnchor="middle"
               >
                 (Sistemik)
               </text>
             </g>
-
-            {/* Artery/Vein labels */}
-            <text
-              x="350"
-              y="150"
-              fill="#FF4D6D"
-              fontSize="12"
-              fontWeight="600"
-              opacity="0.8"
-            >
-              Arteri
-            </text>
-
-            <text
-              x="550"
-              y="150"
-              fill="#4ECDC4"
-              fontSize="12"
-              fontWeight="600"
-              opacity="0.8"
-            >
-              Vena
-            </text>
           </svg>
 
           {/* Legend and info */}

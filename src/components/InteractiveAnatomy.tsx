@@ -402,62 +402,336 @@ export default function InteractiveAnatomy() {
               )}
             </g>
 
-            {/* Interactive Anatomical Callout Labels On Diagram */}
-            <g className="text-[10px] font-bold font-sans select-none">
-              <text
-                x="90"
-                y="110"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
+            {/* Anatomical Callout Badges with Precise Leader Lines (No Overlap with Body Silhouette) */}
+            <g className="select-none font-sans">
+              {/* 1. A. Carotis (Kepala & Leher) */}
+              <g
                 onClick={() => setActiveId('carotid_vessels')}
+                className="cursor-pointer group transition-all"
               >
-                A. Carotis →
-              </text>
-              <text
-                x="65"
-                y="235"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
+                <polyline
+                  points="104,86 145,86 188,105"
+                  fill="none"
+                  stroke={activeId === 'carotid_vessels' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'carotid_vessels' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'carotid_vessels' ? 'none' : '2.5 2'}
+                />
+                <circle cx="188" cy="105" r="3" fill="#E11D48" />
+                <rect
+                  x="12"
+                  y="75"
+                  width="92"
+                  height="22"
+                  rx="6"
+                  fill={activeId === 'carotid_vessels' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'carotid_vessels' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="58"
+                  y="89.5"
+                  textAnchor="middle"
+                  fill={activeId === 'carotid_vessels' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9.5"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  A. Carotis
+                </text>
+              </g>
+
+              {/* 2. Paru Kanan (Pulmo Dexter - 3 Lobus) */}
+              <g
                 onClick={() => setActiveId('lungs')}
+                className="cursor-pointer group transition-all"
               >
-                Paru Kanan →
-              </text>
-              <text
-                x="285"
-                y="235"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
-                onClick={() => setActiveId('heart')}
-              >
-                ← Jantung
-              </text>
-              <text
-                x="285"
-                y="330"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
-                onClick={() => setActiveId('aorta')}
-              >
-                ← Aorta
-              </text>
-              <text
-                x="70"
-                y="350"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
+                <polyline
+                  points="106,227 125,227 150,240"
+                  fill="none"
+                  stroke={activeId === 'lungs' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'lungs' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'lungs' ? 'none' : '2.5 2'}
+                />
+                <circle cx="150" cy="240" r="3" fill="#BE123C" />
+                <rect
+                  x="12"
+                  y="215"
+                  width="94"
+                  height="24"
+                  rx="6"
+                  fill={activeId === 'lungs' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'lungs' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="59"
+                  y="227"
+                  textAnchor="middle"
+                  fill={activeId === 'lungs' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  Paru Kanan
+                </text>
+                <text
+                  x="59"
+                  y="236"
+                  textAnchor="middle"
+                  fill={activeId === 'lungs' ? '#FECDD3' : '#64748B'}
+                  fontSize="7.5"
+                  fontWeight="medium"
+                  className="dark:fill-slate-400"
+                >
+                  (3 Lobus)
+                </text>
+              </g>
+
+              {/* 3. Vena Kava (V. Kava) */}
+              <g
                 onClick={() => setActiveId('vena_cava')}
+                className="cursor-pointer group transition-all"
               >
-                V. Kava →
-              </text>
-              <text
-                x="240"
-                y="520"
-                fill="#0F172A"
-                className="cursor-pointer dark:fill-white"
+                <polyline
+                  points="102,349 145,349 191,335"
+                  fill="none"
+                  stroke={activeId === 'vena_cava' ? '#0284C7' : '#94A3B8'}
+                  strokeWidth={activeId === 'vena_cava' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'vena_cava' ? 'none' : '2.5 2'}
+                />
+                <circle cx="191" cy="335" r="3" fill="#0284C7" />
+                <rect
+                  x="12"
+                  y="338"
+                  width="90"
+                  height="22"
+                  rx="6"
+                  fill={activeId === 'vena_cava' ? '#0369A1' : '#FFFFFF'}
+                  stroke={activeId === 'vena_cava' ? '#075985' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="57"
+                  y="352.5"
+                  textAnchor="middle"
+                  fill={activeId === 'vena_cava' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9.5"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  Vena Kava
+                </text>
+              </g>
+
+              {/* 4. V. Femoralis (Kaki Kanan / Tungkai) */}
+              <g
                 onClick={() => setActiveId('iliac_vessels')}
+                className="cursor-pointer group transition-all"
               >
-                ← A. Femoralis
-              </text>
+                <polyline
+                  points="104,519 135,519 168,505"
+                  fill="none"
+                  stroke={activeId === 'iliac_vessels' ? '#0284C7' : '#94A3B8'}
+                  strokeWidth={activeId === 'iliac_vessels' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'iliac_vessels' ? 'none' : '2.5 2'}
+                />
+                <circle cx="168" cy="505" r="3" fill="#0284C7" />
+                <rect
+                  x="12"
+                  y="508"
+                  width="92"
+                  height="22"
+                  rx="6"
+                  fill={activeId === 'iliac_vessels' ? '#0369A1' : '#FFFFFF'}
+                  stroke={activeId === 'iliac_vessels' ? '#075985' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="58"
+                  y="522.5"
+                  textAnchor="middle"
+                  fill={activeId === 'iliac_vessels' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9.5"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  V. Femoralis
+                </text>
+              </g>
+
+              {/* 5. Jantung (Cor Humanum - Mediastinum) */}
+              <g
+                onClick={() => setActiveId('heart')}
+                className="cursor-pointer group transition-all"
+              >
+                <polyline
+                  points="296,187 255,187 214,235"
+                  fill="none"
+                  stroke={activeId === 'heart' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'heart' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'heart' ? 'none' : '2.5 2'}
+                />
+                <circle cx="214" cy="235" r="3" fill="#BE123C" />
+                <rect
+                  x="296"
+                  y="175"
+                  width="92"
+                  height="24"
+                  rx="6"
+                  fill={activeId === 'heart' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'heart' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="342"
+                  y="187"
+                  textAnchor="middle"
+                  fill={activeId === 'heart' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  Jantung
+                </text>
+                <text
+                  x="342"
+                  y="196"
+                  textAnchor="middle"
+                  fill={activeId === 'heart' ? '#FECDD3' : '#64748B'}
+                  fontSize="7.5"
+                  fontWeight="medium"
+                  className="dark:fill-slate-400"
+                >
+                  (Cor Humanum)
+                </text>
+              </g>
+
+              {/* 6. Paru Kiri (Pulmo Sinister - 2 Lobus) */}
+              <g
+                onClick={() => setActiveId('lungs')}
+                className="cursor-pointer group transition-all"
+              >
+                <polyline
+                  points="296,257 275,257 250,240"
+                  fill="none"
+                  stroke={activeId === 'lungs' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'lungs' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'lungs' ? 'none' : '2.5 2'}
+                />
+                <circle cx="250" cy="240" r="3" fill="#BE123C" />
+                <rect
+                  x="296"
+                  y="245"
+                  width="92"
+                  height="24"
+                  rx="6"
+                  fill={activeId === 'lungs' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'lungs' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="342"
+                  y="257"
+                  textAnchor="middle"
+                  fill={activeId === 'lungs' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  Paru Kiri
+                </text>
+                <text
+                  x="342"
+                  y="266"
+                  textAnchor="middle"
+                  fill={activeId === 'lungs' ? '#FECDD3' : '#64748B'}
+                  fontSize="7.5"
+                  fontWeight="medium"
+                  className="dark:fill-slate-400"
+                >
+                  (2 Lobus)
+                </text>
+              </g>
+
+              {/* 7. Aorta Sistemik */}
+              <g
+                onClick={() => setActiveId('aorta')}
+                className="cursor-pointer group transition-all"
+              >
+                <polyline
+                  points="296,339 250,339 204,328"
+                  fill="none"
+                  stroke={activeId === 'aorta' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'aorta' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'aorta' ? 'none' : '2.5 2'}
+                />
+                <circle cx="204" cy="328" r="3" fill="#BE123C" />
+                <rect
+                  x="296"
+                  y="328"
+                  width="92"
+                  height="22"
+                  rx="6"
+                  fill={activeId === 'aorta' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'aorta' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="342"
+                  y="342.5"
+                  textAnchor="middle"
+                  fill={activeId === 'aorta' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9.5"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  Aorta Sistemik
+                </text>
+              </g>
+
+              {/* 8. A. Femoralis (Kaki Kiri / Tungkai) */}
+              <g
+                onClick={() => setActiveId('iliac_vessels')}
+                className="cursor-pointer group transition-all"
+              >
+                <polyline
+                  points="296,519 265,519 228,505"
+                  fill="none"
+                  stroke={activeId === 'iliac_vessels' ? '#E11D48' : '#94A3B8'}
+                  strokeWidth={activeId === 'iliac_vessels' ? 1.8 : 1.2}
+                  strokeDasharray={activeId === 'iliac_vessels' ? 'none' : '2.5 2'}
+                />
+                <circle cx="228" cy="505" r="3" fill="#BE123C" />
+                <rect
+                  x="296"
+                  y="508"
+                  width="92"
+                  height="22"
+                  rx="6"
+                  fill={activeId === 'iliac_vessels' ? '#BE123C' : '#FFFFFF'}
+                  stroke={activeId === 'iliac_vessels' ? '#881337' : '#E2E8F0'}
+                  strokeWidth="1"
+                  className="filter drop-shadow-xs dark:fill-slate-800 dark:stroke-slate-700"
+                />
+                <text
+                  x="342"
+                  y="522.5"
+                  textAnchor="middle"
+                  fill={activeId === 'iliac_vessels' ? '#FFFFFF' : '#0F172A'}
+                  fontSize="9.5"
+                  fontWeight="bold"
+                  className="dark:fill-white"
+                >
+                  A. Femoralis
+                </text>
+              </g>
             </g>
           </svg>
         </div>
