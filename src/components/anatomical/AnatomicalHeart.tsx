@@ -567,108 +567,72 @@ function RealisticHeartSVG({ activeId }: { activeId?: string }) {
 }
 
 // Cutaway View showing internal chambers, septum, and valves
-function CutawayHeartSVG({ activeId: _activeId }: { activeId?: string }) {
+function CutawayHeartSVG({ activeId }: { activeId?: string }) {
   return (
     <svg
       viewBox="0 0 500 550"
-      className="w-full h-full max-h-[480px] object-contain"
+      className="w-full h-full max-h-[480px] object-contain select-none"
       aria-label="Cutaway Anatomical Heart"
     >
       <defs>
-        <radialGradient id="internal-myo" cx="45%" cy="40%" r="65%">
-          <stop offset="0%" stopColor="#991B1B" />
-          <stop offset="70%" stopColor="#7F1D1D" />
-          <stop offset="100%" stopColor="#450A0A" />
+        {/* Rich Myocardial Tissue Gradients */}
+        <radialGradient id="cutaway-myo" cx="45%" cy="40%" r="65%">
+          <stop offset="0%" stopColor="#BE123C" />
+          <stop offset="45%" stopColor="#9F1239" />
+          <stop offset="80%" stopColor="#881337" />
+          <stop offset="100%" stopColor="#4C0519" />
         </radialGradient>
-      </defs>
 
-      {/* Outer muscular wall cross section */}
-      <path
-        d="M 160 220 
-           C 130 260 130 330 160 380 
-           C 190 430 250 500 320 530 
-           C 360 510 420 440 440 370 
-           C 450 310 430 240 385 220 
-           Z"
-        fill="url(#internal-myo)"
-        stroke="#450A0A"
-        strokeWidth="3"
-      />
+        <radialGradient id="cutaway-rv-cavity" cx="35%" cy="45%" r="60%">
+          <stop offset="0%" stopColor="#0284C7" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#075985" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="#0C4A6E" stopOpacity="0.95" />
+        </radialGradient>
 
-      {/* Right Atrium Chamber (Deoxygenated - Blue tint) */}
-      <path
-        d="M 170 230 C 160 270 170 300 210 310 C 230 310 240 280 240 240 C 230 230 190 220 170 230 Z"
-        fill="#0284C7"
-        opacity="0.35"
-        stroke="#38BDF8"
-        strokeWidth="1.5"
-      />
-      <text x="195" y="270" fill="#E0F2FE" fontSize="12" fontWeight="bold" textAnchor="middle">
-        Atrium Kanan
-      </text>
+        <radialGradient id="cutaway-lv-cavity" cx="45%" cy="45%" r="60%">
+          <stop offset="0%" stopColor="#9F1239" stopOpacity="0.5" />
+          <stop offset="70%" stopColor="#881337" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="#4C0519" stopOpacity="0.95" />
+        </radialGradient>
 
-      {/* Left Atrium Chamber (Oxygenated - Crimson tint) */}
-      <path
-        d="M 330 230 C 370 230 380 270 370 305 C 340 310 320 280 320 240 Z"
-        fill="#E11D48"
-        opacity="0.35"
-        stroke="#FB7185"
-        strokeWidth="1.5"
-      />
-      <text x="350" y="270" fill="#FFE4E6" fontSize="12" fontWeight="bold" textAnchor="middle">
-        Atrium Kiri
-      </text>
+        <radialGradient id="cutaway-ra-cavity" cx="35%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#0284C7" stopOpacity="0.45" />
+          <stop offset="75%" stopColor="#0369A1" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#075985" stopOpacity="0.9" />
+        </radialGradient>
 
-      {/* Tricuspid Valve (Katup Trikuspid) */}
-      <path d="M 205 310 L 235 310" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="4,2" />
-      <text x="210" y="325" fill="#CBD5E1" fontSize="10">Katup Trikuspid</text>
+        <radialGradient id="cutaway-la-cavity" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#E11D48" stopOpacity="0.45" />
+          <stop offset="75%" stopColor="#BE123C" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#881337" stopOpacity="0.9" />
+        </radialGradient>
 
-      {/* Bicuspid / Mitral Valve (Katup Mitral) */}
-      <path d="M 330 310 L 360 310" stroke="#FFFFFF" strokeWidth="3" strokeDasharray="4,2" />
-      <text x="330" y="325" fill="#CBD5E1" fontSize="10">Katup Mitral</text>
+        <linearGradient id="cutaway-aorta-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#E11D48" />
+          <stop offset="50%" stopColor="#BE123C" />
+          <stop offset="100%" stopColor="#881337" />
+        </linearGradient>
 
-      {/* Right Ventricle Chamber (Miskin O2) */}
-      <path
-        d="M 190 330 C 180 380 210 430 270 460 L 270 330 Z"
-        fill="#0284C7"
-        opacity="0.45"
-        stroke="#38BDF8"
-        strokeWidth="2"
-      />
-      <text x="225" y="400" fill="#E0F2FE" fontSize="13" fontWeight="bold" textAnchor="middle">
-        Ventrikel Kanan
-      </text>
+        <linearGradient id="cutaway-cava-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="50%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#0369A1" />
+        </linearGradient>
 
-      {/* Interventricular Septum (Dinding Pemisah Otot) */}
-      <rect x="270" y="320" width="22" height="175" rx="8" fill="#7F1D1D" stroke="#450A0A" strokeWidth="1.5" />
-      <text x="281" y="415" fill="#FECDD3" fontSize="9" fontWeight="bold" transform="rotate(-90 281 415)" textAnchor="middle">
-        Septum Interventrikular
-      </text>
+        {/* Anatomical Muscle Texture & Depth Filter */}
+        <filter id="myo-depth" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#0F172A" floodOpacity="0.3" />
+        </filter>
 
-      {/* Left Ventricle Chamber (Kaya O2, Dinding Paling Tebal) */}
-      <path
-        d="M 292 330 L 292 480 C 340 460 390 410 380 340 Z"
-        fill="#BE123C"
-        opacity="0.5"
-        stroke="#F43F5E"
-        strokeWidth="2"
-      />
-      <text x="335" y="400" fill="#FFF1F2" fontSize="13" fontWeight="bold" textAnchor="middle">
-        Ventrikel Kiri
-      </text>
-      <text x="335" y="418" fill="#FDA4AF" fontSize="10" textAnchor="middle">
-        (Dinding Otot 3x Lebih Tebal)
-      </text>
+        <filter id="chamber-inner-shadow">
+          <feOffset dx="0" dy="3" />
+          <feGaussianBlur stdDeviation="3" result="offset-blur" />
+          <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+          <feFlood floodColor="#000000" floodOpacity="0.45" result="color" />
+          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
 
-      {/* Flow Arrows */}
-      <g stroke="#38BDF8" strokeWidth="2.5" fill="none" markerEnd="url(#arrow-blue)">
-        <path d="M 205 285 L 215 355" />
-      </g>
-      <g stroke="#FDA4AF" strokeWidth="2.5" fill="none" markerEnd="url(#arrow-red)">
-        <path d="M 350 285 L 340 355" />
-      </g>
-
-      <defs>
         <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#38BDF8" />
         </marker>
@@ -676,6 +640,220 @@ function CutawayHeartSVG({ activeId: _activeId }: { activeId?: string }) {
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#FDA4AF" />
         </marker>
       </defs>
+
+      {/* ===== 1. GREAT VESSELS AT THE BASE OF THE HEART ===== */}
+      <g id="great-vessels-cutaway">
+        {/* Superior Vena Cava entering Right Atrium */}
+        <path
+          d="M 168 85 L 168 185"
+          fill="none"
+          stroke="url(#cutaway-cava-grad)"
+          strokeWidth="24"
+          strokeLinecap="round"
+        />
+        <ellipse cx="168" cy="88" rx="12" ry="4.5" fill="#38BDF8" opacity="0.75" />
+
+        {/* Arch of Aorta with 3 classic branches */}
+        <path
+          d="M 235 180 C 230 95 275 75 325 75 C 375 75 390 120 390 190"
+          fill="none"
+          stroke="url(#cutaway-aorta-grad)"
+          strokeWidth="32"
+          strokeLinecap="round"
+        />
+        {/* 3 Supra-aortic arterial branches: Brachiocephalic, Left Common Carotid, Left Subclavian */}
+        <path d="M 270 85 L 260 48" stroke="#BE123C" strokeWidth="10" strokeLinecap="round" />
+        <path d="M 305 76 L 305 45" stroke="#BE123C" strokeWidth="9" strokeLinecap="round" />
+        <path d="M 345 82 L 355 48" stroke="#BE123C" strokeWidth="8" strokeLinecap="round" />
+
+        {/* Pulmonary Trunk bifurcation root */}
+        <path
+          d="M 260 195 Q 248 145 205 125 M 260 195 Q 275 145 320 135"
+          stroke="#0284C7"
+          strokeWidth="12"
+          strokeLinecap="round"
+          fill="none"
+        />
+      </g>
+
+      {/* ===== 2. REALISTIC MUSCULAR MYOCARDIUM PROFILE (COR HUMANUM CROSS-SECTION) ===== */}
+      <g filter="url(#myo-depth)">
+        {/* Outer Myocardial Shell - True Anatomical Cardiac Silhouette (Apex at lower left of organ = viewer's right) */}
+        <path
+          d="M 150 185 
+             C 115 210 110 270 125 330 
+             C 142 395 185 450 240 485 
+             C 285 515 325 530 348 528 
+             C 382 505 435 440 448 360 
+             C 458 290 425 215 385 190 
+             C 335 178 280 185 240 192 
+             C 195 182 165 175 150 185 Z"
+          fill="url(#cutaway-myo)"
+          stroke="#4C0519"
+          strokeWidth="3"
+        />
+
+        {/* Trabeculae Carneae & Muscular Wall Texturing */}
+        <g stroke="#7F1D1D" strokeWidth="2.5" fill="none" opacity="0.4">
+          <path d="M 135 340 Q 155 365 170 395" />
+          <path d="M 148 385 Q 170 415 195 440" />
+          <path d="M 430 330 Q 405 375 390 425" />
+          <path d="M 415 390 Q 385 445 355 490" />
+        </g>
+      </g>
+
+      {/* ===== 3. INTERNAL CHAMBERS (4 RUANG JANTUNG ANATOMIS) ===== */}
+
+      {/* Right Atrium (Atrium Dextrum) */}
+      <g id="chamber-ra">
+        <path
+          d="M 145 200 
+             C 130 225 132 265 155 285 
+             C 180 295 215 290 230 270 
+             C 238 245 230 215 210 200 
+             C 185 192 160 192 145 200 Z"
+          fill="url(#cutaway-ra-cavity)"
+          stroke={activeId === 'right_atrium' ? '#FFFFFF' : '#38BDF8'}
+          strokeWidth={activeId === 'right_atrium' ? '3' : '1.5'}
+          filter="url(#chamber-inner-shadow)"
+        />
+        {/* Fossa Ovalis Impression */}
+        <ellipse cx="205" cy="245" rx="8" ry="12" fill="#0C4A6E" opacity="0.6" stroke="#0284C7" strokeWidth="1" />
+        <text x="185" y="248" fill="#E0F2FE" fontSize="13" fontWeight="bold" textAnchor="middle">
+          Atrium Kanan
+        </text>
+      </g>
+
+      {/* Left Atrium (Atrium Sinistrum) */}
+      <g id="chamber-la">
+        <path
+          d="M 310 198 
+             C 300 225 305 255 320 275 
+             C 345 292 385 290 405 268 
+             C 418 245 415 220 395 202 
+             C 370 190 335 190 310 198 Z"
+          fill="url(#cutaway-la-cavity)"
+          stroke={activeId === 'left_atrium' ? '#FFFFFF' : '#FB7185'}
+          strokeWidth={activeId === 'left_atrium' ? '3' : '1.5'}
+          filter="url(#chamber-inner-shadow)"
+        />
+        {/* Pulmonary veins inlet orifices */}
+        <circle cx="390" cy="225" r="5" fill="#4C0519" stroke="#E11D48" strokeWidth="1" />
+        <circle cx="395" cy="245" r="5" fill="#4C0519" stroke="#E11D48" strokeWidth="1" />
+        <text x="355" y="248" fill="#FFE4E6" fontSize="13" fontWeight="bold" textAnchor="middle">
+          Atrium Kiri
+        </text>
+      </g>
+
+      {/* Right Ventricle (Ventriculus Dexter) */}
+      <g id="chamber-rv">
+        <path
+          d="M 152 305 
+             C 140 345 150 400 185 435 
+             C 215 460 245 470 252 470 
+             C 255 425 252 365 242 305 
+             C 210 300 178 298 152 305 Z"
+          fill="url(#cutaway-rv-cavity)"
+          stroke={activeId === 'right_ventricle' ? '#FFFFFF' : '#38BDF8'}
+          strokeWidth={activeId === 'right_ventricle' ? '3' : '2'}
+          filter="url(#chamber-inner-shadow)"
+        />
+        <text x="200" y="395" fill="#E0F2FE" fontSize="14" fontWeight="bold" textAnchor="middle">
+          Ventrikel Kanan
+        </text>
+      </g>
+
+      {/* Left Ventricle (Ventriculus Sinister - Conical Thick Cavity) */}
+      <g id="chamber-lv">
+        <path
+          d="M 285 305 
+             C 292 360 298 425 320 495 
+             C 345 480 395 425 405 365 
+             C 410 325 398 305 375 305 
+             C 345 302 315 302 285 305 Z"
+          fill="url(#cutaway-lv-cavity)"
+          stroke={activeId === 'left_ventricle' ? '#FFFFFF' : '#F43F5E'}
+          strokeWidth={activeId === 'left_ventricle' ? '3' : '2'}
+          filter="url(#chamber-inner-shadow)"
+        />
+        <text x="345" y="390" fill="#FFF1F2" fontSize="14" fontWeight="bold" textAnchor="middle">
+          Ventrikel Kiri
+        </text>
+        <text x="345" y="412" fill="#FDA4AF" fontSize="10.5" fontWeight="semibold" textAnchor="middle">
+          (Dinding Otot 3x Lebih Tebal)
+        </text>
+      </g>
+
+      {/* ===== 4. SEPTUM INTERVENTRIKULAR (MUSCULAR DIVIDING WALL) ===== */}
+      <g id="septum-interventrikulare">
+        {/* Anatomical curved muscular septum separating RV and LV */}
+        <path
+          d="M 248 300 
+             Q 256 385 278 480 
+             L 305 485 
+             Q 288 385 280 300 Z"
+          fill="#881337"
+          stroke="#4C0519"
+          strokeWidth="2"
+        />
+        {/* Muscular fiber striations */}
+        <path d="M 258 335 Q 268 340 274 338" stroke="#BE123C" strokeWidth="1.5" fill="none" opacity="0.7" />
+        <path d="M 262 385 Q 272 390 278 388" stroke="#BE123C" strokeWidth="1.5" fill="none" opacity="0.7" />
+        <path d="M 268 435 Q 278 440 286 438" stroke="#BE123C" strokeWidth="1.5" fill="none" opacity="0.7" />
+
+        <text
+          x="272"
+          y="405"
+          fill="#FECDD3"
+          fontSize="10"
+          fontWeight="bold"
+          transform="rotate(-82 272 405)"
+          textAnchor="middle"
+          letterSpacing="0.5"
+        >
+          Septum Interventrikular
+        </text>
+      </g>
+
+      {/* ===== 5. HEART VALVES & CHORDAE TENDINEAE ===== */}
+
+      {/* Tricuspid Valve (Katup Trikuspid - Antara RA dan RV) */}
+      <g id="valva-tricuspidalis">
+        {/* Fibrous Annulus & Valve Leaflets */}
+        <path d="M 165 298 Q 192 308 225 298" stroke="#FFFFFF" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        {/* Delicate Chordae Tendineae (Tali Tendon Halus) */}
+        <path d="M 178 304 L 175 330 M 188 306 L 190 334 M 205 306 L 210 334" stroke="#F8FAFC" strokeWidth="1.2" strokeDasharray="2 1.5" opacity="0.9" />
+        {/* Papillary Muscles (Mm. Papillares) */}
+        <ellipse cx="175" cy="334" rx="4.5" ry="7" fill="#7F1D1D" stroke="#4C0519" strokeWidth="1" />
+        <ellipse cx="208" cy="336" rx="4.5" ry="7" fill="#7F1D1D" stroke="#4C0519" strokeWidth="1" />
+        
+        <text x="195" y="322" fill="#E2E8F0" fontSize="10.5" fontWeight="bold" textAnchor="middle" className="drop-shadow">
+          Katup Trikuspid
+        </text>
+      </g>
+
+      {/* Bicuspid / Mitral Valve (Katup Mitral - Antara LA dan LV) */}
+      <g id="valva-mitralis">
+        {/* Fibrous Annulus & Valve Leaflets */}
+        <path d="M 315 298 Q 345 308 380 298" stroke="#FFFFFF" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        {/* Delicate Chordae Tendineae */}
+        <path d="M 330 305 L 332 335 M 345 307 L 348 338 M 365 305 L 362 335" stroke="#F8FAFC" strokeWidth="1.2" strokeDasharray="2 1.5" opacity="0.9" />
+        {/* Robust Left Ventricle Papillary Muscles */}
+        <ellipse cx="333" cy="338" rx="5.5" ry="8" fill="#7F1D1D" stroke="#4C0519" strokeWidth="1" />
+        <ellipse cx="362" cy="338" rx="5.5" ry="8" fill="#7F1D1D" stroke="#4C0519" strokeWidth="1" />
+
+        <text x="350" y="322" fill="#E2E8F0" fontSize="10.5" fontWeight="bold" textAnchor="middle" className="drop-shadow">
+          Katup Mitral
+        </text>
+      </g>
+
+      {/* ===== 6. HEMODYNAMIC FLOW ARROWS ===== */}
+      <g stroke="#38BDF8" strokeWidth="3" fill="none" markerEnd="url(#arrow-blue)">
+        <path d="M 195 262 Q 200 288 200 348" />
+      </g>
+      <g stroke="#FDA4AF" strokeWidth="3" fill="none" markerEnd="url(#arrow-red)">
+        <path d="M 355 262 Q 350 288 348 348" />
+      </g>
     </svg>
   )
 }
