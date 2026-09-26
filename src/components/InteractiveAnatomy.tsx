@@ -161,6 +161,25 @@ export default function InteractiveAnatomy() {
                 <stop offset="50%" stopColor="#0284C7" />
                 <stop offset="100%" stopColor="#0369A1" />
               </linearGradient>
+              {/* Realistic Organ Gradients for Torso Atlas */}
+              <radialGradient id="torso-heart-grad" cx="45%" cy="38%" r="65%">
+                <stop offset="0%" stopColor="#E11D48" />
+                <stop offset="45%" stopColor="#BE123C" />
+                <stop offset="85%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4C0519" />
+              </radialGradient>
+              <radialGradient id="torso-lung-r" cx="60%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#FDA4AF" />
+                <stop offset="40%" stopColor="#F43F5E" />
+                <stop offset="75%" stopColor="#BE123C" />
+                <stop offset="100%" stopColor="#881337" />
+              </radialGradient>
+              <radialGradient id="torso-lung-l" cx="40%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#FDA4AF" />
+                <stop offset="40%" stopColor="#F43F5E" />
+                <stop offset="75%" stopColor="#BE123C" />
+                <stop offset="100%" stopColor="#881337" />
+              </radialGradient>
             </defs>
 
             {/* Realistic Human Torso Silhouette Outline */}
@@ -178,31 +197,62 @@ export default function InteractiveAnatomy() {
               strokeWidth="1.5"
             />
 
-            {/* Bilateral Lungs Silhouette */}
+            {/* Bilateral Lungs Anatomical Lobes */}
             <g
               id="node-lungs"
               onClick={() => setActiveId('lungs')}
               className="cursor-pointer group"
               opacity={systemFilter === 'systemic' ? 0.35 : 1}
             >
-              {/* Right Lung */}
-              <path
-                d="M 175 190 C 150 190 130 210 125 240 C 120 270 130 290 150 295 C 165 300 175 270 175 240 Z"
-                fill="#FDA4AF"
-                opacity={activeId === 'lungs' ? 0.65 : 0.35}
-                stroke="#E11D48"
-                strokeWidth={activeId === 'lungs' ? 2 : 1}
-                className="transition-all duration-300"
-              />
-              {/* Left Lung with Cardiac Notch */}
-              <path
-                d="M 225 190 C 250 190 270 210 275 240 C 280 270 270 290 250 295 C 235 285 230 270 230 240 Z"
-                fill="#FDA4AF"
-                opacity={activeId === 'lungs' ? 0.65 : 0.35}
-                stroke="#E11D48"
-                strokeWidth={activeId === 'lungs' ? 2 : 1}
-                className="transition-all duration-300"
-              />
+              {/* Trachea & Bronchi Bifurcation */}
+              <path d="M 197 165 L 197 195 M 203 165 L 203 195" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="1.5 2" />
+              <path d="M 200 195 Q 185 202 165 210 M 200 195 Q 215 202 235 210" stroke="#94A3B8" strokeWidth="2" fill="none" opacity="0.7" />
+
+              {/* Right Lung (Pulmo Dexter - 3 Lobes) */}
+              <g className="transition-all duration-300">
+                <path
+                  d="M 175 185 
+                     C 152 184 132 200 126 226 
+                     C 120 252 124 278 134 294 
+                     C 146 302 166 300 178 288 
+                     C 178 266 176 230 176 205 
+                     C 176 195 178 188 175 185 Z"
+                  fill="url(#torso-lung-r)"
+                  opacity={activeId === 'lungs' ? 0.95 : 0.65}
+                  stroke={activeId === 'lungs' ? '#FFFFFF' : '#881337'}
+                  strokeWidth={activeId === 'lungs' ? 2.2 : 1}
+                  className="filter drop-shadow-sm transition-all duration-300"
+                />
+                {/* Horizontal fissure & Oblique fissure */}
+                <path d="M 128 238 Q 150 236 176 242" stroke="#4C0519" strokeWidth="1" fill="none" opacity="0.6" />
+                <path d="M 132 268 Q 155 264 176 255" stroke="#4C0519" strokeWidth="1" fill="none" opacity="0.6" />
+                {/* Bronchial arborization */}
+                <path d="M 170 215 Q 152 225 140 245" stroke="#FFE4E6" strokeWidth="1" fill="none" opacity="0.5" />
+                <path d="M 155 230 Q 148 215 142 205" stroke="#FFE4E6" strokeWidth="0.8" fill="none" opacity="0.5" />
+              </g>
+
+              {/* Left Lung with Incisura Cardiaca (Pulmo Sinister - 2 Lobes) */}
+              <g className="transition-all duration-300">
+                <path
+                  d="M 225 185 
+                     C 248 184 268 200 274 226 
+                     C 280 252 276 278 266 294 
+                     C 254 302 234 300 222 288 
+                     C 226 272 230 256 226 240 
+                     C 222 225 222 205 224 195 
+                     C 225 190 224 186 225 185 Z"
+                  fill="url(#torso-lung-l)"
+                  opacity={activeId === 'lungs' ? 0.95 : 0.65}
+                  stroke={activeId === 'lungs' ? '#FFFFFF' : '#881337'}
+                  strokeWidth={activeId === 'lungs' ? 2.2 : 1}
+                  className="filter drop-shadow-sm transition-all duration-300"
+                />
+                {/* Oblique fissure */}
+                <path d="M 272 242 Q 250 258 224 274" stroke="#4C0519" strokeWidth="1" fill="none" opacity="0.6" />
+                {/* Bronchial arborization */}
+                <path d="M 230 215 Q 248 225 260 245" stroke="#FFE4E6" strokeWidth="1" fill="none" opacity="0.5" />
+                <path d="M 245 230 Q 252 215 258 205" stroke="#FFE4E6" strokeWidth="0.8" fill="none" opacity="0.5" />
+              </g>
             </g>
 
             {/* Major Arteries (Red / Crimson) */}
@@ -307,32 +357,47 @@ export default function InteractiveAnatomy() {
               />
             </g>
 
-            {/* Heart Focal Center (Mediastinum) */}
+            {/* Heart Focal Center (Cor Humanum - Mediastinum) */}
             <g
               id="node-heart"
               onClick={() => setActiveId('heart')}
               className="cursor-pointer group"
             >
-              <ellipse
-                cx="198"
-                cy="235"
-                rx="24"
-                ry="28"
-                fill="#BE123C"
-                stroke={activeId === 'heart' ? '#FFFFFF' : '#881337'}
-                strokeWidth={activeId === 'heart' ? 3 : 1.5}
+              {/* Aortic root & Pulmonary trunk stump */}
+              <path d="M 194 212 C 194 198 206 195 214 204" stroke="#BE123C" strokeWidth="5" fill="none" strokeLinecap="round" />
+              <path d="M 190 212 L 188 200" stroke="#0284C7" strokeWidth="4" strokeLinecap="round" fill="none" />
+
+              {/* Anatomical Heart Body with natural apex pointing to anatomical left */}
+              <path
+                d="M 188 214 
+                   C 174 222 172 242 182 258 
+                   C 192 274 204 282 214 286 
+                   C 224 276 235 252 232 232 
+                   C 230 216 214 212 202 214 
+                   C 196 212 190 212 188 214 Z"
+                fill="url(#torso-heart-grad)"
+                stroke={activeId === 'heart' ? '#FFFFFF' : '#4C0519'}
+                strokeWidth={activeId === 'heart' ? 2.5 : 1.2}
                 className="transition-all duration-300 filter drop-shadow-md"
               />
+
+              {/* Coronary sulcus and anterior descending artery (LAD) */}
               <path
-                d="M 190 220 Q 200 240 210 255"
+                d="M 198 216 Q 204 246 213 284"
                 stroke="#F43F5E"
-                strokeWidth="1.8"
+                strokeWidth="1.6"
+                strokeLinecap="round"
                 fill="none"
               />
+              <path d="M 201 234 Q 212 244 222 252" stroke="#F43F5E" strokeWidth="1" fill="none" />
+              <path d="M 200 248 Q 192 258 186 266" stroke="#F43F5E" strokeWidth="1" fill="none" />
+              <path d="M 199 224 Q 205 252 212 284" stroke="#38BDF8" strokeWidth="1" fill="none" opacity="0.8" />
+
+              {/* Active selection pulse animation */}
               {activeId === 'heart' && (
-                <circle cx="198" cy="235" r="32" stroke="#BE123C" strokeWidth="1.5" fill="none" opacity="0.6">
-                  <animate attributeName="r" values="24;36;24" dur="1.5s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.8;0;0.8" dur="1.5s" repeatCount="indefinite" />
+                <circle cx="204" cy="246" r="38" stroke="#F43F5E" strokeWidth="1.5" fill="none" opacity="0.7">
+                  <animate attributeName="r" values="30;46;30" dur="1.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="1.4s" repeatCount="indefinite" />
                 </circle>
               )}
             </g>

@@ -118,6 +118,21 @@ export default function CirculatorySystemInfographic() {
                 <stop offset="100%" style={{ stopColor: '#FF4D6D', stopOpacity: 1 }} />
               </linearGradient>
 
+              {/* Realistic Anatomical Organ Gradients */}
+              <radialGradient id="info-lung-grad" cx="45%" cy="35%" r="65%">
+                <stop offset="0%" stopColor="#FDA4AF" />
+                <stop offset="45%" stopColor="#F43F5E" />
+                <stop offset="85%" stopColor="#BE123C" />
+                <stop offset="100%" stopColor="#881337" />
+              </radialGradient>
+
+              <radialGradient id="info-myo-grad" cx="45%" cy="38%" r="65%">
+                <stop offset="0%" stopColor="#E11D48" />
+                <stop offset="45%" stopColor="#BE123C" />
+                <stop offset="80%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4C0519" />
+              </radialGradient>
+
               <pattern id="alveoli" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                 <circle cx="10" cy="10" r="6" fill="#4ECDC4" opacity="0.6" />
               </pattern>
@@ -257,98 +272,151 @@ export default function CirculatorySystemInfographic() {
               filter="url(#glow-cyan)"
             />
 
-            {/* ===== LUNGS ===== */}
+            {/* ===== LUNGS (Anatomical Respiratory Organs) ===== */}
 
-            {/* Left Lung */}
-            <g onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'left-lung' }))}
-               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}>
-              <motion.path
-                d="M 300 280 Q 280 300 285 360 Q 290 400 310 420 Q 340 410 350 360 Q 355 320 340 280 Z"
-                fill="url(#blood-poor)"
-                opacity="0.4"
-                stroke="#4ECDC4"
-                strokeWidth="2"
-                animate={state.hoveredOrgan === 'left-lung' ? { scale: 1.1 } : { scale: 1 }}
+            {/* Left Lung (Pulmo Sinister - 2 Lobes) */}
+            <g
+              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'left-lung' }))}
+              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
+              className="cursor-pointer"
+            >
+              <motion.g
+                animate={state.hoveredOrgan === 'left-lung' ? { scale: 1.05 } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
-              />
+              >
+                <path
+                  d="M 330 260 
+                     C 300 262 278 286 270 320 
+                     C 262 355 266 395 280 422 
+                     C 298 438 335 432 355 410 
+                     C 358 385 352 355 355 330 
+                     C 358 300 355 265 330 260 Z"
+                  fill="url(#info-lung-grad)"
+                  stroke="#881337"
+                  strokeWidth="2.2"
+                  filter="url(#glow-red)"
+                />
 
-              {/* Bronchus detail */}
-              <g opacity="0.7">
-                <line x1="315" y1="300" x2="310" y2="330" stroke="#4ECDC4" strokeWidth="1.5" />
-                <line x1="315" y1="300" x2="320" y2="330" stroke="#4ECDC4" strokeWidth="1.5" />
-                <line x1="310" y1="330" x2="305" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-                <line x1="310" y1="330" x2="315" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-                <line x1="320" y1="330" x2="320" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-              </g>
+                {/* Fissura Obliqua */}
+                <path d="M 276 345 Q 315 375 354 405" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+
+                {/* Bronchial Tree Arborization */}
+                <path d="M 350 310 Q 320 325 295 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
+                <path d="M 320 328 Q 305 305 295 285" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
+                <path d="M 315 340 Q 295 380 288 410" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
+
+                {/* Pulmonary microvascular branch (Cyan venous / Red arterial) */}
+                <path d="M 345 320 Q 315 338 290 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
+                <path d="M 292 365 Q 320 350 348 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
+
+                <text x="315" y="445" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                  Paru Kiri (2 Lobus)
+                </text>
+              </motion.g>
             </g>
 
-            {/* Right Lung */}
-            <g onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'right-lung' }))}
-               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}>
-              <motion.path
-                d="M 900 280 Q 920 300 915 360 Q 910 400 890 420 Q 860 410 850 360 Q 845 320 860 280 Z"
-                fill="url(#blood-poor)"
-                opacity="0.4"
-                stroke="#4ECDC4"
-                strokeWidth="2"
-                animate={state.hoveredOrgan === 'right-lung' ? { scale: 1.1 } : { scale: 1 }}
+            {/* Right Lung (Pulmo Dexter - 3 Lobes) */}
+            <g
+              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'right-lung' }))}
+              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
+              className="cursor-pointer"
+            >
+              <motion.g
+                animate={state.hoveredOrgan === 'right-lung' ? { scale: 1.05 } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
-              />
+              >
+                <path
+                  d="M 870 260 
+                     C 900 262 922 286 930 320 
+                     C 938 355 934 395 920 422 
+                     C 902 438 865 432 845 410 
+                     C 842 385 848 355 845 330 
+                     C 842 300 845 265 870 260 Z"
+                  fill="url(#info-lung-grad)"
+                  stroke="#881337"
+                  strokeWidth="2.2"
+                  filter="url(#glow-red)"
+                />
 
-              {/* Bronchus detail */}
-              <g opacity="0.7">
-                <line x1="885" y1="300" x2="890" y2="330" stroke="#4ECDC4" strokeWidth="1.5" />
-                <line x1="885" y1="300" x2="880" y2="330" stroke="#4ECDC4" strokeWidth="1.5" />
-                <line x1="890" y1="330" x2="895" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-                <line x1="890" y1="330" x2="885" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-                <line x1="880" y1="330" x2="880" y2="360" stroke="#4ECDC4" strokeWidth="1" />
-              </g>
+                {/* Fissura Horizontalis & Fissura Obliqua */}
+                <path d="M 928 325 Q 890 328 846 335" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+                <path d="M 922 375 Q 885 390 848 408" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
+
+                {/* Bronchial Tree Arborization */}
+                <path d="M 850 310 Q 880 325 905 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
+                <path d="M 880 328 Q 895 305 905 285" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
+                <path d="M 885 340 Q 905 380 912 410" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
+
+                {/* Pulmonary microvascular branch */}
+                <path d="M 855 320 Q 885 338 910 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
+                <path d="M 908 365 Q 880 350 852 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
+
+                <text x="885" y="445" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                  Paru Kanan (3 Lobus)
+                </text>
+              </motion.g>
             </g>
 
-            {/* ===== HEART ===== */}
+            {/* ===== HEART (Cor Humanum) ===== */}
             <g
               onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'heart' }))}
               onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
+              className="cursor-pointer"
             >
               {/* Anatomical Heart Structure */}
               <motion.g
                 variants={pulseVariants}
                 animate={state.hoveredOrgan === 'heart' ? ['pulse'] : 'pulse'}
               >
-                {/* Aorta Arch atop heart */}
+                {/* Aorta Arch atop heart with 3 branches */}
                 <path
-                  d="M 585 270 C 585 240 600 230 615 230 C 630 230 635 245 635 270"
+                  d="M 578 270 C 578 230 600 215 620 215 C 640 215 646 235 646 270"
                   fill="none"
                   stroke="#BE123C"
-                  strokeWidth="8"
+                  strokeWidth="11"
                   strokeLinecap="round"
                 />
-                {/* Vena cava superior */}
-                <path d="M 570 240 L 570 270" stroke="#0284C7" strokeWidth="6" strokeLinecap="round" fill="none" />
+                <path d="M 602 222 L 598 198" stroke="#E11D48" strokeWidth="4.5" strokeLinecap="round" />
+                <path d="M 618 217 L 618 195" stroke="#E11D48" strokeWidth="4" strokeLinecap="round" />
+                <path d="M 632 220 L 636 198" stroke="#E11D48" strokeWidth="3.5" strokeLinecap="round" />
 
-                {/* Anatomical Heart Body */}
+                {/* Vena cava superior root */}
+                <path d="M 562 230 L 562 270" stroke="#0284C7" strokeWidth="9" strokeLinecap="round" fill="none" />
+
+                {/* Anatomical Heart Body Profile */}
                 <path
-                  d="M 560 270 
-                     C 535 290 535 330 555 365 
-                     C 575 400 600 425 615 435 
-                     C 635 410 665 360 665 310 
-                     C 660 275 630 270 605 275 
-                     C 585 270 570 265 560 270 Z"
-                  fill="#991B1B"
-                  stroke="#BE123C"
-                  strokeWidth="2"
+                  d="M 552 270 
+                     C 525 292 525 340 550 378 
+                     C 572 414 602 442 622 452 
+                     C 648 426 680 372 680 312 
+                     C 674 272 642 268 612 274 
+                     C 588 268 565 264 552 270 Z"
+                  fill="url(#info-myo-grad)"
+                  stroke="#4C0519"
+                  strokeWidth="2.5"
                   filter="url(#glow-red)"
                 />
 
-                {/* Coronary Vessels */}
-                <path d="M 595 285 Q 602 340 615 425" stroke="#450A0A" strokeWidth="2" fill="none" opacity="0.6" />
-                <path d="M 598 290 Q 606 335 613 415" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
-                <path d="M 602 305 Q 615 320 625 335" stroke="#F43F5E" strokeWidth="1" fill="none" />
-                <path d="M 599 340 Q 590 355 580 370" stroke="#F43F5E" strokeWidth="1" fill="none" />
+                {/* Internal chambers cutaway tint */}
+                {/* Right Atrium & Ventricle */}
+                <path d="M 548 280 C 538 300 542 330 558 350 C 568 335 568 300 558 280 Z" fill="#0284C7" opacity="0.35" />
+                {/* Left Atrium & Ventricle */}
+                <path d="M 615 280 C 625 305 625 345 615 365 C 645 350 658 320 652 280 Z" fill="#E11D48" opacity="0.4" />
 
-                {/* Chambers Highlight */}
-                <ellipse cx="575" cy="330" rx="14" ry="20" fill="#0284C7" opacity="0.3" />
-                <ellipse cx="625" cy="330" rx="15" ry="22" fill="#E11D48" opacity="0.35" />
+                {/* Interventricular Septum */}
+                <path d="M 598 280 Q 604 360 618 446" stroke="#4C0519" strokeWidth="4" fill="none" opacity="0.5" />
+
+                {/* Coronary Vessels (Arteria Coronaria) */}
+                <path d="M 602 285 Q 608 350 620 442" stroke="#450A0A" strokeWidth="2.5" fill="none" opacity="0.5" />
+                <path d="M 604 290 Q 612 345 618 435" stroke="#F43F5E" strokeWidth="2" fill="none" />
+                <path d="M 608 312 Q 624 330 638 348" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
+                <path d="M 605 355 Q 594 374 582 390" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
+                <path d="M 606 300 Q 614 365 620 440" stroke="#38BDF8" strokeWidth="1.5" fill="none" opacity="0.85" />
+
+                {/* Latin Medical Label */}
+                <text x="614" y="470" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
+                  Cor Humanum
+                </text>
               </motion.g>
             </g>
 

@@ -233,6 +233,59 @@ export default function CirculatoryAnimation() {
                 <stop offset="100%" style={{ stopColor: '#0D47A1', stopOpacity: 1 }} />
               </linearGradient>
 
+              {/* Realistic Myocardium & Cardiac Gradients */}
+              <radialGradient id="myo-base" cx="45%" cy="40%" r="65%">
+                <stop offset="0%" stopColor="#BE123C" />
+                <stop offset="45%" stopColor="#9F1239" />
+                <stop offset="80%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4C0519" />
+              </radialGradient>
+
+              <radialGradient id="rv-cavity" cx="40%" cy="45%" r="60%">
+                <stop offset="0%" stopColor="#0369A1" stopOpacity="0.45" />
+                <stop offset="70%" stopColor="#075985" stopOpacity="0.65" />
+                <stop offset="100%" stopColor="#0C4A6E" stopOpacity="0.85" />
+              </radialGradient>
+
+              <radialGradient id="lv-cavity" cx="45%" cy="45%" r="60%">
+                <stop offset="0%" stopColor="#9F1239" stopOpacity="0.45" />
+                <stop offset="70%" stopColor="#881337" stopOpacity="0.65" />
+                <stop offset="100%" stopColor="#4C0519" stopOpacity="0.85" />
+              </radialGradient>
+
+              <linearGradient id="aorta-arch-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#E11D48" />
+                <stop offset="50%" stopColor="#BE123C" />
+                <stop offset="100%" stopColor="#9F1239" />
+              </linearGradient>
+
+              <linearGradient id="cava-stem-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#38BDF8" />
+                <stop offset="50%" stopColor="#0284C7" />
+                <stop offset="100%" stopColor="#0369A1" />
+              </linearGradient>
+
+              {/* Realistic Lung Parenchyma (Atlas Standard) */}
+              <radialGradient id="lung-grad-left" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#FDA4AF" />
+                <stop offset="35%" stopColor="#FB7185" />
+                <stop offset="70%" stopColor="#E11D48" />
+                <stop offset="100%" stopColor="#9F1239" />
+              </radialGradient>
+
+              <radialGradient id="lung-grad-right" cx="65%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#FDA4AF" />
+                <stop offset="35%" stopColor="#FB7185" />
+                <stop offset="70%" stopColor="#E11D48" />
+                <stop offset="100%" stopColor="#9F1239" />
+              </radialGradient>
+
+              <linearGradient id="trachea-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#94A3B8" />
+                <stop offset="50%" stopColor="#CBD5E1" />
+                <stop offset="100%" stopColor="#64748B" />
+              </linearGradient>
+
               <filter id="glow-red">
                 <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                 <feMerge>
@@ -255,6 +308,10 @@ export default function CirculatoryAnimation() {
                   <feMergeNode in="coloredBlur" />
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
+              </filter>
+
+              <filter id="shadow-organ" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#0F172A" floodOpacity="0.2" />
               </filter>
             </defs>
 
@@ -435,13 +492,13 @@ export default function CirculatoryAnimation() {
               </marker>
             </defs>
 
-            {/* Heart - Center */}
+            {/* Heart - Center Anatomical Organ */}
             <g
               id="heart"
               onClick={() =>
                 showPopup(
-                  'Jantung',
-                  'Organ utama yang memompa darah. Terdiri dari 4 ruang: 2 atrium dan 2 ventrikel.',
+                  'Jantung (Cor Humanum)',
+                  'Organ pemompa hemodinamik utama dengan 4 ruang: Atrium Dextrum & Sinistrum, serta Ventriculus Dexter & Sinister. Dilengkapi septum interventriculare tebal, katup atrioventrikular, dan vaskularisasi koroner.',
                   300,
                   200
                 )
@@ -450,81 +507,209 @@ export default function CirculatoryAnimation() {
               onMouseLeave={() => setHoveredLabel(null)}
               style={{ cursor: 'pointer' }}
             >
-              {/* Anatomical Heart - Muscular myocardium, chambers, and great vessels */}
               <motion.g
-                animate={isPlaying ? { scale: [1, 1.025, 0.995, 1.015, 1] } : {}}
+                animate={isPlaying ? { scale: [1, 1.025, 0.995, 1.018, 1] } : {}}
                 transition={{ duration: 1.0, repeat: Infinity, times: [0, 0.15, 0.3, 0.45, 1], ease: 'easeInOut' }}
+                filter="url(#shadow-organ)"
               >
-                {/* Aorta Arch */}
+                {/* Great Vessels Behind Heart */}
+                {/* Superior Vena Cava entering Right Atrium */}
                 <path
-                  d="M 285 180 C 285 140 300 130 320 130 C 340 130 345 150 345 175"
+                  d="M 264 130 L 264 185"
                   fill="none"
-                  stroke="#BE123C"
-                  strokeWidth="10"
+                  stroke="url(#cava-stem-grad)"
+                  strokeWidth="11"
                   strokeLinecap="round"
                 />
-                {/* Superior Vena Cava */}
+                <ellipse cx="264" cy="132" rx="5.5" ry="2" fill="#38BDF8" opacity="0.8" />
+
+                {/* Arch of Aorta with 3 classic branches */}
+                {/* Truncus Brachiocephalicus, A. Carotis Sinistra, A. Subclavia Sinistra */}
                 <path
-                  d="M 265 135 L 265 180"
+                  d="M 288 178 C 286 135 304 120 324 120 C 344 120 352 142 352 178"
                   fill="none"
+                  stroke="url(#aorta-arch-grad)"
+                  strokeWidth="13"
+                  strokeLinecap="round"
+                />
+                {/* 3 Supra-aortic arterial branches */}
+                <path d="M 302 128 L 297 108" stroke="#E11D48" strokeWidth="4.5" strokeLinecap="round" />
+                <path d="M 318 122 L 318 105" stroke="#E11D48" strokeWidth="4" strokeLinecap="round" />
+                <path d="M 334 125 L 338 108" stroke="#E11D48" strokeWidth="3.5" strokeLinecap="round" />
+
+                {/* Pulmonary Trunk bifurcation */}
+                <path
+                  d="M 298 190 Q 292 165 272 152 M 298 190 Q 306 165 328 155"
                   stroke="#0284C7"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   strokeLinecap="round"
+                  fill="none"
                 />
 
-                {/* Main Ventricular Myocardium (Anatomical asymmetrical shape) */}
+                {/* Main Ventricular & Atrial Silhouette - Anatomical Muscular Profile */}
                 <path
-                  d="M 255 180 
-                     C 235 200 235 240 255 270 
-                     C 275 300 300 325 320 335 
-                     C 340 315 365 270 365 220 
-                     C 360 185 330 180 305 185 
-                     C 285 180 265 175 255 180 Z"
-                  fill="#991B1B"
-                  stroke="#7F1D1D"
-                  strokeWidth="2.5"
-                  filter="url(#glow-heart)"
+                  d="M 252 178 
+                     C 232 195 230 238 248 274 
+                     C 268 312 296 338 318 348 
+                     C 342 330 372 278 372 218 
+                     C 368 178 335 174 308 180 
+                     C 285 174 262 172 252 178 Z"
+                  fill="url(#myo-base)"
+                  stroke="#4C0519"
+                  strokeWidth="2"
                 />
 
-                {/* Sulcus groove & Coronary vessels */}
-                <path d="M 295 190 Q 302 250 318 330" stroke="#450A0A" strokeWidth="2.5" fill="none" opacity="0.6" />
-                <path d="M 297 195 Q 305 240 315 320" stroke="#F43F5E" strokeWidth="1.8" fill="none" />
-                <path d="M 302 210 Q 315 225 330 240" stroke="#F43F5E" strokeWidth="1.2" fill="none" />
-                <path d="M 298 250 Q 285 270 275 285" stroke="#F43F5E" strokeWidth="1.2" fill="none" />
-                <path d="M 300 205 Q 308 260 317 325" stroke="#38BDF8" strokeWidth="1.2" fill="none" opacity="0.8" />
+                {/* Muscular Cutaway & Internal Chamber Cavities */}
+                {/* Right Atrium (Atrium Dextrum) internal fossa */}
+                <path
+                  d="M 248 186 C 240 200 242 222 252 232 C 265 234 278 226 284 212 C 286 196 274 186 258 186 Z"
+                  fill="url(#rv-cavity)"
+                  stroke="#0284C7"
+                  strokeWidth="1.2"
+                  opacity="0.85"
+                />
+                
+                {/* Left Atrium (Atrium Sinistrum) internal cavity */}
+                <path
+                  d="M 314 186 C 326 186 348 194 352 212 C 354 226 342 234 328 232 C 320 220 318 200 314 186 Z"
+                  fill="url(#lv-cavity)"
+                  stroke="#E11D48"
+                  strokeWidth="1.2"
+                  opacity="0.85"
+                />
 
-                {/* 4 Chamber Divisions */}
-                <rect x="252" y="195" width="38" height="32" rx="10" fill="#0284C7" opacity="0.35" />
-                <text x="271" y="215" fontSize="10" fill="#E0F2FE" fontWeight="bold" textAnchor="middle">
-                  RA
-                </text>
+                {/* Right Ventricle (Ventriculus Dexter) */}
+                <path
+                  d="M 252 238 C 248 260 258 288 274 304 C 288 318 296 322 298 322 C 298 300 294 270 290 242 C 276 240 262 236 252 238 Z"
+                  fill="url(#rv-cavity)"
+                  stroke="#0284C7"
+                  strokeWidth="1.2"
+                  opacity="0.9"
+                />
 
-                <rect x="312" y="195" width="38" height="32" rx="10" fill="#E11D48" opacity="0.35" />
-                <text x="331" y="215" fontSize="10" fill="#FFE4E6" fontWeight="bold" textAnchor="middle">
-                  LA
-                </text>
+                {/* Left Ventricle (Ventriculus Sinister) - Thick conical myocardium to apex */}
+                <path
+                  d="M 304 242 C 308 270 312 300 316 336 C 330 324 354 286 354 242 C 338 238 318 238 304 242 Z"
+                  fill="url(#lv-cavity)"
+                  stroke="#BE123C"
+                  strokeWidth="1.2"
+                  opacity="0.9"
+                />
 
-                <rect x="258" y="235" width="40" height="42" rx="12" fill="#0284C7" opacity="0.45" />
-                <text x="278" y="260" fontSize="10" fill="#E0F2FE" fontWeight="bold" textAnchor="middle">
-                  RV
-                </text>
+                {/* Septum Interventriculare (Thick muscular dividing wall) */}
+                <path
+                  d="M 292 238 Q 296 282 306 338"
+                  stroke="#7F1D1D"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M 293 242 Q 297 282 306 334"
+                  stroke="#BE123C"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.7"
+                />
 
-                <rect x="306" y="235" width="45" height="52" rx="12" fill="#BE123C" opacity="0.5" />
-                <text x="328" y="262" fontSize="10" fill="#FFE4E6" fontWeight="bold" textAnchor="middle">
-                  LV
+                {/* Heart Valves & Chordae Tendineae Details */}
+                {/* Tricuspid Valve in Right Heart */}
+                <path d="M 254 236 Q 268 244 282 238" stroke="#E2E8F0" strokeWidth="2" fill="none" opacity="0.9" />
+                <path d="M 264 241 L 262 258 M 272 241 L 274 258" stroke="#F8FAFC" strokeWidth="1" strokeDasharray="1 1.5" opacity="0.8" />
+                <circle cx="262" cy="260" r="2.2" fill="#7F1D1D" />
+                <circle cx="274" cy="260" r="2.2" fill="#7F1D1D" />
+
+                {/* Mitral / Bicuspid Valve in Left Heart */}
+                <path d="M 312 238 Q 328 245 346 238" stroke="#E2E8F0" strokeWidth="2" fill="none" opacity="0.9" />
+                <path d="M 322 242 L 324 262 M 336 242 L 334 262" stroke="#F8FAFC" strokeWidth="1" strokeDasharray="1 1.5" opacity="0.8" />
+                <circle cx="324" cy="264" r="2.5" fill="#7F1D1D" />
+                <circle cx="334" cy="264" r="2.5" fill="#7F1D1D" />
+
+                {/* Anterior Interventricular Sulcus & Coronary Vessels */}
+                <path d="M 302 188 Q 306 250 318 344" stroke="#450A0A" strokeWidth="2.5" fill="none" opacity="0.4" />
+                <path d="M 304 192 Q 308 246 317 338" stroke="#F43F5E" strokeWidth="2" fill="none" />
+                <path d="M 308 215 Q 324 232 342 248" stroke="#F43F5E" strokeWidth="1.4" fill="none" />
+                <path d="M 304 256 Q 288 274 274 290" stroke="#F43F5E" strokeWidth="1.4" fill="none" />
+                <path d="M 306 200 Q 312 262 319 338" stroke="#38BDF8" strokeWidth="1.4" fill="none" opacity="0.85" />
+
+                {/* Elegant Anatomical Chamber Tags */}
+                {/* RA */}
+                <g transform="translate(254, 202)">
+                  <rect x="-14" y="-9" width="28" height="18" rx="5" fill="#0C4A6E" fillOpacity="0.85" stroke="#38BDF8" strokeWidth="0.8" />
+                  <text x="0" y="3.5" fontSize="9" fill="#E0F2FE" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">RA</text>
+                </g>
+                {/* LA */}
+                <g transform="translate(334, 202)">
+                  <rect x="-14" y="-9" width="28" height="18" rx="5" fill="#881337" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                  <text x="0" y="3.5" fontSize="9" fill="#FFE4E6" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">LA</text>
+                </g>
+                {/* RV */}
+                <g transform="translate(272, 276)">
+                  <rect x="-14" y="-9" width="28" height="18" rx="5" fill="#075985" fillOpacity="0.85" stroke="#38BDF8" strokeWidth="0.8" />
+                  <text x="0" y="3.5" fontSize="9" fill="#E0F2FE" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">RV</text>
+                </g>
+                {/* LV */}
+                <g transform="translate(332, 278)">
+                  <rect x="-14" y="-9" width="28" height="18" rx="5" fill="#9F1239" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                  <text x="0" y="3.5" fontSize="9" fill="#FFE4E6" fontWeight="bold" textAnchor="middle" letterSpacing="0.5">LV</text>
+                </g>
+
+                {/* Latin Medical Subtitle */}
+                <text x="310" y="365" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#881337" className="dark:fill-rose-300">
+                  Cor Humanum
                 </text>
               </motion.g>
             </g>
 
-            {/* Lungs (Anatomical Lobes) */}
+            {/* Lungs (Pulmones) - Anatomical Multilobar Respiratory Organs */}
             <g id="lungs">
-              {/* Left Lung (Pulmo Sinister - 2 Lobes with cardiac notch) */}
+              {/* Midline Trachea & Main Bronchi Bifurcation */}
+              <g id="airway-tree" opacity="0.95">
+                {/* Trachea tube */}
+                <path
+                  d="M 294 15 L 294 56 Q 300 62 306 56 L 306 15 Z"
+                  fill="url(#trachea-grad)"
+                  stroke="#475569"
+                  strokeWidth="1"
+                />
+                {/* Cartilage C-rings */}
+                {[20, 26, 32, 38, 44, 50].map((y) => (
+                  <path
+                    key={y}
+                    d={`M 293 ${y} Q 300 ${y - 2} 307 ${y}`}
+                    stroke="#F1F5F9"
+                    strokeWidth="1.5"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                ))}
+                {/* Left & Right Main Bronchus */}
+                {/* Bronchus Principalis Dexter (to x: 410, y: 75) */}
+                <path
+                  d="M 304 56 Q 330 65 375 75"
+                  stroke="#94A3B8"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                {/* Bronchus Principalis Sinister (to x: 190, y: 75) */}
+                <path
+                  d="M 296 56 Q 270 65 225 75"
+                  stroke="#94A3B8"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              </g>
+
+              {/* Left Lung (Pulmo Sinister - 2 Anatomical Lobes & Incisura Cardiaca) */}
               <g
                 id="lungs-left"
                 onClick={() =>
                   showPopup(
-                    'Paru-paru Kiri',
-                    'Organ respirasi dengan 2 lobus dan incisura cardiaca tempat jantung berada. Darah menyerap O₂ dan membuang CO₂.',
+                    'Paru-paru Kiri (Pulmo Sinister)',
+                    'Memiliki 2 lobus (Lobus Superior & Inferior) dipisahkan oleh Fissura Obliqua. Memiliki Incisura Cardiaca dan Lingula yang mengakomodasi letak apeks jantung.',
                     200,
                     80
                   )
@@ -533,37 +718,65 @@ export default function CirculatoryAnimation() {
                 onMouseLeave={() => setHoveredLabel(null)}
                 style={{ cursor: 'pointer' }}
               >
-                <motion.path
-                  d="M 180 30 
-                     C 155 30 140 50 135 80 
-                     C 130 110 135 140 145 155 
-                     C 160 165 190 160 215 145 
-                     C 215 130 205 110 205 90 
-                     C 205 65 200 40 180 30 Z"
-                  fill="#FCE7F3"
-                  stroke="#DB2777"
-                  strokeWidth="2"
+                <motion.g
                   animate={isPlaying ? { scale: [1, 1.025, 1] } : {}}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                {/* Bronchial branches inside lung */}
-                <path d="M 195 55 Q 170 75 150 110" stroke="#0284C7" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <path d="M 155 115 Q 175 105 190 90" stroke="#E11D48" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <text x="175" y="100" textAnchor="middle" className="text-xs font-bold" fill="#831843">
-                  Paru Kiri
-                </text>
-                <text x="175" y="115" textAnchor="middle" className="text-[10px]" fill="#9D174D">
-                  2 Lobus
-                </text>
+                  filter="url(#shadow-organ)"
+                >
+                  {/* Anatomical Left Lung Parenchyma */}
+                  {/* Superior & Inferior Lobes with cardiac notch */}
+                  <path
+                    d="M 185 24 
+                       C 160 25 138 46 132 75 
+                       C 126 105 128 135 138 155 
+                       C 150 170 178 168 206 154 
+                       C 214 142 214 128 206 114 
+                       C 198 100 198 84 204 65 
+                       C 208 45 204 28 185 24 Z"
+                    fill="url(#lung-grad-left)"
+                    stroke="#881337"
+                    strokeWidth="1.8"
+                  />
+
+                  {/* Fissura Obliqua dividing Superior & Inferior lobes */}
+                  <path
+                    d="M 136 95 Q 165 118 204 145"
+                    stroke="#4C0519"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.65"
+                  />
+
+                  {/* Internal Bronchial Tree & Microvascular Arborization */}
+                  {/* Secondary bronchi */}
+                  <path d="M 215 75 Q 185 82 155 95" stroke="#CBD5E1" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.8" />
+                  <path d="M 185 85 Q 170 65 160 48" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
+                  <path d="M 175 90 Q 155 120 148 142" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
+                  {/* Alveolar capillary branching (blue pulmonary artery + red pulmonary vein) */}
+                  <path d="M 210 80 Q 180 95 150 115" stroke="#0284C7" strokeWidth="1.6" fill="none" opacity="0.75" />
+                  <path d="M 152 118 Q 175 108 204 94" stroke="#FFE4E6" strokeWidth="1.4" fill="none" opacity="0.75" />
+
+                  {/* Anatomical Label Plaque */}
+                  <g transform="translate(170, 96)">
+                    <rect x="-35" y="-12" width="70" height="24" rx="6" fill="#1E293B" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                    <text x="0" y="-1" textAnchor="middle" fontSize="9.5" fontWeight="bold" fill="#FFE4E6">
+                      Pulmo Sinister
+                    </text>
+                    <text x="0" y="9" textAnchor="middle" fontSize="7.5" fill="#FCA5A5">
+                      2 Lobus • Incisura
+                    </text>
+                  </g>
+                </motion.g>
               </g>
 
-              {/* Right Lung (Pulmo Dexter - 3 Lobes) */}
+              {/* Right Lung (Pulmo Dexter - 3 Anatomical Lobes: Superior, Medius, Inferior) */}
               <g
                 id="lungs-right"
                 onClick={() =>
                   showPopup(
-                    'Paru-paru Kanan',
-                    'Organ respirasi dengan 3 lobus (superior, medius, inferior). Tempat terjadinya difusi gas darah dalam kapiler alveolus.',
+                    'Paru-paru Kanan (Pulmo Dexter)',
+                    'Memiliki 3 lobus: Lobus Superior, Medius, dan Inferior yang dipisahkan oleh Fissura Horizontalis dan Fissura Obliqua. Volume paru kanan sekitar 10% lebih besar daripada paru kiri.',
                     400,
                     80
                   )
@@ -572,30 +785,64 @@ export default function CirculatoryAnimation() {
                 onMouseLeave={() => setHoveredLabel(null)}
                 style={{ cursor: 'pointer' }}
               >
-                <motion.path
-                  d="M 420 30 
-                     C 445 30 460 50 465 80 
-                     C 470 110 465 140 455 155 
-                     C 440 165 410 160 385 145 
-                     C 385 125 395 100 395 80 
-                     C 395 55 400 40 420 30 Z"
-                  fill="#FCE7F3"
-                  stroke="#DB2777"
-                  strokeWidth="2"
+                <motion.g
                   animate={isPlaying ? { scale: [1, 1.025, 1] } : {}}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                {/* Horizontal fissure */}
-                <path d="M 465 85 Q 430 80 395 90" stroke="#BE185D" strokeWidth="1" fill="none" opacity="0.5" />
-                {/* Bronchial branches inside lung */}
-                <path d="M 405 55 Q 430 75 450 110" stroke="#0284C7" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <path d="M 445 115 Q 425 105 410 90" stroke="#E11D48" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <text x="425" y="100" textAnchor="middle" className="text-xs font-bold" fill="#831843">
-                  Paru Kanan
-                </text>
-                <text x="425" y="115" textAnchor="middle" className="text-[10px]" fill="#9D174D">
-                  3 Lobus
-                </text>
+                  filter="url(#shadow-organ)"
+                >
+                  {/* Anatomical Right Lung Parenchyma */}
+                  <path
+                    d="M 415 24 
+                       C 440 25 462 46 468 75 
+                       C 474 105 472 135 462 155 
+                       C 450 170 422 168 394 154 
+                       C 386 138 386 110 392 85 
+                       C 396 60 396 35 415 24 Z"
+                    fill="url(#lung-grad-right)"
+                    stroke="#881337"
+                    strokeWidth="1.8"
+                  />
+
+                  {/* Fissura Horizontalis (separates Superior and Middle lobes) */}
+                  <path
+                    d="M 466 78 Q 430 80 392 88"
+                    stroke="#4C0519"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.65"
+                  />
+
+                  {/* Fissura Obliqua (separates Middle and Inferior lobes) */}
+                  <path
+                    d="M 460 115 Q 425 125 396 148"
+                    stroke="#4C0519"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.65"
+                  />
+
+                  {/* Internal Bronchial Tree & Microvascular Arborization */}
+                  {/* Secondary bronchi */}
+                  <path d="M 385 75 Q 415 82 445 95" stroke="#CBD5E1" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.8" />
+                  <path d="M 415 85 Q 430 65 440 48" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
+                  <path d="M 425 90 Q 445 120 452 142" stroke="#E2E8F0" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.8" />
+                  {/* Alveolar capillary branching (blue pulmonary artery + red pulmonary vein) */}
+                  <path d="M 390 80 Q 420 95 450 115" stroke="#0284C7" strokeWidth="1.6" fill="none" opacity="0.75" />
+                  <path d="M 448 118 Q 425 108 396 94" stroke="#FFE4E6" strokeWidth="1.4" fill="none" opacity="0.75" />
+
+                  {/* Anatomical Label Plaque */}
+                  <g transform="translate(430, 96)">
+                    <rect x="-35" y="-12" width="70" height="24" rx="6" fill="#1E293B" fillOpacity="0.85" stroke="#FB7185" strokeWidth="0.8" />
+                    <text x="0" y="-1" textAnchor="middle" fontSize="9.5" fontWeight="bold" fill="#FFE4E6">
+                      Pulmo Dexter
+                    </text>
+                    <text x="0" y="9" textAnchor="middle" fontSize="7.5" fill="#FCA5A5">
+                      3 Lobus • Fissura
+                    </text>
+                  </g>
+                </motion.g>
               </g>
             </g>
 

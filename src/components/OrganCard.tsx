@@ -421,29 +421,139 @@ function VascularNetworkSVG() {
 
 function PerfusionOrgansSVG() {
   return (
-    <svg viewBox="0 0 240 180" className="w-48 h-36">
-      {/* Brain Hemispheres with Circle of Willis */}
-      <path
-        d="M 120 30 
-           C 90 30 70 50 70 75 
-           C 70 95 90 110 115 110 
-           L 125 110 
-           C 150 110 170 95 170 75 
-           C 170 50 150 30 120 30 Z"
-        fill="#FFE4E6"
-        stroke="#E11D48"
-        strokeWidth="1.5"
-      />
-      {/* Sulci (Brain Folds) */}
-      <path d="M 85 55 Q 105 65 115 50" stroke="#FB7185" strokeWidth="1.2" fill="none" />
-      <path d="M 155 55 Q 135 65 125 50" stroke="#FB7185" strokeWidth="1.2" fill="none" />
-      <path d="M 80 80 Q 100 85 110 75" stroke="#FB7185" strokeWidth="1.2" fill="none" />
-      <path d="M 160 80 Q 140 85 130 75" stroke="#FB7185" strokeWidth="1.2" fill="none" />
-      {/* Carotid Arterial Supply */}
-      <path d="M 105 160 L 105 110" stroke="#BE123C" strokeWidth="3" />
-      <path d="M 135 160 L 135 110" stroke="#BE123C" strokeWidth="3" />
-      {/* Basilar & Circle of Willis ring */}
-      <ellipse cx="120" cy="100" rx="14" ry="8" fill="none" stroke="#E11D48" strokeWidth="2" />
+    <svg viewBox="0 0 280 200" className="w-56 h-40 select-none">
+      <defs>
+        <radialGradient id="brain-parenchyma" cx="45%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#FFE4E6" />
+          <stop offset="45%" stopColor="#FDA4AF" />
+          <stop offset="85%" stopColor="#F43F5E" />
+          <stop offset="100%" stopColor="#9F1239" />
+        </radialGradient>
+        <radialGradient id="kidney-parenchyma" cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stopColor="#FDA4AF" />
+          <stop offset="40%" stopColor="#BE123C" />
+          <stop offset="85%" stopColor="#881337" />
+          <stop offset="100%" stopColor="#4C0519" />
+        </radialGradient>
+        <filter id="organ-shadow">
+          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#9F1239" floodOpacity="0.15" />
+        </filter>
+      </defs>
+
+      {/* LEFT: Encephalon (Human Brain) */}
+      <g transform="translate(10, 8)" filter="url(#organ-shadow)">
+        {/* Brainstem (Pons & Medulla) */}
+        <path
+          d="M 68 120 C 66 135 68 155 72 165 L 82 165 C 84 155 84 135 80 120 Z"
+          fill="#E2E8F0"
+          stroke="#94A3B8"
+          strokeWidth="1.2"
+        />
+
+        {/* Cerebellum (with folia) */}
+        <path
+          d="M 40 100 C 35 115 45 138 68 135 C 72 125 70 110 65 102 Z"
+          fill="#FECDD3"
+          stroke="#BE123C"
+          strokeWidth="1.2"
+        />
+        <path d="M 42 110 Q 55 116 68 114" stroke="#BE123C" strokeWidth="0.8" fill="none" opacity="0.6" />
+        <path d="M 46 122 Q 58 126 66 124" stroke="#BE123C" strokeWidth="0.8" fill="none" opacity="0.6" />
+
+        {/* Cerebrum - Convoluted gyri & sulci */}
+        <path
+          d="M 62 25 
+             C 45 26 28 42 22 62 
+             C 16 82 22 102 38 112 
+             C 52 118 72 115 85 106 
+             C 98 114 114 105 118 88 
+             C 122 70 118 52 108 38 
+             C 96 24 78 24 62 25 Z"
+          fill="url(#brain-parenchyma)"
+          stroke="#881337"
+          strokeWidth="1.5"
+        />
+
+        {/* Anatomical Sulcal Folds */}
+        {/* Sulcus Lateralis Sylvii */}
+        <path d="M 32 82 Q 58 84 88 72" stroke="#881337" strokeWidth="1.4" fill="none" />
+        {/* Sulcus Centralis */}
+        <path d="M 65 26 Q 60 52 74 74" stroke="#881337" strokeWidth="1.3" fill="none" />
+        {/* Frontal & Parietal Sulci */}
+        <path d="M 42 42 Q 52 56 46 70" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+        <path d="M 85 34 Q 92 50 86 64" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+        <path d="M 98 52 Q 108 65 102 82" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+        <path d="M 36 62 Q 26 72 32 82" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+        <path d="M 64 88 Q 78 96 74 108" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+
+        {/* Arterial Supply (Circulus Willisi & Carotids) */}
+        <path d="M 72 165 L 72 125" stroke="#E11D48" strokeWidth="2.5" />
+        <path d="M 78 165 L 78 125" stroke="#E11D48" strokeWidth="2.5" />
+        <ellipse cx="75" cy="116" rx="9" ry="5.5" fill="none" stroke="#E11D48" strokeWidth="1.8" />
+        {/* Cerebral artery branches */}
+        <path d="M 66 116 Q 52 105 45 88" stroke="#E11D48" strokeWidth="1.5" fill="none" />
+        <path d="M 84 116 Q 98 105 105 88" stroke="#E11D48" strokeWidth="1.5" fill="none" />
+
+        <text x="70" y="180" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#881337" className="dark:fill-rose-300">
+          Encephalon (Otak)
+        </text>
+      </g>
+
+      {/* RIGHT: Ren (Human Kidney - Longitudinal Cutaway) */}
+      <g transform="translate(150, 8)" filter="url(#organ-shadow)">
+        {/* Kidney Capsule & Parenchyma */}
+        <path
+          d="M 55 25 
+             C 80 25 105 45 108 85 
+             C 112 125 90 155 65 160 
+             C 45 162 25 148 24 125 
+             C 24 108 34 100 34 88 
+             C 34 76 22 66 25 48 
+             C 28 32 40 25 55 25 Z"
+          fill="url(#kidney-parenchyma)"
+          stroke="#4C0519"
+          strokeWidth="1.6"
+        />
+
+        {/* Medullary Pyramids (Pyramides Renales) */}
+        {[
+          { x: 74, y: 50, rot: -20 },
+          { x: 84, y: 75, rot: 0 },
+          { x: 84, y: 105, rot: 15 },
+          { x: 68, y: 132, rot: 35 },
+          { x: 44, y: 138, rot: 60 },
+        ].map((p, idx) => (
+          <path
+            key={idx}
+            d={`M ${p.x} ${p.y} l -14 -6 l -4 14 z`}
+            fill="#4C0519"
+            opacity="0.75"
+            transform={`rotate(${p.rot}, ${p.x}, ${p.y})`}
+          />
+        ))}
+
+        {/* Renal Pelvis & Calyces */}
+        <path
+          d="M 28 88 Q 48 90 56 94 Q 52 108 26 114"
+          fill="#CBD5E1"
+          stroke="#94A3B8"
+          strokeWidth="1.2"
+        />
+        {/* Ureter descending */}
+        <path d="M 26 108 C 22 130 18 152 16 170" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+
+        {/* Renal Artery (Red) */}
+        <path d="M 5 86 L 36 90" stroke="#E11D48" strokeWidth="4" strokeLinecap="round" />
+        <path d="M 36 90 Q 52 82 66 70 M 36 90 Q 56 98 68 112" stroke="#E11D48" strokeWidth="2" fill="none" />
+
+        {/* Renal Vein (Blue) */}
+        <path d="M 5 98 L 34 98" stroke="#0284C7" strokeWidth="4.5" strokeLinecap="round" />
+        <path d="M 34 98 Q 50 102 62 118 M 34 98 Q 50 88 64 78" stroke="#0284C7" strokeWidth="2" fill="none" />
+
+        <text x="65" y="180" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#881337" className="dark:fill-rose-300">
+          Ren (Ginjal)
+        </text>
+      </g>
     </svg>
   )
 }
