@@ -317,16 +317,7 @@ export default function AnatomicalHeart({
             </div>
           ) : (
             <div className="relative w-full h-full flex items-center justify-center">
-              {!internalImageError ? (
-                <img
-                  src="/assets/heart_internal.png"
-                  alt="Penampang Potongan Internal Ruang Jantung Manusia"
-                  onError={() => setInternalImageError(true)}
-                  className="w-auto h-[92%] max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(190,18,60,0.18)]"
-                />
-              ) : (
-                <CutawayHeartSVG activeId={active?.id} />
-              )}
+              <CutawayHeartSVG activeId={active?.id} />
             </div>
           )}
 
