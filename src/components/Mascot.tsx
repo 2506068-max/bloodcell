@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { motion, useSpring, AnimatePresence } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion, useSpring, AnimatePresence, useMotionValue, animate } from 'framer-motion'
 
 type MascotMood = 'idle' | 'happy' | 'sad' | 'celebrate'
 
@@ -198,6 +198,17 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
   const [factIndex, setFactIndex] = useState(0)
   const [isBubbleOpen, setIsBubbleOpen] = useState(true)
 
+  // Dragging & Dynamic Positioning States
+  const constraintsRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isDraggingRef = useRef(false)
+  const [positionSide, setPositionSide] = useState<'left' | 'right'>('right')
+  const [positionVertical, setPositionVertical] = useState<'top' | 'bottom'>('bottom')
+  const [hasMoved, setHasMoved] = useState(false)
+
+  const dragX = useMotionValue(0)
+  const dragY = useMotionValue(0)
+
   const headX = useSpring(0, { stiffness: 140, damping: 18 })
   const headY = useSpring(0, { stiffness: 140, damping: 18 })
 
@@ -224,6 +235,14 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
     return () => window.clearInterval(heroTimer)
   }, [section])
 
+  const resetPosition = () => {
+    animate(dragX, 0, { type: 'spring', stiffness: 220, damping: 25 })
+    animate(dragY, 0, { type: 'spring', stiffness: 220, damping: 25 })
+    setPositionSide('right')
+    setPositionVertical('bottom')
+    setHasMoved(false)
+  }
+
   const guidance = sectionGuidance[section] ?? {
     title: 'AI-cope Siap',
     description: 'Lihat rekomendasi dan parameter hemodinamika sistem peredaran darah.'
@@ -241,88 +260,178 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
   const bubbleTitle = guidance.title
   const moodEmoji = mood === 'happy' ? '✨' : mood === 'sad' ? '💡' : mood === 'celebrate' ? '🎉' : '🔬'
 
+  const isTop = positionVertical === 'top'
+  const isLeft = positionSide === 'left'
+
   return (
-    <div className="fixed right-3 bottom-24 z-50 flex max-w-[13.5rem] sm:max-w-[15rem] flex-col items-end gap-2 sm:right-6 sm:bottom-24">
-      {/* Speech / Guidance Bubble (Compact & Dismissible) */}
-      <AnimatePresence>
-        {isBubbleOpen && (
+    <>
+      {/* Invisible Viewport Constraints Layer */}
+      <div
+        ref={constraintsRef}
+        className="fixed inset-3 sm:inset-6 pointer-events-none z-50 overflow-hidden"
+      >
+        {/* Dynamic Draggable AI-cope Container */}
+        <motion.div
+          ref={containerRef}
+          drag
+          dragConstraints={constraintsRef}
+          dragElastic={0.06}
+          dragMomentum={false}
+          style={{ x: dragX, y: dragY }}
+          onDragStart={() => {
+            isDraggingRef.current = true
+            setHasMoved(true)
+          }}
+          onDragEnd={() => {
+            setTimeout(() => {
+              isDraggingRef.current = false
+            }, 100)
+
+            if (containerRef.current) {
+              const rect = containerRef.current.getBoundingClientRect()
+              const centerHorizontal = rect.left + rect.width / 2
+              setPositionSide(centerHorizontal < window.innerWidth / 2 ? 'left' : 'right')
+              setPositionVertical(rect.top < 240 ? 'top' : 'bottom')
+            }
+          }}
+          className={`pointer-events-auto absolute bottom-20 right-0 sm:bottom-20 sm:right-2 flex max-w-[13.5rem] sm:max-w-[15.5rem] gap-2 touch-none select-none ${
+            isTop ? 'flex-col-reverse' : 'flex-col'
+          } ${isLeft ? 'items-start' : 'items-end'}`}
+        >
+          {/* Speech / Guidance Bubble (Adaptive Alignment & Orientation) */}
+          <AnimatePresence>
+            {isBubbleOpen && (
+              <motion.div
+                onPointerDownCapture={(e) => e.stopPropagation()}
+                className={`relative w-full rounded-2xl border border-white/80 bg-white/95 p-3 text-xs shadow-xl shadow-slate-900/10 backdrop-blur-xl text-slate-900 dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100 ${
+                  isLeft ? 'origin-bottom-left' : 'origin-bottom-right'
+                }`}
+                initial={{ opacity: 0, scale: 0.9, y: isTop ? -8 : 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.85, y: isTop ? -8 : 8 }}
+                transition={{ duration: 0.2 }}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-ping shrink-0" />
+                      <p className="font-bold text-xs truncate text-slate-900 dark:text-slate-100">{bubbleTitle}</p>
+                    </div>
+                    <p className="mt-1 leading-snug text-[11px] text-slate-600 dark:text-slate-300">
+                      {feedbackText || bubbleText}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    {/* Reset Button (visible when moved) */}
+                    {hasMoved && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          resetPosition()
+                        }}
+                        className="text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 p-0.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        title="Kembalikan posisi ke sudut awal"
+                        aria-label="Reset posisi"
+                      >
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                          <path d="M3 3v5h5" />
+                        </svg>
+                      </button>
+                    )}
+
+                    <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-indigo-600 text-xs text-white shadow-xs">
+                      {moodEmoji}
+                    </div>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setIsBubbleOpen(false)
+                      }}
+                      className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-0.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      title="Tutup balon pesan"
+                      aria-label="Tutup"
+                    >
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bubble Pointing Tail (Dynamic angle based on quadrant) */}
+                <span
+                  className={`absolute h-3 w-3 rotate-45 rounded-xs bg-white/95 dark:bg-slate-950/90 ${
+                    isTop
+                      ? `-top-1.5 border-l border-t border-slate-200/80 dark:border-slate-800 ${isLeft ? 'left-6' : 'right-6'}`
+                      : `-bottom-1.5 border-r border-b border-slate-200/80 dark:border-slate-800 ${isLeft ? 'left-6' : 'right-6'}`
+                  }`}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* AI-cope Interactive & Draggable Microscope Avatar */}
           <motion.div
-            className="pointer-events-auto relative w-full rounded-2xl border border-white/80 bg-white/95 p-3 text-xs shadow-xl shadow-slate-900/10 backdrop-blur-xl text-slate-900 dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100"
-            initial={{ opacity: 0, scale: 0.9, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 8 }}
-            transition={{ duration: 0.2 }}
+            className="relative flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+            style={{ x: headX, y: headY }}
+            animate={{ y: [0, -3, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.05 }}
+            whileDrag={{ scale: 1.12, cursor: 'grabbing' }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={() => {
+              if (isDraggingRef.current) return
+              setIsBubbleOpen((prev) => !prev)
+              setFactIndex((prev) => (prev + 1) % heroFacts.length)
+            }}
+            onDoubleClick={(e) => {
+              e.stopPropagation()
+              resetPosition()
+            }}
+            title="Tahan & seret untuk memindahkan ke sisi manapun. Klik untuk buka/tutup panduan. Klik 2x untuk reset posisi."
           >
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-ping shrink-0" />
-                  <p className="font-bold text-xs truncate text-slate-900 dark:text-slate-100">{bubbleTitle}</p>
-                </div>
-                <p className="mt-1 leading-snug text-[11px] text-slate-600 dark:text-slate-300">
-                  {feedbackText || bubbleText}
-                </p>
+            {/* Subtle glow halo */}
+            <motion.div
+              className="absolute -inset-2 rounded-full bg-cyan-400/25 blur-md pointer-events-none"
+              animate={{ opacity: hovered ? [0.35, 0.7, 0.35] : [0.15, 0.35, 0.15] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            {/* Podium Glassmorphic Circle (Compact 56px-64px) with Drag Grippers */}
+            <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-slate-900/95 via-indigo-950/95 to-slate-950/95 border border-cyan-400/50 shadow-[0_8px_24px_rgba(6,182,212,0.35)] backdrop-blur-xl group overflow-visible transition-all duration-200 hover:border-cyan-300">
+              {/* Microscope SVG */}
+              <MicroscopeSVG hovered={hovered} />
+
+              {/* 4-Way Drag Move Indicator Hint (top right of avatar) */}
+              <div
+                className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-cyan-500 text-[9px] text-white shadow-xs border border-white/60 dark:border-slate-900 opacity-80 group-hover:opacity-100 transition-opacity"
+                title="Bisa dipindahkan ke sisi manapun"
+              >
+                <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 stroke-white fill-none stroke-[2.5]" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="5 9 2 12 5 15" />
+                  <polyline points="9 5 12 2 15 5" />
+                  <polyline points="15 19 12 22 9 19" />
+                  <polyline points="19 9 22 12 19 15" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                </svg>
               </div>
-              <div className="flex items-center gap-1 shrink-0">
-                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-indigo-600 text-xs text-white shadow-xs">
-                  {moodEmoji}
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setIsBubbleOpen(false)
-                  }}
-                  className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-0.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  title="Tutup balon pesan"
-                  aria-label="Tutup"
-                >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
+
+              {/* Mini name badge */}
+              <div className="absolute -bottom-1.5 px-1.5 py-0.2 rounded-full bg-slate-900/95 border border-cyan-400/70 shadow-xs flex items-center gap-1 text-[8px] font-extrabold tracking-wider text-cyan-300 uppercase">
+                <span className="h-1 w-1 rounded-full bg-cyan-400 animate-pulse" />
+                AI-cope
               </div>
             </div>
-            <span className="absolute -bottom-1.5 right-6 h-3 w-3 rotate-45 rounded-xs bg-white/95 border-l border-t border-slate-200/80 dark:bg-slate-950/90 dark:border-slate-800" />
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* AI-cope Interactive Microscope Avatar (Compact Size) */}
-      <motion.div
-        className="relative flex items-center justify-center cursor-pointer select-none"
-        style={{ x: headX, y: headY }}
-        animate={{ y: [0, -4, 0] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={() => {
-          setIsBubbleOpen((prev) => !prev)
-          setFactIndex((prev) => (prev + 1) % heroFacts.length)
-        }}
-        title="Klik untuk membuka/menutup panduan AI-cope"
-      >
-        {/* Subtle glow halo */}
-        <motion.div
-          className="absolute -inset-1.5 rounded-full bg-cyan-400/20 blur-md pointer-events-none"
-          animate={{ opacity: hovered ? [0.3, 0.6, 0.3] : [0.15, 0.35, 0.15] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-
-        {/* Podium Glassmorphic Circle (Compact 56px-64px) */}
-        <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-slate-900/95 via-indigo-950/95 to-slate-950/95 border border-cyan-400/50 shadow-[0_8px_20px_rgba(6,182,212,0.3)] backdrop-blur-xl group overflow-visible transition-all duration-300 hover:border-cyan-300 hover:scale-105">
-          {/* Microscope SVG */}
-          <MicroscopeSVG hovered={hovered} />
-
-          {/* Mini name badge */}
-          <div className="absolute -bottom-1.5 px-1.5 py-0.2 rounded-full bg-slate-900/95 border border-cyan-400/70 shadow-xs flex items-center gap-1 text-[8px] font-extrabold tracking-wider text-cyan-300 uppercase">
-            <span className="h-1 w-1 rounded-full bg-cyan-400 animate-pulse" />
-            AI-cope
-          </div>
-        </div>
-      </motion.div>
-    </div>
+        </motion.div>
+      </div>
+    </>
   )
 }
