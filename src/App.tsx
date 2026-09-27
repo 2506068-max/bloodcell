@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import FloatingCells from './components/FloatingCells'
 import EnhancedBloodFlowDiagram from './components/EnhancedBloodFlowDiagram'
 import CirculatoryAnimation from './components/CirculatoryAnimation'
+import CirculatoryVideoHero from './components/CirculatoryVideoHero'
 import CirculatorySystemInfographic from './components/CirculatorySystemInfographic'
 import BloodCellDetail from './components/BloodCellDetail'
 import VesselAnatomy from './components/VesselAnatomy'
@@ -175,6 +176,10 @@ function App() {
           </div>
         </section>
 
+        {/* Sinematik 3D Closed-Loop Video Hero Section (Opsi A) */}
+        <CirculatoryVideoHero />
+
+        {/* Diagram Interaktif 8-Tahap Alur Closed-Loop (Tetap Utuh) */}
         <section id="sirkulasi-animasi" className="px-4 sm:px-6 lg:px-8 py-20 bg-slate-50/70 dark:bg-slate-950/60 border-y border-slate-200/60 dark:border-slate-800">
           <CirculatoryAnimation />
         </section>

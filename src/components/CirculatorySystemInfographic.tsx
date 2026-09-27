@@ -157,7 +157,7 @@ export default function CirculatorySystemInfographic() {
                 >
                   {/* Trachea & Bronchi Tree */}
                   <path d="M 0 -95 L 0 -50 M 0 -50 Q -25 -35 -45 -10 M 0 -50 Q 25 -35 45 -10" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" fill="none" />
-                  {[ -85, -75, -65, -55 ].map(y => (
+                  {[-85, -75, -65, -55].map(y => (
                     <line key={y} x1="-6" y1={y} x2="6" y2={y} stroke="#CBD5E1" strokeWidth="1.8" strokeLinecap="round" />
                   ))}
 
@@ -203,7 +203,7 @@ export default function CirculatorySystemInfographic() {
                   <path d="M 520 220 L 255 220" stroke="url(#tube-vein)" strokeWidth="12" strokeLinecap="round" />
                   {/* Repeated Directional Chevrons (<<< Flow Leftwards) */}
                   <g fill="none" stroke="#E0F2FE" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    {[ 470, 420, 370, 320, 275 ].map(x => (
+                    {[470, 420, 370, 320, 275].map(x => (
                       <path key={`chev-pulm-art-${x}`} d={`M ${x + 6} 214 L ${x} 220 L ${x + 6} 226`} />
                     ))}
                   </g>
@@ -226,7 +226,7 @@ export default function CirculatorySystemInfographic() {
                   <path d="M 255 420 L 520 420" stroke="url(#tube-artery)" strokeWidth="12" strokeLinecap="round" />
                   {/* Repeated Directional Chevrons (>>> Flow Rightwards) */}
                   <g fill="none" stroke="#FFE4E6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    {[ 285, 335, 385, 435, 485 ].map(x => (
+                    {[285, 335, 385, 435, 485].map(x => (
                       <path key={`chev-pulm-vein-${x}`} d={`M ${x - 6} 414 L ${x} 420 L ${x - 6} 426`} />
                     ))}
                   </g>
@@ -274,6 +274,31 @@ export default function CirculatorySystemInfographic() {
                 <path d="M 600 200 L 600 515" stroke="#4C0519" strokeWidth="5" strokeLinecap="round" opacity="0.75" />
                 <path d="M 600 200 L 600 515" stroke="#BE123C" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
 
+                {/* Myocardial Muscle Fibers & Texture (Anatomical Striations) */}
+                <g stroke="#FECDD3" strokeWidth="0.8" opacity="0.25" fill="none" strokeLinecap="round">
+                  {/* Right ventricle spiral fibers */}
+                  <path d="M 515 260 C 530 300 550 360 580 420" />
+                  <path d="M 505 300 C 525 350 545 410 575 460" />
+                  <path d="M 510 350 C 530 400 555 450 585 490" />
+                  <path d="M 530 230 C 545 270 565 310 585 340" />
+
+                  {/* Left ventricle spiral fibers */}
+                  <path d="M 685 260 C 670 300 650 360 620 420" />
+                  <path d="M 695 300 C 675 350 655 410 625 460" />
+                  <path d="M 690 350 C 670 400 645 450 615 490" />
+                  <path d="M 670 230 C 655 270 635 310 615 340" />
+                </g>
+
+                {/* Epicardial Light Shading Highlight */}
+                <path
+                  d="M 510 230 C 495 280 495 360 525 420"
+                  stroke="#FFFFFF"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  opacity="0.22"
+                  fill="none"
+                />
+
                 {/* Internal Flow Pathways inside Heart */}
                 {/* Right Heart Flow (RA to RV) */}
                 <path d="M 545 390 L 545 250" stroke="#38BDF8" strokeWidth="3" strokeDasharray="4 3" strokeLinecap="round" />
@@ -288,14 +313,14 @@ export default function CirculatorySystemInfographic() {
                 <g transform="translate(545, 220)">
                   <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#0C4A6E" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1.2" />
                   <text x="0" y="4" fill="#E0F2FE" fontSize="12" fontWeight="extrabold" textAnchor="middle">RV</text>
-                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Ventrikel Knn</text>
+                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Ventrikel Kanan</text>
                 </g>
 
                 {/* 2. RA: Atrium Kanan (Kiri Bawah Jantung Diagram) */}
                 <g transform="translate(545, 420)">
                   <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#075985" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1.2" />
                   <text x="0" y="4" fill="#E0F2FE" fontSize="12" fontWeight="extrabold" textAnchor="middle">RA</text>
-                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Atrium Knn</text>
+                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Atrium Kanan</text>
                 </g>
 
                 {/* 3. LV: Ventrikel Kiri (Kanan Atas Jantung Diagram) */}
@@ -375,25 +400,99 @@ export default function CirculatorySystemInfographic() {
                   }
                   filter="url(#organ-drop-shadow)"
                 >
-                  {/* Systemic Organ Capsule Body */}
-                  <rect x="-90" y="-75" width="180" height="180" rx="36" fill="url(#body-tissue-grad)" stroke="#94A3B8" strokeWidth="2" />
+                  {/* Human Body Silhouette Anatomical Contour */}
+                  <path
+                    d="
+                      M 0 -96
+                      C 15 -96 22 -84 22 -72
+                      C 22 -62 17 -55 12 -50
+                      C 26 -46 54 -38 62 -22
+                      C 68 -10 64 25 57 45
+                      C 52 48 45 42 42 30
+                      C 38 18 36 -6 32 -18
+                      C 30 -5 32 30 38 65
+                      C 40 78 35 98 24 110
+                      C 15 114 8 114 3 85
+                      L 0 78
+                      L -3 85
+                      C -8 114 -15 114 -24 110
+                      C -35 98 -40 78 -38 65
+                      C -32 30 -30 -5 -32 -18
+                      C -36 -6 -38 18 -42 30
+                      C -45 42 -52 48 -57 45
+                      C -64 25 -68 -10 -62 -22
+                      C -54 -38 -26 -46 -12 -50
+                      C -17 -55 -22 -62 -22 -72
+                      C -22 -84 -15 -96 0 -96 Z
+                    "
+                    fill="url(#body-tissue-grad)"
+                    stroke="#94A3B8"
+                    strokeWidth="1.8"
+                    strokeLinejoin="round"
+                  />
 
-                  {/* Peripheral Organs Mini Vector Motifs */}
-                  {/* Brain Silhouette Motif */}
-                  <g transform="translate(-45, -35)" stroke="#64748B" strokeWidth="1.4" fill="none">
-                    <path d="M -15 0 C -20 -15 0 -20 0 -5 C 0 -20 20 -15 15 0 C 18 10 5 15 0 10 C -5 15 -18 10 -15 0 Z" />
-                    <text x="0" y="20" fill="#475569" fontSize="7" fontWeight="bold" textAnchor="middle">Otak</text>
+                  {/* Highlights on Major Systemic Organs & Vasculature */}
+                  {/* 1. BRAIN (Encephalon) in Cranium */}
+                  <g transform="translate(0, -73)">
+                    <path
+                      d="M -13 0 C -16 -10 -2 -14 0 -4 C 2 -14 16 -10 13 0 C 15 7 4 10 0 7 C -4 10 -15 7 -13 0 Z"
+                      fill="#FECDD3"
+                      stroke="#E11D48"
+                      strokeWidth="1.2"
+                    />
+                    <path d="M -8 -2 Q -3 -5 0 -2 Q 4 -5 8 -2" stroke="#BE123C" strokeWidth="0.8" fill="none" />
+                    <text x="0" y="16" fill="#881337" fontSize="7" fontWeight="bold" textAnchor="middle">Otak</text>
                   </g>
-                  {/* Kidney Motif */}
-                  <g transform="translate(45, -35)" stroke="#64748B" strokeWidth="1.4" fill="none">
-                    <path d="M 0 -12 C 12 -12 16 0 12 12 C 8 20 -4 16 -8 8 C -12 0 -8 -12 0 -12 Z" />
-                    <text x="0" y="20" fill="#475569" fontSize="7" fontWeight="bold" textAnchor="middle">Ginjal</text>
+
+                  {/* 2. SYSTEMIC VASCULAR TRUNKS IN TORSO */}
+                  {/* Descending Aorta (Red, O2) */}
+                  <path d="M -4 -42 L -4 60 L -18 95" stroke="#E11D48" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+                  {/* Ascending Inferior Vena Cava (Blue, CO2) */}
+                  <path d="M 4 -42 L 4 60 L 18 95" stroke="#0284C7" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+
+                  {/* Carotid Artery & Jugular to Brain */}
+                  <path d="M -4 -42 L -4 -62" stroke="#E11D48" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                  <path d="M 4 -42 L 4 -62" stroke="#0284C7" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+
+                  {/* 3. KIDNEYS (Ren Dexter & Sinister) */}
+                  {/* Right Kidney (Viewer Left) */}
+                  <g transform="translate(-20, 16)">
+                    <path
+                      d="M 2 -8 C 9 -8 11 0 8 7 C 5 12 -3 10 -5 5 C -7 0 -4 -8 2 -8 Z"
+                      fill="#FCA5A5"
+                      stroke="#BE123C"
+                      strokeWidth="1.2"
+                    />
+                    {/* Renal Artery & Vein */}
+                    <line x1="8" y1="1" x2="16" y2="1" stroke="#E11D48" strokeWidth="1.5" />
+                    <line x1="8" y1="4" x2="24" y2="4" stroke="#0284C7" strokeWidth="1.5" />
+                    <text x="-7" y="3" fill="#881337" fontSize="6.5" fontWeight="bold" textAnchor="end">Ginjal</text>
                   </g>
-                  {/* Systemic Capillary Bed Grid */}
-                  <g stroke="#E11D48" strokeWidth="1" strokeDasharray="3 2" opacity="0.75" fill="none">
-                    <path d="M -65 40 Q 0 25 65 40" />
-                    <path d="M -70 55 Q 0 40 70 55" />
-                    <path d="M -60 70 Q 0 55 60 70" />
+
+                  {/* Left Kidney (Viewer Right) */}
+                  <g transform="translate(20, 20)">
+                    <path
+                      d="M -2 -8 C -9 -8 -11 0 -8 7 C -5 12 3 10 5 5 C 7 0 4 -8 -2 -8 Z"
+                      fill="#FCA5A5"
+                      stroke="#BE123C"
+                      strokeWidth="1.2"
+                    />
+                    {/* Renal Artery & Vein */}
+                    <line x1="-8" y1="1" x2="-16" y2="1" stroke="#0284C7" strokeWidth="1.5" />
+                    <line x1="-8" y1="-2" x2="-24" y2="-2" stroke="#E11D48" strokeWidth="1.5" />
+                    <text x="7" y="3" fill="#881337" fontSize="6.5" fontWeight="bold" textAnchor="start">Ginjal</text>
+                  </g>
+
+                  {/* 4. Peripheral Capillary Networks in Upper & Lower Extremities */}
+                  {/* Arm Capillaries */}
+                  <g stroke="#FB7185" strokeWidth="1" strokeDasharray="2.5 1.5" opacity="0.8" fill="none">
+                    <path d="M -35 -20 Q -50 0 -45 25" />
+                    <path d="M 35 -20 Q 50 0 45 25" />
+                  </g>
+                  {/* Lower Torso / Leg Capillaries */}
+                  <g stroke="#93C5FD" strokeWidth="1" strokeDasharray="2.5 1.5" opacity="0.8" fill="none">
+                    <path d="M -12 75 Q -20 90 -16 105" />
+                    <path d="M 12 75 Q 20 90 16 105" />
                   </g>
 
                   {/* Organ Label Plaque */}
@@ -415,7 +514,7 @@ export default function CirculatorySystemInfographic() {
                   <path d="M 680 220 L 945 220" stroke="url(#tube-artery)" strokeWidth="12" strokeLinecap="round" />
                   {/* Repeated Directional Chevrons (>>> Flow Rightwards) */}
                   <g fill="none" stroke="#FFE4E6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    {[ 715, 765, 815, 865, 915 ].map(x => (
+                    {[715, 765, 815, 865, 915].map(x => (
                       <path key={`chev-aorta-${x}`} d={`M ${x - 6} 214 L ${x} 220 L ${x - 6} 226`} />
                     ))}
                   </g>
@@ -438,7 +537,7 @@ export default function CirculatorySystemInfographic() {
                   <path d="M 945 420 L 680 420" stroke="url(#tube-vein)" strokeWidth="12" strokeLinecap="round" />
                   {/* Repeated Directional Chevrons (<<< Flow Leftwards) */}
                   <g fill="none" stroke="#E0F2FE" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    {[ 915, 865, 815, 765, 715 ].map(x => (
+                    {[915, 865, 815, 765, 715].map(x => (
                       <path key={`chev-cava-${x}`} d={`M ${x + 6} 414 L ${x} 420 L ${x + 6} 426`} />
                     ))}
                   </g>
@@ -524,11 +623,10 @@ export default function CirculatorySystemInfographic() {
               <motion.button
                 key={btn.value}
                 onClick={() => setState(s => ({ ...s, activeSystem: btn.value }))}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-xs ${
-                  state.activeSystem === btn.value
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-xs ${state.activeSystem === btn.value
                     ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-md shadow-rose-500/25 scale-105'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-200'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}
               >
