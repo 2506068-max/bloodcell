@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Microscope, ZoomIn, Shield, Flame, Activity, Eye, Layers } from 'lucide-react'
+import { Microscope, ZoomIn, Shield, Flame, Activity, Eye } from 'lucide-react'
 
 export type CellCategory = 'erythrocyte' | 'leukocyte' | 'platelet'
 
