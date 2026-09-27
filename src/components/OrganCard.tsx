@@ -447,134 +447,446 @@ function PerfusionOrgansSVG() {
   return (
     <svg viewBox="0 0 280 200" className="w-56 h-40 select-none">
       <defs>
-        <radialGradient id="brain-parenchyma" cx="45%" cy="35%" r="65%">
-          <stop offset="0%" stopColor="#FFE4E6" />
-          <stop offset="45%" stopColor="#FDA4AF" />
-          <stop offset="85%" stopColor="#F43F5E" />
-          <stop offset="100%" stopColor="#9F1239" />
+        {/* Real 3D Vascular Gradients */}
+        <linearGradient id="brain-tube-artery" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#7F1D1D" />
+          <stop offset="25%" stopColor="#DC2626" />
+          <stop offset="55%" stopColor="#F87171" />
+          <stop offset="80%" stopColor="#DC2626" />
+          <stop offset="100%" stopColor="#991B1B" />
+        </linearGradient>
+        <linearGradient id="brain-tube-vein" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#0C4A6E" />
+          <stop offset="25%" stopColor="#0284C7" />
+          <stop offset="55%" stopColor="#38BDF8" />
+          <stop offset="80%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#075985" />
+        </linearGradient>
+
+        {/* Real Human Brain Hemispheric Parenchyma - Warm Grayish-Pinkish-Tan Living Cortex */}
+        <radialGradient id="brain-hemi-left" cx="42%" cy="36%" r="68%">
+          <stop offset="0%" stopColor="#FFF5F5" />
+          <stop offset="20%" stopColor="#FCE4DE" />
+          <stop offset="50%" stopColor="#EBB8AC" />
+          <stop offset="78%" stopColor="#C98475" />
+          <stop offset="92%" stopColor="#9E5345" />
+          <stop offset="100%" stopColor="#68291F" />
         </radialGradient>
-        <radialGradient id="kidney-parenchyma" cx="40%" cy="35%" r="70%">
-          <stop offset="0%" stopColor="#FDA4AF" />
-          <stop offset="40%" stopColor="#BE123C" />
-          <stop offset="85%" stopColor="#881337" />
-          <stop offset="100%" stopColor="#4C0519" />
+        <radialGradient id="brain-hemi-right" cx="58%" cy="36%" r="68%">
+          <stop offset="0%" stopColor="#FFF5F5" />
+          <stop offset="20%" stopColor="#FCE4DE" />
+          <stop offset="50%" stopColor="#EBB8AC" />
+          <stop offset="78%" stopColor="#C98475" />
+          <stop offset="92%" stopColor="#9E5345" />
+          <stop offset="100%" stopColor="#68291F" />
         </radialGradient>
+
+        {/* Brainstem & Spinal Cord Pearly Column Gradient */}
+        <linearGradient id="brainstem-cylindrical" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#94A3B8" />
+          <stop offset="20%" stopColor="#E2E8F0" />
+          <stop offset="50%" stopColor="#FFFFFF" />
+          <stop offset="80%" stopColor="#CBD5E1" />
+          <stop offset="100%" stopColor="#64748B" />
+        </linearGradient>
+
+        {/* Cerebellar Foliar Shading */}
+        <radialGradient id="cerebellum-grad" cx="45%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#FCE4DE" />
+          <stop offset="40%" stopColor="#D98A7B" />
+          <stop offset="80%" stopColor="#A85244" />
+          <stop offset="100%" stopColor="#68291F" />
+        </radialGradient>
+
+        {/* Realistic Human Kidney Parenchyma (Capsula Fibrosa & Cortex) */}
+        <radialGradient id="kidney-volumetric" cx="60%" cy="42%" r="68%">
+          <stop offset="0%" stopColor="#F87171" />
+          <stop offset="25%" stopColor="#DC2626" />
+          <stop offset="55%" stopColor="#991B1B" />
+          <stop offset="80%" stopColor="#7F1D1D" />
+          <stop offset="95%" stopColor="#450A0A" />
+          <stop offset="100%" stopColor="#2A0505" />
+        </radialGradient>
+
+        {/* Kidney Convex Sheen Highlight (Fibrous Capsule Specular Sheen) */}
+        <linearGradient id="kidney-capsule-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.6" />
+          <stop offset="40%" stopColor="#FCA5A5" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#7F1D1D" stopOpacity="0" />
+        </linearGradient>
+
+        {/* Kidney Hilum Vessels Gradients */}
+        <linearGradient id="kidney-tube-artery" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#F87171" />
+          <stop offset="40%" stopColor="#DC2626" />
+          <stop offset="100%" stopColor="#7F1D1D" />
+        </linearGradient>
+        <linearGradient id="kidney-tube-vein" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="40%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#0C4A6E" />
+        </linearGradient>
+
+        {/* Ureter Muscular Duct 3D Gradient */}
+        <linearGradient id="ureter-tube-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#A16207" />
+          <stop offset="25%" stopColor="#EAB308" />
+          <stop offset="55%" stopColor="#FEF08A" />
+          <stop offset="80%" stopColor="#EAB308" />
+          <stop offset="100%" stopColor="#854D0E" />
+        </linearGradient>
+
         <filter id="organ-shadow">
-          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#9F1239" floodOpacity="0.15" />
+          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#450A0A" floodOpacity="0.18" />
         </filter>
       </defs>
 
-      {/* LEFT: Encephalon (Human Brain) */}
+      {/* ========================================================================= */}
+      {/* LEFT: ENCEPHALON (HUMAN BRAIN - ANATOMICAL REALISTIC TEXTURE & HUES)      */}
+      {/* ========================================================================= */}
       <g transform="translate(10, 8)" filter="url(#organ-shadow)">
-        {/* Brainstem (Pons & Medulla) */}
-        <path
-          d="M 68 120 C 66 135 68 155 72 165 L 82 165 C 84 155 84 135 80 120 Z"
-          fill="#E2E8F0"
-          stroke="#94A3B8"
-          strokeWidth="1.2"
-        />
+        {/* 1. Truncus Encephali (Brainstem: Pons, Medulla Oblongata) & Medulla Spinalis (Spinal Cord) */}
+        <g id="brainstem-complex">
+          {/* Spinal Cord (Cylindrical smooth column with natural tapering) */}
+          <path
+            d="M 64.5 125 C 65 138 65 152 65.5 165 C 65.5 167 74.5 167 74.5 165 C 75 152 75 138 75.5 125 Z"
+            fill="url(#brainstem-cylindrical)"
+            stroke="#94A3B8"
+            strokeWidth="0.8"
+          />
+          {/* Subtle anterior median fissure of spinal cord */}
+          <line x1="70" y1="126" x2="70" y2="164" stroke="#94A3B8" strokeWidth="0.6" strokeDasharray="1.5 1" opacity="0.6" />
 
-        {/* Cerebellum (with folia) */}
-        <path
-          d="M 40 100 C 35 115 45 138 68 135 C 72 125 70 110 65 102 Z"
-          fill="#FECDD3"
-          stroke="#BE123C"
-          strokeWidth="1.2"
-        />
-        <path d="M 42 110 Q 55 116 68 114" stroke="#BE123C" strokeWidth="0.8" fill="none" opacity="0.6" />
-        <path d="M 46 122 Q 58 126 66 124" stroke="#BE123C" strokeWidth="0.8" fill="none" opacity="0.6" />
+          {/* Brainstem (Pons bulb & Medulla oblongata) */}
+          <path
+            d="M 59 104 
+               C 58 111 61 116 64 122 
+               C 64.5 124 75.5 124 76 122 
+               C 79 116 82 111 81 104 
+               C 74 102 66 102 59 104 Z"
+            fill="url(#brainstem-cylindrical)"
+            stroke="#64748B"
+            strokeWidth="0.8"
+          />
+          {/* Horizontal pontine transverse fibers (Sulcus basilaris) */}
+          <path d="M 62 109 Q 70 107 78 109" stroke="#94A3B8" strokeWidth="0.7" fill="none" opacity="0.7" />
+          <path d="M 63 114 Q 70 112 77 114" stroke="#94A3B8" strokeWidth="0.7" fill="none" opacity="0.7" />
+          <path d="M 65 119 Q 70 117 75 119" stroke="#94A3B8" strokeWidth="0.7" fill="none" opacity="0.7" />
+        </g>
 
-        {/* Cerebrum - Convoluted gyri & sulci */}
-        <path
-          d="M 62 25 
-             C 45 26 28 42 22 62 
-             C 16 82 22 102 38 112 
-             C 52 118 72 115 85 106 
-             C 98 114 114 105 118 88 
-             C 122 70 118 52 108 38 
-             C 96 24 78 24 62 25 Z"
-          fill="url(#brain-parenchyma)"
-          stroke="#881337"
-          strokeWidth="1.5"
-        />
+        {/* 2. Cerebellum Bilateral (Otak Kecil dengan Folia Cerebelli Horizontal) */}
+        <g id="cerebellum-complex">
+          {/* Left Cerebellar Hemisphere */}
+          <path
+            d="M 36 94 
+               C 27 101 29 115 44 118 
+               C 54 119 60 112 62 102 
+               C 51 97 42 94 36 94 Z"
+            fill="url(#cerebellum-grad)"
+            stroke="#68291F"
+            strokeWidth="0.9"
+          />
+          {/* Left Folia Cerebelli (Fine horizontal laminar grooves) */}
+          <path d="M 31 104 Q 45 107 59 105" stroke="#4A1D15" strokeWidth="0.8" fill="none" opacity="0.7" />
+          <path d="M 34 109 Q 47 112 57 110" stroke="#4A1D15" strokeWidth="0.8" fill="none" opacity="0.7" />
+          <path d="M 38 114 Q 48 116 54 114" stroke="#4A1D15" strokeWidth="0.7" fill="none" opacity="0.6" />
 
-        {/* Anatomical Sulcal Folds */}
-        {/* Sulcus Lateralis Sylvii */}
-        <path d="M 32 82 Q 58 84 88 72" stroke="#881337" strokeWidth="1.4" fill="none" />
-        {/* Sulcus Centralis */}
-        <path d="M 65 26 Q 60 52 74 74" stroke="#881337" strokeWidth="1.3" fill="none" />
-        {/* Frontal & Parietal Sulci */}
-        <path d="M 42 42 Q 52 56 46 70" stroke="#9F1239" strokeWidth="1.1" fill="none" />
-        <path d="M 85 34 Q 92 50 86 64" stroke="#9F1239" strokeWidth="1.1" fill="none" />
-        <path d="M 98 52 Q 108 65 102 82" stroke="#9F1239" strokeWidth="1.1" fill="none" />
-        <path d="M 36 62 Q 26 72 32 82" stroke="#9F1239" strokeWidth="1.1" fill="none" />
-        <path d="M 64 88 Q 78 96 74 108" stroke="#9F1239" strokeWidth="1.1" fill="none" />
+          {/* Right Cerebellar Hemisphere */}
+          <path
+            d="M 104 94 
+               C 113 101 111 115 96 118 
+               C 86 119 80 112 78 102 
+               C 89 97 98 94 104 94 Z"
+            fill="url(#cerebellum-grad)"
+            stroke="#68291F"
+            strokeWidth="0.9"
+          />
+          {/* Right Folia Cerebelli */}
+          <path d="M 109 104 Q 95 107 81 105" stroke="#4A1D15" strokeWidth="0.8" fill="none" opacity="0.7" />
+          <path d="M 106 109 Q 93 112 83 110" stroke="#4A1D15" strokeWidth="0.8" fill="none" opacity="0.7" />
+          <path d="M 102 114 Q 92 116 86 114" stroke="#4A1D15" strokeWidth="0.7" fill="none" opacity="0.6" />
+        </g>
 
-        {/* Arterial Supply (Circulus Willisi & Carotids) */}
-        <path d="M 72 165 L 72 125" stroke="#E11D48" strokeWidth="2.5" />
-        <path d="M 78 165 L 78 125" stroke="#E11D48" strokeWidth="2.5" />
-        <ellipse cx="75" cy="116" rx="9" ry="5.5" fill="none" stroke="#E11D48" strokeWidth="1.8" />
-        {/* Cerebral artery branches */}
-        <path d="M 66 116 Q 52 105 45 88" stroke="#E11D48" strokeWidth="1.5" fill="none" />
-        <path d="M 84 116 Q 98 105 105 88" stroke="#E11D48" strokeWidth="1.5" fill="none" />
+        {/* 3. Cerebrum - Bilateral Hemispheres with Natural Cortical Contours & Longitudinal Fissure */}
+        <g id="cerebrum-complex">
+          {/* Left Cerebral Hemisphere Base */}
+          <path
+            d="M 69.5 20 
+               C 52 20 34 26 23 40 
+               C 16 52 17 68 20 80 
+               C 22 88 28 97 40 101 
+               C 52 103 62 98 67 92 
+               C 69 88 69.5 82 69.5 75 Z"
+            fill="url(#brain-hemi-left)"
+            stroke="#5A231A"
+            strokeWidth="1.2"
+          />
 
-        <text x="70" y="180" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#881337" className="dark:fill-rose-300">
+          {/* Right Cerebral Hemisphere Base */}
+          <path
+            d="M 70.5 20 
+               C 88 20 106 26 117 40 
+               C 124 52 123 68 120 80 
+               C 118 88 112 97 100 101 
+               C 88 103 78 98 73 92 
+               C 71 88 70.5 82 70.5 75 Z"
+            fill="url(#brain-hemi-right)"
+            stroke="#5A231A"
+            strokeWidth="1.2"
+          />
+
+          {/* 4. DENSE GYRI & SULCI CONVOLUTIONS (Pola Berkelok Padat Menyerupai Sidik Jari Asli) */}
+          <g id="gyri-sulci-dense" strokeLinecap="round" strokeLinejoin="round">
+            {/* Left Hemisphere Sulcal Grooves (Deep Crevices + 3D Specular Relief) */}
+            <path d="M 32 32 C 40 28 50 33 63 30" stroke="#5A231A" strokeWidth="1.4" fill="none" />
+            <path d="M 32 31.3 C 40 27.3 50 32.3 63 29.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.5" />
+
+            <path d="M 26 44 C 36 39 46 46 64 41" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 26 43.3 C 36 38.3 46 45.3 64 40.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 46 25 C 42 38 48 50 44 64" stroke="#68291F" strokeWidth="1.4" fill="none" />
+            <path d="M 46.8 25 C 42.8 38 48.8 50 44.8 64" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 58 29 C 55 42 59 55 56 68" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 58.7 29 C 55.7 42 59.7 55 56.7 68" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 21 56 C 29 52 38 58 50 53 C 56 50 62 55 67 52" stroke="#5A231A" strokeWidth="1.4" fill="none" />
+            <path d="M 21 55.3 C 29 51.3 38 57.3 50 52.3 C 56 49.3 62 54.3 67 51.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.5" />
+
+            <path d="M 33 49 C 37 60 31 71 36 82" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 33.7 49 C 37.7 60 31.7 71 36.7 82" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 19 68 C 29 64 41 72 58 66" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 19 67.3 C 29 63.3 41 71.3 58 65.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 48 64 C 52 75 46 84 50 94" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 48.7 64 C 52.7 75 46.7 84 50.7 94" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 22 79 C 32 75 44 83 62 77" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 22 78.3 C 32 74.3 44 82.3 62 76.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 27 89 C 37 85 49 92 63 87" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 27 88.3 C 37 84.3 49 91.3 63 86.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            {/* Right Hemisphere Sulcal Grooves */}
+            <path d="M 108 32 C 100 28 90 33 77 30" stroke="#5A231A" strokeWidth="1.4" fill="none" />
+            <path d="M 108 31.3 C 100 27.3 90 32.3 77 29.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.5" />
+
+            <path d="M 114 44 C 104 39 94 46 76 41" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 114 43.3 C 104 38.3 94 45.3 76 40.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 94 25 C 98 38 92 50 96 64" stroke="#68291F" strokeWidth="1.4" fill="none" />
+            <path d="M 94.8 25 C 98.8 38 92.8 50 96.8 64" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 82 29 C 85 42 81 55 84 68" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 82.7 29 C 85.7 42 81.7 55 84.7 68" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 119 56 C 111 52 102 58 90 53 C 84 50 78 55 73 52" stroke="#5A231A" strokeWidth="1.4" fill="none" />
+            <path d="M 119 55.3 C 111 51.3 102 57.3 90 52.3 C 84 49.3 78 54.3 73 51.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.5" />
+
+            <path d="M 107 49 C 103 60 109 71 104 82" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 107.7 49 C 103.7 60 109.7 71 104.7 82" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 121 68 C 111 64 99 72 82 66" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 121 67.3 C 111 63.3 99 71.3 82 65.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 92 64 C 88 75 94 84 90 94" stroke="#68291F" strokeWidth="1.3" fill="none" />
+            <path d="M 92.7 64 C 88.7 75 94.7 84 90.7 94" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+
+            <path d="M 118 79 C 108 75 96 83 78 77" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 118 78.3 C 108 74.3 96 82.3 78 76.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.45" />
+
+            <path d="M 113 89 C 103 85 91 92 77 87" stroke="#5A231A" strokeWidth="1.3" fill="none" />
+            <path d="M 113 88.3 C 103 84.3 91 91.3 77 86.3" stroke="#FFFFFF" strokeWidth="0.6" fill="none" opacity="0.4" />
+          </g>
+
+          {/* 5. Deep Central Fissura Longitudinalis Cerebri */}
+          <path
+            d="M 70 20 
+               C 68.8 32 71.2 46 69.4 60 
+               C 68.2 72 71 82 70 94"
+            stroke="#3B120B"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Subtle light edge along fissure */}
+          <path
+            d="M 71.2 22 
+               C 70 33 72.4 47 70.6 61 
+               C 69.4 73 72.2 82 71.2 92"
+            stroke="#FFFFFF"
+            strokeWidth="0.7"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.4"
+          />
+        </g>
+
+        {/* 6. Arterial & Venous Vascular Supply (Arteria Carotis & Vena Jugularis 3D) */}
+        <g id="brain-vessels">
+          {/* Arteria Carotis Interna (Red, Oxygenated - Shaded Cylindrical Tube with Natural Curve) */}
+          <path
+            d="M 64 165 C 64 150 65 138 67 125"
+            stroke="url(#brain-tube-artery)"
+            strokeWidth="3.2"
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Vena Jugularis Interna (Blue, Deoxygenated - Shaded Cylindrical Tube with Accompanying Curve) */}
+          <path
+            d="M 76 165 C 76 150 75 138 73 125"
+            stroke="url(#brain-tube-vein)"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Circulus Arteriosus Willisi (Anastomotic Arterial Circle at Base of Brain) */}
+          <ellipse
+            cx="70"
+            cy="118"
+            rx="8.5"
+            ry="5.5"
+            fill="none"
+            stroke="#DC2626"
+            strokeWidth="1.8"
+            filter="drop-shadow(0 1px 2px rgba(127,29,29,0.3))"
+          />
+
+          {/* Cerebral Arterial Branches */}
+          <path d="M 64 117 C 56 112 45 106 38 96" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <path d="M 76 117 C 84 112 95 106 102 96" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <path d="M 70 113 C 69 105 69.5 98 70 92" stroke="#DC2626" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+
+          {/* Cerebral Venous Tributaries */}
+          <path d="M 74 122 C 80 120 88 116 93 108" stroke="#0284C7" strokeWidth="1.2" strokeLinecap="round" fill="none" opacity="0.85" />
+          <path d="M 66 122 C 60 120 52 116 47 108" stroke="#0284C7" strokeWidth="1.2" strokeLinecap="round" fill="none" opacity="0.85" />
+        </g>
+
+        {/* Anatomical Label */}
+        <text
+          x="70"
+          y="180"
+          textAnchor="middle"
+          fontSize="10.5"
+          fontWeight="bold"
+          fill="#881337"
+          className="dark:fill-rose-300"
+        >
           Encephalon (Otak)
         </text>
       </g>
 
-      {/* RIGHT: Ren (Human Kidney - Longitudinal Cutaway) */}
+      {/* ========================================================================= */}
+      {/* RIGHT: REN (HUMAN KIDNEY - ANATOMICAL REALISTIC SHAPE, HILUM & VESSELS)   */}
+      {/* ========================================================================= */}
       <g transform="translate(150, 8)" filter="url(#organ-shadow)">
-        {/* Kidney Capsule & Parenchyma */}
-        <path
-          d="M 55 25 
-             C 80 25 105 45 108 85 
-             C 112 125 90 155 65 160 
-             C 45 162 25 148 24 125 
-             C 24 108 34 100 34 88 
-             C 34 76 22 66 25 48 
-             C 28 32 40 25 55 25 Z"
-          fill="url(#kidney-parenchyma)"
-          stroke="#4C0519"
-          strokeWidth="1.6"
-        />
-
-        {/* Medullary Pyramids (Pyramides Renales) */}
-        {[
-          { x: 74, y: 50, rot: -20 },
-          { x: 84, y: 75, rot: 0 },
-          { x: 84, y: 105, rot: 15 },
-          { x: 68, y: 132, rot: 35 },
-          { x: 44, y: 138, rot: 60 },
-        ].map((p, idx) => (
+        {/* 1. Pelvis Renalis & Ureter (Posterior/Inferior structure emerging from Hilum) */}
+        <g id="kidney-ureter">
+          {/* Funnel-shaped Renal Pelvis */}
           <path
-            key={idx}
-            d={`M ${p.x} ${p.y} l -14 -6 l -4 14 z`}
-            fill="#4C0519"
-            opacity="0.75"
-            transform={`rotate(${p.rot}, ${p.x}, ${p.y})`}
+            d="M 46 95 C 44 104 39 114 36 122 L 40 123 C 44 116 49 106 50 96 Z"
+            fill="#EAB308"
+            stroke="#A16207"
+            strokeWidth="0.6"
           />
-        ))}
+          {/* Ureter Muscular Flexible Tube descending with natural peristaltic waves */}
+          <path
+            d="M 37.5 122 C 34.5 135 37.5 148 33 162 C 30.5 168 29.5 174 28 178"
+            stroke="url(#ureter-tube-grad)"
+            strokeWidth="3.2"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
 
-        {/* Renal Pelvis & Calyces */}
-        <path
-          d="M 28 88 Q 48 90 56 94 Q 52 108 26 114"
-          fill="#CBD5E1"
-          stroke="#94A3B8"
-          strokeWidth="1.2"
-        />
-        {/* Ureter descending */}
-        <path d="M 26 108 C 22 130 18 152 16 170" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+        {/* 2. Kidney Parenchyma & Fibrous Capsule (True Anatomical Reniform Contour with Deep Medial Hilum) */}
+        <g id="kidney-parenchyma-group">
+          {/* Main Kidney Body (Authentic Bean Shape with Deep Concave Hilum) */}
+          <path
+            d="M 65 22 
+               C 85 22 104 35 110 65 
+               C 114 95 112 125 96 148 
+               C 82 162 65 162 55 158 
+               C 42 152 36 138 35 122 
+               C 35 112 45 98 45 88 
+               C 45 78 34 68 36 50 
+               C 38 34 48 22 65 22 Z"
+            fill="url(#kidney-volumetric)"
+            stroke="#2A0505"
+            strokeWidth="1.4"
+          />
 
-        {/* Renal Artery (Red) */}
-        <path d="M 5 86 L 36 90" stroke="#E11D48" strokeWidth="4" strokeLinecap="round" />
-        <path d="M 36 90 Q 52 82 66 70 M 36 90 Q 56 98 68 112" stroke="#E11D48" strokeWidth="2" fill="none" />
+          {/* Glistening Fibrous Capsule (Capsula Fibrosa) Specular Highlight Curve */}
+          <path
+            d="M 65 25 
+               C 83 25 101 37 106 65 
+               C 110 93 108 122 93 144"
+            stroke="url(#kidney-capsule-sheen)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M 72 27 
+               C 86 28 100 39 104 62"
+            stroke="#FFFFFF"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.6"
+          />
 
-        {/* Renal Vein (Blue) */}
-        <path d="M 5 98 L 34 98" stroke="#0284C7" strokeWidth="4.5" strokeLinecap="round" />
-        <path d="M 34 98 Q 50 102 62 118 M 34 98 Q 50 88 64 78" stroke="#0284C7" strokeWidth="2" fill="none" />
+          {/* Subtle Organic Anatomical Lobular Undulations (Replacing rigid triangles with natural surface contours) */}
+          <path d="M 94 62 C 86 70 82 82 84 96" stroke="#450A0A" strokeWidth="1.2" fill="none" opacity="0.35" />
+          <path d="M 94 61 C 86 69 82 81 84 95" stroke="#FCA5A5" strokeWidth="0.6" fill="none" opacity="0.25" />
 
-        <text x="65" y="180" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#881337" className="dark:fill-rose-300">
+          <path d="M 88 104 C 82 114 74 124 64 132" stroke="#450A0A" strokeWidth="1.2" fill="none" opacity="0.35" />
+          <path d="M 88 103 C 82 113 74 123 64 131" stroke="#FCA5A5" strokeWidth="0.6" fill="none" opacity="0.25" />
+
+          <path d="M 72 40 C 66 50 64 62 68 74" stroke="#450A0A" strokeWidth="1" fill="none" opacity="0.25" />
+        </g>
+
+        {/* 3. Renal Vessels at the Hilum (Arteria Renalis & Vena Renalis Bercabang 3D) */}
+        <g id="kidney-vessels">
+          {/* Arteria Renalis (Red Oxygenated - Posterior/Superior to Vein entering Hilum) */}
+          {/* Segmental arterial branches spreading into parenchyma */}
+          <path d="M 40 82 C 50 74 62 66 74 60" stroke="#DC2626" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+          <path d="M 40 82 C 52 86 64 96 72 106" stroke="#DC2626" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+          {/* Main Arteria Renalis Trunk (Curved cylindrical 3D tube entering from medial) */}
+          <path
+            d="M 5 82 C 16 81 28 82 42 82"
+            stroke="url(#kidney-tube-artery)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Vena Renalis (Blue Deoxygenated - Anterior structure emerging from Hilum) */}
+          {/* Segmental venous branches emerging from parenchyma */}
+          <path d="M 42 94 C 52 88 64 82 72 76" stroke="#0284C7" strokeWidth="2.4" strokeLinecap="round" fill="none" opacity="0.9" />
+          <path d="M 42 94 C 52 100 62 112 68 122" stroke="#0284C7" strokeWidth="2.4" strokeLinecap="round" fill="none" opacity="0.9" />
+          {/* Main Vena Renalis Trunk (Curved cylindrical 3D tube exiting toward vena cava) */}
+          <path
+            d="M 5 95 C 18 96 30 95 44 94"
+            stroke="url(#kidney-tube-vein)"
+            strokeWidth="4.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+
+        {/* Anatomical Label */}
+        <text
+          x="65"
+          y="180"
+          textAnchor="middle"
+          fontSize="10.5"
+          fontWeight="bold"
+          fill="#881337"
+          className="dark:fill-rose-300"
+        >
           Ren (Ginjal)
         </text>
       </g>
