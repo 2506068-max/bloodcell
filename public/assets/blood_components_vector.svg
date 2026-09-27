@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="415.95001"
+   width="505.67001"
+   id="svg7699"
+   sodipodi:version="0.32"
+   inkscape:version="0.44"
+   version="1.0"
+   sodipodi:docbase="D:\dokumenty\kot\do wiki"
+   sodipodi:docname="Illu blood components.svg">
+  <defs
+     id="defs7701">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path11585"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path11579"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:cx="486.3451"
+     inkscape:cy="211.87906"
+     inkscape:zoom="0.96835145"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     width="505.67px"
+     height="415.95001px"
+     inkscape:window-width="1024"
+     inkscape:window-height="682"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4" />
+  <metadata
+     id="metadata7704">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Warstwa 1"
+     id="layer1"
+     transform="translate(-98.94513,-98.64922)">
+    <path
+       style="color:black;fill:#a5aeb5;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 500.30705,101.39815 L 602.36467,101.39815 L 602.36467,464.97839 C 602.36467,464.97839 602.36467,508.35288 552.61158,508.35288 C 502.85849,508.35288 501.58277,464.97839 501.58277,464.97839 L 500.30705,101.39815 z "
+       id="path7750" />
+    <path
+       id="path7754"
+       d="M 500.30705,101.39815 L 602.36467,101.39815 L 602.36467,324.07178 L 501.0854,324.00166 L 500.30705,101.39815 z "
+       style="color:black;fill:#ecf7d5;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       id="path7756"
+       d="M 602.36467,348.41476 L 602.36467,464.97839 C 602.36467,464.97839 602.36467,508.35288 552.61158,508.35288 C 502.85849,508.35288 501.58277,464.97839 501.58277,464.97839 L 501.17673,348.48361 L 602.36467,348.41476 z "
+       style="color:black;fill:#a66b49;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       sodipodi:nodetypes="ccsccc" />
+    <path
+       style="color:black;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 491.71768,102.46674 L 226.46316,102.46674 L 226.46316,512.1003 L 515.22124,512.1003"
+       id="path7760" />
+    <path
+       style="color:black;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 226.46316,324.07178 L 491.71768,324.07178"
+       id="path7762" />
+    <path
+       id="path9538"
+       d="M 500.30705,101.39815 L 602.36467,101.39815 L 602.36467,464.97839 C 602.36467,464.97839 602.36467,508.35288 552.61158,508.35288 C 502.85849,508.35288 501.58277,464.97839 501.58277,464.97839 L 500.30705,101.39815 z "
+       style="color:black;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="145.21544"
+       y="236.25751"
+       id="text10429"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan10431"
+         x="145.21544"
+         y="236.25751">Plasma</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="99.619736"
+       y="408.40674"
+       id="text10433"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan10435"
+         x="99.619736"
+         y="408.40674">Formed</tspan><tspan
+         sodipodi:role="line"
+         x="99.619736"
+         y="436.40674"
+         id="tspan10437">elements</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="265.72812"
+       y="357.86749"
+       id="text10439"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan10441"
+         x="265.72812"
+         y="357.86749">Leukocytes &amp;</tspan><tspan
+         sodipodi:role="line"
+         x="265.72812"
+         y="385.86749"
+         id="tspan10443">thrombocytes</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="334.85312"
+       y="476.31879"
+       id="text10445"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan10447"
+         x="334.85312"
+         y="476.31879">Erythrocytes</tspan></text>
+    <g
+       id="g13367">
+      <path
+         style="opacity:1;color:black;fill:black;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;marker:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+         d="M 490.41388,341.18047 C 490.39234,341.18942 490.37146,341.19986 490.35138,341.21172 L 437.78888,364.96172 C 437.6049,365.01931 437.47041,365.17754 437.44322,365.3684 C 437.41602,365.55926 437.50097,365.74875 437.66154,365.85544 C 437.82212,365.96212 438.02972,365.967 438.19513,365.86797 L 490.75763,342.14922 C 491.02514,342.0543 491.16505,341.76048 491.07013,341.49297 C 490.97521,341.22546 490.68139,341.08555 490.41388,341.18047 z "
+         id="path10510" />
+      <path
+         style="fill-rule:evenodd;stroke:black;stroke-width:0.8pt;marker-start:none"
+         d="M 481.44025,345.79692 L 479.44112,351.08875 L 490.55396,341.68105 L 476.14842,343.79778 L 481.44025,345.79692 z "
+         id="path13373" />
+    </g>
+    <g
+       id="g13375">
+      <path
+         style="opacity:1;color:black;fill:black;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;marker:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+         d="M 415.91388,466.61797 C 415.63774,466.63523 415.42787,466.87308 415.44513,467.14922 C 415.46239,467.42536 415.70024,467.63523 415.97638,467.61797 L 490.53888,467.61797 C 490.7192,467.62052 490.88692,467.52578 490.97782,467.37003 C 491.06873,467.21428 491.06873,467.02166 490.97782,466.86591 C 490.88692,466.71016 490.7192,466.61542 490.53888,466.61797 L 415.97638,466.61797 C 415.95557,466.61667 415.93469,466.61667 415.91388,466.61797 L 415.91388,466.61797 z "
+         id="path10512" />
+      <path
+         style="fill-rule:evenodd;stroke:black;stroke-width:0.8pt;marker-start:none"
+         d="M 480.55396,467.13149 L 476.55396,471.13149 L 490.55396,467.13149 L 476.55396,463.13149 L 480.55396,467.13149 z "
+         id="path13381" />
+    </g>
+  </g>
+</svg>

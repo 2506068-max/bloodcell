@@ -38,7 +38,16 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-slate-200/80 pt-6 text-sm text-[color:var(--muted)] dark:border-slate-800">
+        <div className="mt-10 rounded-2xl bg-slate-100/70 p-4 text-xs text-slate-500 dark:bg-slate-900/60 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800">
+          <p className="font-semibold text-slate-700 dark:text-slate-300 mb-1">
+            Atribusi & Lisensi Visual Atlas Anatomi:
+          </p>
+          <p className="leading-relaxed">
+            Ilustrasi anatomi organ (jantung, paru-paru, pembuluh darah, otak, ginjal, dan sel darah) pada platform ini bersumber dan diadaptasi secara legal berdasarkan lisensi terbuka dari OpenStax College (CC BY 4.0), Servier Medical Art oleh Les Laboratoires Servier (CC BY 4.0), Patrick J. Lynch (CC BY 2.5/3.0), Kelvinsong (CC BY-SA 3.0), Piotr Michał Jaworski (CC BY-SA 3.0), Blausen Medical Communications (CC BY 3.0), serta repositori domain publik Wikimedia Commons (Gray's Anatomy 1918 & Mariana Ruiz Villarreal).
+          </p>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-slate-200/80 pt-6 text-sm text-[color:var(--muted)] dark:border-slate-800">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>© {currentYear} BloodCell Edu. Dibuat dengan <Heart className="inline-block text-primary" size={16} /> untuk edukasi.</p>
             <div className="flex gap-4">

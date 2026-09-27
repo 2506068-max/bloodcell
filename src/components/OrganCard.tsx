@@ -44,7 +44,7 @@ export const medicalOrgans: OrganDetailItem[] = [
     title: 'Paru-Paru (Pulmo)',
     latin: 'Pulmones',
     subtitle: 'Organ Respirasi & Oksigenasi Darah',
-    imageSrc: '/assets/lungs_anatomical.png',
+    imageSrc: '/assets/lungs_anatomical.svg',
     anatomicalType: 'lungs',
     stats: [
       { label: 'Luas Difusi Alveoli', value: '70 – 100 m²' },
@@ -67,7 +67,7 @@ export const medicalOrgans: OrganDetailItem[] = [
     title: 'Sistem Pembuluh Darah',
     latin: 'Systema Vasorum',
     subtitle: 'Jaringan Konduksi & Mikrosirkulasi',
-    imageSrc: '/assets/vessels_system.png',
+    imageSrc: '/assets/blood_vessels_diagram.svg',
     anatomicalType: 'vessels',
     stats: [
       { label: 'Panjang Total', value: '~100.000 km' },
@@ -156,7 +156,7 @@ export default function OrganCards() {
               {organ.anatomicalType === 'lungs' && (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <img
-                    src="/assets/lungs_anatomical.png"
+                    src="/assets/lungs_anatomical.svg"
                     alt="Anatomi Paru-Paru Manusia"
                     className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(2,132,199,0.15)] group-hover:scale-105 transition-transform duration-500 rounded-xl"
                   />
@@ -169,7 +169,7 @@ export default function OrganCards() {
               {organ.anatomicalType === 'vessels' && (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <img
-                    src="/assets/vessels_microcirculation.jpg"
+                    src="/assets/blood_vessels_diagram.svg"
                     alt="Sistem Pembuluh Darah & Mikrosirkulasi Hemodinamik"
                     className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(2,132,199,0.15)] group-hover:scale-105 transition-transform duration-500 rounded-xl"
                   />
@@ -281,8 +281,8 @@ export default function OrganCards() {
                         </button>
                       </div>
                       <img
-                        src={heartModalView === 'surface' ? '/assets/heart_anatomical.jpg' : '/assets/heart_internal.png'}
-                        alt="Anatomi Jantung"
+                        src={heartModalView === 'surface' ? '/assets/heart_anatomical.jpg' : '/assets/heart_internal_clean.svg'}
+                        alt="Anatomi Jantung Manusia"
                         className="max-h-52 object-contain filter drop-shadow-md rounded-xl transition-all"
                       />
                     </div>
@@ -290,7 +290,7 @@ export default function OrganCards() {
                   {selectedOrgan.anatomicalType === 'lungs' && (
                     <div className="flex flex-col items-center justify-center w-full">
                       <img
-                        src="/assets/lungs_anatomical.png"
+                        src="/assets/lungs_anatomical.svg"
                         alt="Anatomi Paru-Paru Manusia"
                         className="max-h-56 object-contain filter drop-shadow-md rounded-xl"
                       />
@@ -302,7 +302,7 @@ export default function OrganCards() {
                   {selectedOrgan.anatomicalType === 'vessels' && (
                     <div className="flex flex-col items-center justify-center w-full">
                       <img
-                        src="/assets/vessels_microcirculation.jpg"
+                        src="/assets/blood_vessels_diagram.svg"
                         alt="Mikrosirkulasi Pembuluh Darah (Arteri, Kapiler, Vena)"
                         className="max-h-64 object-contain filter drop-shadow-md rounded-xl"
                       />
@@ -311,7 +311,37 @@ export default function OrganCards() {
                       </span>
                     </div>
                   )}
-                  {selectedOrgan.anatomicalType === 'perfusion' && <PerfusionOrgansSVG />}
+                  {selectedOrgan.anatomicalType === 'perfusion' && (
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <div className="grid grid-cols-2 gap-4 w-full max-w-lg items-center">
+                        <div className="flex flex-col items-center p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                          <img
+                            src="/assets/brain_anatomy_optimized.jpg"
+                            alt="Anatomi Otak Manusia (Encephalon)"
+                            className="max-h-36 object-contain rounded-xl filter drop-shadow-sm"
+                          />
+                          <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 mt-2">
+                            Encephalon (Otak)
+                          </span>
+                          <span className="text-[9px] text-slate-400">Girus, Sulkus & Batang Otak</span>
+                        </div>
+                        <div className="flex flex-col items-center p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                          <img
+                            src="/assets/kidney_structures.svg"
+                            alt="Anatomi Potongan Ginjal (Ren)"
+                            className="max-h-36 object-contain filter drop-shadow-sm"
+                          />
+                          <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 mt-2">
+                            Ren (Ginjal)
+                          </span>
+                          <span className="text-[9px] text-slate-400">Korteks & Piramida Medula</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-400 mt-3">
+                        Perfusi Darah Kritis Otak (~15%) & Filtrasi Ginjal (~20%)
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-4">

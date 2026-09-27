@@ -6,6 +6,7 @@ export type VesselKind = 'artery' | 'vein' | 'capillary'
 export default function VascularHistology() {
   const [activeVessel, setActiveVessel] = useState<VesselKind>('artery')
   const [inspectedLayer, setInspectedLayer] = useState<string | null>(null)
+  const [viewMode, setViewMode] = useState<'atlas' | 'schematic'>('atlas')
 
   const vesselData = {
     artery: {
@@ -132,19 +133,63 @@ export default function VascularHistology() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Histological Cross Section SVG */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-inner">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-              <Eye size={12} className="text-rose-500" />
-              Penampang Melintang Histologi
-            </span>
+            <div className="w-full flex items-center justify-between mb-3 px-1">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <Eye size={12} className="text-rose-500" />
+                {viewMode === 'atlas' ? 'Atlas Anatomi Medis 3D' : 'Penampang Tunika Interaktif'}
+              </span>
+              <div className="inline-flex rounded-full border border-slate-200 bg-white/80 p-0.5 text-[10px] font-semibold dark:border-slate-800 dark:bg-slate-900/80">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('atlas')}
+                  className={`px-2.5 py-0.5 rounded-full transition-all ${
+                    viewMode === 'atlas'
+                      ? 'bg-rose-600 text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                  }`}
+                >
+                  Atlas 3D
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('schematic')}
+                  className={`px-2.5 py-0.5 rounded-full transition-all ${
+                    viewMode === 'schematic'
+                      ? 'bg-rose-600 text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                  }`}
+                >
+                  Skema Lapisan
+                </button>
+              </div>
+            </div>
 
             <div className="relative w-full max-w-[320px] h-[320px] flex items-center justify-center">
-              {activeVessel === 'artery' && <ArteryCrossSection inspectedLayer={inspectedLayer} />}
-              {activeVessel === 'vein' && <VeinCrossSection inspectedLayer={inspectedLayer} />}
-              {activeVessel === 'capillary' && <CapillaryCrossSection inspectedLayer={inspectedLayer} />}
+              {viewMode === 'atlas' ? (
+                <img
+                  src={
+                    activeVessel === 'artery'
+                      ? '/assets/artery_histology.svg'
+                      : activeVessel === 'vein'
+                        ? '/assets/vein_histology.svg'
+                        : '/assets/capillary_histology.svg'
+                  }
+                  alt={`Histologi 3D ${current.name}`}
+                  className="w-full h-full object-contain filter drop-shadow-md rounded-xl transition-all duration-300"
+                />
+              ) : (
+                <>
+                  {activeVessel === 'artery' && <ArteryCrossSection inspectedLayer={inspectedLayer} />}
+                  {activeVessel === 'vein' && <VeinCrossSection inspectedLayer={inspectedLayer} />}
+                  {activeVessel === 'capillary' && <CapillaryCrossSection inspectedLayer={inspectedLayer} />}
+                </>
+              )}
             </div>
 
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 text-center">
-              Arahkan kursor pada lapisan tunika untuk mempelajari arsitektur jaringannya
+              {viewMode === 'atlas'
+                ? 'Visualisasi potongan melintang 3D dinding pembuluh darah (Karya Kelvinsong, CC BY-SA 3.0)'
+                : 'Arahkan kursor pada lapisan tunika untuk mempelajari arsitektur jaringannya'}
             </p>
           </div>
 

@@ -357,12 +357,23 @@ export default function EnhancedBloodFlowDiagram() {
 
           {/* ===== 1. UPPER SECTION: PULMONARY CAPILLARY BED (PARU-PARU) ===== */}
           <g opacity={activeCircuit === 'systemic' ? 0.25 : 1} className="transition-opacity duration-300">
-            {/* Lungs Background Silhouette with Alveolar Texture */}
+            {/* Lungs Anatomical Background Silhouette with Alveolar Texture */}
+            <image
+              href="/assets/lungs_anatomical.svg"
+              x="375"
+              y="10"
+              width="250"
+              height="110"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.32"
+              className="pointer-events-none select-none"
+            />
             <path
               d="M 370 25 C 430 10 570 10 630 25 C 670 45 670 95 630 115 C 570 125 430 125 370 115 C 330 95 330 45 370 25 Z"
-              fill="rgba(244, 114, 182, 0.12)"
+              fill="rgba(244, 114, 182, 0.08)"
               stroke="#F472B6"
-              strokeWidth="1.5"
+              strokeWidth="1.2"
+              strokeDasharray="4,2"
             />
             {/* Alveolar capillary mesh */}
             <g stroke="#9333EA" strokeWidth="1" opacity="0.3" fill="none">
@@ -438,6 +449,18 @@ export default function EnhancedBloodFlowDiagram() {
               strokeWidth="2.5"
               className="dark:fill-slate-900"
               filter="drop-shadow(0 8px 16px rgba(190, 18, 60, 0.12))"
+            />
+
+            {/* Anatomical Heart Cutaway Vector Backdrop */}
+            <image
+              href="/assets/heart_internal_clean.svg"
+              x="50"
+              y="5"
+              width="150"
+              height="130"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.22"
+              className="pointer-events-none select-none"
             />
 
             {/* Interatrial & Interventricular Septum lines */}
@@ -548,6 +571,16 @@ export default function EnhancedBloodFlowDiagram() {
             </g>
 
             {/* Systemic Capillary Bed (Tissue Organs) */}
+            <image
+              href="/assets/capillary_histology.svg"
+              x="420"
+              y="410"
+              width="160"
+              height="85"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.28"
+              className="pointer-events-none select-none"
+            />
             <path
               d="M 370 415 C 430 398 570 398 630 415 C 670 435 670 480 630 495 C 570 508 430 508 370 495 C 330 480 330 435 370 415 Z"
               fill="rgba(147, 51, 234, 0.08)"

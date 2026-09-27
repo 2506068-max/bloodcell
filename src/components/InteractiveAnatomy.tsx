@@ -90,6 +90,7 @@ const anatomicalData: Record<string, AnatomicalNode> = {
 export default function InteractiveAnatomy() {
   const [activeId, setActiveId] = useState<string | null>('heart')
   const [systemFilter, setSystemFilter] = useState<'all' | 'pulmonary' | 'systemic'>('all')
+  const [displayMode, setDisplayMode] = useState<'interactive' | 'atlas'>('interactive')
 
   const currentNode = activeId ? anatomicalData[activeId] : null
 
@@ -106,38 +107,67 @@ export default function InteractiveAnatomy() {
           </h3>
         </div>
 
-        {/* System Filter Tabs */}
-        <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-1 bg-slate-50 dark:bg-slate-800 text-xs font-semibold">
-          <button
-            onClick={() => setSystemFilter('all')}
-            className={`px-4 py-1.5 rounded-full transition-all ${
-              systemFilter === 'all'
-                ? 'bg-rose-700 text-white shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
-            }`}
-          >
-            Semua Sistem
-          </button>
-          <button
-            onClick={() => setSystemFilter('pulmonary')}
-            className={`px-4 py-1.5 rounded-full transition-all ${
-              systemFilter === 'pulmonary'
-                ? 'bg-rose-700 text-white shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
-            }`}
-          >
-            Sirkulasi Pulmonal
-          </button>
-          <button
-            onClick={() => setSystemFilter('systemic')}
-            className={`px-4 py-1.5 rounded-full transition-all ${
-              systemFilter === 'systemic'
-                ? 'bg-rose-700 text-white shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
-            }`}
-          >
-            Sirkulasi Sistemik
-          </button>
+        {/* View & System Filters */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Display Mode Switcher */}
+          <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+            <button
+              onClick={() => setDisplayMode('interactive')}
+              className={`px-3 py-1 rounded-full transition-all ${
+                displayMode === 'interactive'
+                  ? 'bg-white text-rose-700 dark:bg-slate-700 dark:text-rose-300 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+              }`}
+            >
+              Peta Interaktif
+            </button>
+            <button
+              onClick={() => setDisplayMode('atlas')}
+              className={`px-3 py-1 rounded-full transition-all ${
+                displayMode === 'atlas'
+                  ? 'bg-white text-rose-700 dark:bg-slate-700 dark:text-rose-300 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+              }`}
+            >
+              Atlas Gray's/Sobotta
+            </button>
+          </div>
+
+          {/* System Filter Tabs */}
+          {displayMode === 'interactive' && (
+            <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+              <button
+                onClick={() => setSystemFilter('all')}
+                className={`px-3 py-1 rounded-full transition-all ${
+                  systemFilter === 'all'
+                    ? 'bg-rose-700 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                }`}
+              >
+                Semua
+              </button>
+              <button
+                onClick={() => setSystemFilter('pulmonary')}
+                className={`px-3 py-1 rounded-full transition-all ${
+                  systemFilter === 'pulmonary'
+                    ? 'bg-rose-700 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                }`}
+              >
+                Pulmonal
+              </button>
+              <button
+                onClick={() => setSystemFilter('systemic')}
+                className={`px-3 py-1 rounded-full transition-all ${
+                  systemFilter === 'systemic'
+                    ? 'bg-rose-700 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                }`}
+              >
+                Sistemik
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -145,11 +175,54 @@ export default function InteractiveAnatomy() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         {/* Anatomical Body Canvas */}
         <div className="lg:col-span-6 relative flex flex-col items-center justify-center p-4 rounded-3xl bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border border-slate-200/70 dark:border-slate-800 shadow-inner min-h-[460px]">
-          <svg
-            viewBox="0 0 400 620"
-            className="w-full max-w-sm h-auto select-none"
-            aria-label="Anatomi Sistem Peredaran Darah Tubuh"
-          >
+          {displayMode === 'atlas' ? (
+            <div className="relative w-full flex flex-col items-center justify-center py-2 animate-fadeIn">
+              <div className="relative group max-w-[390px] w-full rounded-2xl overflow-hidden bg-white/95 dark:bg-slate-900/95 p-3 shadow-md border border-slate-200/80 dark:border-slate-800 flex flex-col items-center">
+                <img
+                  src="/assets/circulatory_system_fullbody.svg"
+                  alt="Atlas Sistem Peredaran Darah Tubuh Manusia - Gray's & Sobotta"
+                  className="w-full h-auto max-h-[560px] object-contain drop-shadow-md select-none transition-transform duration-300 hover:scale-[1.02]"
+                />
+                <div className="mt-3 w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 text-center">
+                  <p className="text-[11px] font-semibold text-slate-800 dark:text-slate-200">
+                    Sistem Sirkulasi Utuh Manusia (Gray's Anatomy & Sobotta)
+                  </p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    Ilustrasi vektor anatomi oleh Mariana Ruiz (LadyofHats) &bull; Domain Publik
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick selector buttons for key anatomical regions */}
+              <div className="mt-4 flex flex-wrap justify-center gap-1.5 max-w-sm">
+                {[
+                  { id: 'carotid_vessels', label: 'Kepala & Leher' },
+                  { id: 'heart', label: 'Cor / Jantung' },
+                  { id: 'lungs', label: 'Paru (Pulmo)' },
+                  { id: 'aorta', label: 'Arkus Aorta' },
+                  { id: 'vena_cava', label: 'Vena Kava' },
+                  { id: 'iliac_vessels', label: 'A. Femoralis' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveId(item.id)}
+                    className={`text-[11px] font-medium px-2.5 py-1 rounded-full border transition-all ${
+                      activeId === item.id
+                        ? 'bg-rose-700 text-white border-rose-700 shadow-xs'
+                        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-rose-300'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <svg
+              viewBox="0 0 400 620"
+              className="w-full max-w-sm h-auto select-none"
+              aria-label="Anatomi Sistem Peredaran Darah Tubuh"
+            >
             <defs>
               <linearGradient id="artery-stroke" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor="#FB7185" />
@@ -734,6 +807,7 @@ export default function InteractiveAnatomy() {
               </g>
             </g>
           </svg>
+          )}
         </div>
 
         {/* Right: Anatomical & Clinical Information Card */}

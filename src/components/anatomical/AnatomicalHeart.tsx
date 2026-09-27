@@ -112,8 +112,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Arcus Aortae',
     type: 'artery',
     oxygenated: true,
-    x: 60,
-    y: 13,
+    x: 57,
+    y: 20,
     description: 'Lengkung arteri utama berotot elastis yang menerima semburan darah kaya O₂ bertekanan tinggi (~120 mmHg) dari ventrikel kiri untuk didistribusikan ke seluruh tubuh.',
     clinicalNote: 'Mempercabangkan arteri brakiosefalika, karotis komunis sinistra, dan subklavia sinistra untuk perfusi tubuh atas dan ensefalon (otak).',
   },
@@ -123,8 +123,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Vena Cava Superior',
     type: 'vein',
     oxygenated: false,
-    x: 33.4,
-    y: 20,
+    x: 35,
+    y: 28,
     description: 'Pembuluh balik besar yang mengalirkan darah deoksigenasi dari kepala, leher, rongga dada, dan ekstremitas atas langsung ke atrium kanan.',
     clinicalNote: 'Muara vena tanpa katup, mengalir pasif berdasarkan gradien tekanan intratoraks.',
   },
@@ -135,7 +135,7 @@ export const heartStructuresInternal: HeartStructure[] = [
     type: 'artery',
     oxygenated: false,
     x: 52,
-    y: 31,
+    y: 36,
     description: 'Pangkal pembuluh darah yang mengalirkan darah kaya CO₂ dari ventrikel kanan menuju kapiler alveolus kedua paru-paru.',
     clinicalNote: 'Dilengkapi katup semilunaris pulmonalis dengan 3 kuspis berbentuk bulan sabit.',
   },
@@ -145,8 +145,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Cavitas Atrii Dextri',
     type: 'chamber',
     oxygenated: false,
-    x: 34,
-    y: 41,
+    x: 36,
+    y: 50,
     description: 'Ruang penerima darah vena sistemik. Dinding interiornya dihiasi otot pektinati dan menampung darah sebelum diteruskan ke ventrikel kanan.',
     clinicalNote: 'Terdapat nodus SA (pacu jantung) dan fossa ovalis sisa sirkulasi janin.',
   },
@@ -156,8 +156,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Valvula Tricuspidalis & Chordae Tendineae',
     type: 'chamber',
     oxygenated: false,
-    x: 42,
-    y: 55,
+    x: 43,
+    y: 65,
     description: 'Katup tiga daun dengan tali-tali fibrosa kuat (korda tendinea) yang tertambat pada muskulus papilaris ventrikel kanan.',
     clinicalNote: 'Mencegah regurgitasi atau pembalikan arah aliran darah ke atrium kanan saat ventrikel berkontraksi (sistol).',
   },
@@ -167,8 +167,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Cavitas Ventriculi Dextri',
     type: 'chamber',
     oxygenated: false,
-    x: 39,
-    y: 68,
+    x: 46,
+    y: 77,
     description: 'Rongga berdinding otot trabekula yang memompa darah bertekanan rendah ke dalam sirkuit mikrovaskular paru-paru.',
     clinicalNote: 'Ketebalan dinding miokardium sekitar 4-5 mm, cukup untuk menaklukkan resistensi vaskular paru yang rendah.',
   },
@@ -178,7 +178,7 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Septum Interventriculare',
     type: 'muscle',
     oxygenated: true,
-    x: 55,
+    x: 56,
     y: 78,
     description: 'Partisi tebal berotot yang memisahkan rongga ventrikel kanan dan kiri, menjaga pemisahan mutlak darah kaya O₂ dan kaya CO₂.',
     clinicalNote: 'Defek septum ventrikel (VSD) memicu percampuran darah dan beban volume sirkulasi berlebih.',
@@ -189,8 +189,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Cavitas Atrii Sinistri',
     type: 'chamber',
     oxygenated: true,
-    x: 74,
-    y: 41,
+    x: 64,
+    y: 43,
     description: 'Rongga bertekanan sedang yang menerima darah yang baru saja dioksigenasi dari paru-paru lewat empat muara vena pulmonalis.',
     clinicalNote: 'Stasis akibat gangguan irama (seperti fibrilasi atrium) rentan membentuk trombus bekuan darah.',
   },
@@ -200,8 +200,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Valvula Mitralis (Bicuspidalis)',
     type: 'chamber',
     oxygenated: true,
-    x: 64,
-    y: 55,
+    x: 63,
+    y: 58,
     description: 'Katup dua daun berkekuatan mekanik tinggi yang menahan tekanan ejeksi masif ventrikel kiri dibantu korda tendinea kokoh.',
     clinicalNote: 'Insufisiensi katup mitral menyebabkan darah terdorong balik ke atrium kiri dan memicu kongesti paru.',
   },
@@ -211,8 +211,8 @@ export const heartStructuresInternal: HeartStructure[] = [
     latin: 'Cavitas Ventriculi Sinistri & Myocardium',
     type: 'chamber',
     oxygenated: true,
-    x: 70,
-    y: 68,
+    x: 72,
+    y: 70,
     description: 'Kavitas pompa utama sirkulasi sistemik tubuh yang dikelilingi lapisan miokardium sangat tebal (10-15 mm) untuk memompa darah ke seluruh organ vital.',
     clinicalNote: 'Kekuatan ejeksi diukur dengan LVEF (normal 55-70%). Hipertensi kronis memicu hipertrofi ventrikel kiri (LVH).',
   },
@@ -317,7 +317,16 @@ export default function AnatomicalHeart({
             </div>
           ) : (
             <div className="relative w-full h-full flex items-center justify-center">
-              <CutawayHeartSVG activeId={active?.id} />
+              {!internalImageError ? (
+                <img
+                  src="/assets/heart_internal_clean.svg"
+                  alt="Anatomi Potongan 4 Ruang Jantung Manusia"
+                  onError={() => setInternalImageError(true)}
+                  className="w-auto h-[92%] max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(190,18,60,0.22)]"
+                />
+              ) : (
+                <CutawayHeartSVG activeId={active?.id} />
+              )}
             </div>
           )}
 

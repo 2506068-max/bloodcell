@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Microscope, ZoomIn, Shield, Flame, Activity } from 'lucide-react'
+import { Microscope, ZoomIn, Shield, Flame, Activity, Eye, Layers } from 'lucide-react'
 
 export type CellCategory = 'erythrocyte' | 'leukocyte' | 'platelet'
 
 export default function MicroscopicBloodCells() {
+  const [viewMode, setViewMode] = useState<'3d_atlas' | 'sem'>('3d_atlas')
   const [activeCategory, setActiveCategory] = useState<CellCategory>('erythrocyte')
   const [wbcType, setWbcType] = useState<'neutrophil' | 'lymphocyte' | 'monocyte'>('neutrophil')
   const [plateletState, setPlateletState] = useState<'resting' | 'activated'>('resting')
@@ -69,133 +70,202 @@ export default function MicroscopicBloodCells() {
             </div>
           </div>
 
-          {/* Sub-selectors */}
-          {activeCategory === 'leukocyte' && (
-            <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800/80 text-xs">
-              {(['neutrophil', 'lymphocyte', 'monocyte'] as const).map((type) => (
+          {/* Controls & Sub-selectors */}
+          <div className="flex flex-wrap items-center gap-2">
+            {/* View Mode Toggle: Atlas 3D vs SEM */}
+            <div className="flex rounded-full border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+              <button
+                onClick={() => setViewMode('3d_atlas')}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                  viewMode === '3d_atlas'
+                    ? 'bg-rose-700 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                }`}
+              >
+                <Eye size={13} />
+                Atlas 3D (Blausen)
+              </button>
+              <button
+                onClick={() => setViewMode('sem')}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
+                  viewMode === 'sem'
+                    ? 'bg-rose-700 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                }`}
+              >
+                <Microscope size={13} />
+                Simulasi SEM
+              </button>
+            </div>
+
+            {/* Sub-selectors */}
+            {activeCategory === 'leukocyte' && (
+              <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800/80 text-xs">
+                {(['neutrophil', 'lymphocyte', 'monocyte'] as const).map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setWbcType(type)}
+                    className={`px-3 py-1.5 rounded-md font-semibold capitalize transition-all ${
+                      wbcType === type
+                        ? 'bg-white dark:bg-slate-900 text-sky-700 dark:text-sky-300 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {type === 'neutrophil' ? 'Neutrofil' : type === 'lymphocyte' ? 'Limfosit' : 'Monosit'}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {activeCategory === 'platelet' && (
+              <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800/80 text-xs">
                 <button
-                  key={type}
-                  onClick={() => setWbcType(type)}
-                  className={`px-3 py-1.5 rounded-md font-semibold capitalize transition-all ${
-                    wbcType === type
-                      ? 'bg-white dark:bg-slate-900 text-sky-700 dark:text-sky-300 shadow-sm'
+                  onClick={() => setPlateletState('resting')}
+                  className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
+                    plateletState === 'resting'
+                      ? 'bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-300 shadow-sm'
                       : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  {type === 'neutrophil' ? 'Neutrofil' : type === 'lymphocyte' ? 'Limfosit' : 'Monosit'}
+                  Inaktif
                 </button>
-              ))}
-            </div>
-          )}
-
-          {activeCategory === 'platelet' && (
-            <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800/80 text-xs">
-              <button
-                onClick={() => setPlateletState('resting')}
-                className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                  plateletState === 'resting'
-                    ? 'bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-300 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                Inaktif (Darah Normal)
-              </button>
-              <button
-                onClick={() => setPlateletState('activated')}
-                className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                  plateletState === 'activated'
-                    ? 'bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-300 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                Teraktivasi (Luka Pembuluh)
-              </button>
-            </div>
-          )}
+                <button
+                  onClick={() => setPlateletState('activated')}
+                  className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
+                    plateletState === 'activated'
+                      ? 'bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-300 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Teraktivasi
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Viewer Grid: Left Realistic Render, Right Histological Facts */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* SEM Simulation Viewport */}
-          <div className="lg:col-span-6 relative flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 border border-slate-800 shadow-inner overflow-hidden min-h-[360px]">
-            {/* Ambient microscope grid overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-25" />
-            <div className="pointer-events-none absolute left-4 top-4 text-[10px] font-mono text-emerald-400/80">
-              HV: 15.0 kV | MAG: {magnification}x | WD: 8.2 mm
+          {/* Viewport: 3D Atlas vs SEM */}
+          {viewMode === '3d_atlas' ? (
+            <div className="lg:col-span-6 relative flex flex-col items-center justify-center p-4 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 border border-slate-800 shadow-xl overflow-hidden min-h-[360px] animate-fadeIn">
+              <div className="relative w-full flex flex-col items-center">
+                <div className="relative group w-full max-w-sm rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800/80 shadow-2xl flex items-center justify-center min-h-[260px] p-2">
+                  <img
+                    src={
+                      activeCategory === 'erythrocyte'
+                        ? '/assets/blood_cells_rbc_optimized.jpg'
+                        : activeCategory === 'leukocyte'
+                        ? '/assets/blood_cells_wbc_optimized.jpg'
+                        : '/assets/blood_cells_platelets_optimized.jpg'
+                    }
+                    alt={
+                      activeCategory === 'erythrocyte'
+                        ? '3D Erythrocyte Blausen Medical'
+                        : activeCategory === 'leukocyte'
+                        ? '3D Leukocyte Blausen Medical'
+                        : '3D Platelets Blausen Medical'
+                    }
+                    className="w-full h-auto max-h-[280px] object-contain transition-transform duration-500 group-hover:scale-105 select-none"
+                  />
+                  <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-xs border border-slate-700/60 text-[10px] font-mono text-emerald-400">
+                    RENDER 3D ANATOMIS
+                  </div>
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-xs border border-slate-700/60 text-[10px] font-mono text-slate-300">
+                    {activeCategory === 'erythrocyte' ? 'Ø 7.5 – 8.5 µm' : activeCategory === 'leukocyte' ? 'Ø 12 – 15 µm' : 'Ø 2 – 3 µm'}
+                  </div>
+                </div>
+                <div className="mt-3 w-full max-w-sm px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-center">
+                  <p className="text-[11px] text-slate-300 font-medium">
+                    Ilustrasi Medis Ilmiah 3D &bull; Blausen Medical Communications
+                  </p>
+                  <p className="text-[10px] text-slate-500">
+                    Lisensi Creative Commons Attribution 3.0 (CC BY 3.0)
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="pointer-events-none absolute right-4 top-4 text-[10px] font-mono text-slate-500">
-              SEM DETECTOR: ETD
-            </div>
+          ) : (
+            <div className="lg:col-span-6 relative flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 border border-slate-800 shadow-inner overflow-hidden min-h-[360px]">
+              {/* Ambient microscope grid overlay */}
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-25" />
+              <div className="pointer-events-none absolute left-4 top-4 text-[10px] font-mono text-emerald-400/80">
+                HV: 15.0 kV | MAG: {magnification}x | WD: 8.2 mm
+              </div>
+              <div className="pointer-events-none absolute right-4 top-4 text-[10px] font-mono text-slate-500">
+                SEM DETECTOR: ETD
+              </div>
 
-            {/* Scale Bar */}
-            <div className="pointer-events-none absolute right-4 bottom-4 flex flex-col items-end gap-0.5 font-mono text-[9px] text-slate-400">
-              <span>2.0 µm</span>
-              <div className="w-16 h-1 bg-white/90 rounded-sm" />
-            </div>
+              {/* Scale Bar */}
+              <div className="pointer-events-none absolute right-4 bottom-4 flex flex-col items-end gap-0.5 font-mono text-[9px] text-slate-400">
+                <span>2.0 µm</span>
+                <div className="w-16 h-1 bg-white/90 rounded-sm" />
+              </div>
 
-            {/* Dynamic Rendering Based on Category */}
-            <AnimatePresence mode="wait">
-              {activeCategory === 'erythrocyte' && (
-                <motion.div
-                  key="rbc"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="relative flex items-center justify-center"
+              {/* Dynamic Rendering Based on Category */}
+              <AnimatePresence mode="wait">
+                {activeCategory === 'erythrocyte' && (
+                  <motion.div
+                    key="rbc"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="relative flex items-center justify-center"
+                  >
+                    <ErythrocyteSEM />
+                  </motion.div>
+                )}
+
+                {activeCategory === 'leukocyte' && (
+                  <motion.div
+                    key={`wbc-${wbcType}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="relative flex items-center justify-center"
+                  >
+                    <LeukocyteSEM type={wbcType} />
+                  </motion.div>
+                )}
+
+                {activeCategory === 'platelet' && (
+                  <motion.div
+                    key={`platelet-${plateletState}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="relative flex items-center justify-center"
+                  >
+                    <PlateletSEM state={plateletState} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Magnification slider */}
+              <div className="absolute left-4 bottom-3 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-slate-700/60 text-slate-300 text-[10px]">
+                <ZoomIn size={12} className="text-slate-400" />
+                <span>Perbesaran:</span>
+                <button
+                  onClick={() => setMagnification(1500)}
+                  className={`px-1.5 py-0.5 rounded ${magnification === 1500 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
                 >
-                  <ErythrocyteSEM />
-                </motion.div>
-              )}
-
-              {activeCategory === 'leukocyte' && (
-                <motion.div
-                  key={`wbc-${wbcType}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="relative flex items-center justify-center"
+                  1500x
+                </button>
+                <button
+                  onClick={() => setMagnification(2500)}
+                  className={`px-1.5 py-0.5 rounded ${magnification === 2500 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
                 >
-                  <LeukocyteSEM type={wbcType} />
-                </motion.div>
-              )}
-
-              {activeCategory === 'platelet' && (
-                <motion.div
-                  key={`platelet-${plateletState}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="relative flex items-center justify-center"
+                  2500x
+                </button>
+                <button
+                  onClick={() => setMagnification(5000)}
+                  className={`px-1.5 py-0.5 rounded ${magnification === 5000 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
                 >
-                  <PlateletSEM state={plateletState} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Magnification slider */}
-            <div className="absolute left-4 bottom-3 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-slate-700/60 text-slate-300 text-[10px]">
-              <ZoomIn size={12} className="text-slate-400" />
-              <span>Perbesaran:</span>
-              <button
-                onClick={() => setMagnification(1500)}
-                className={`px-1.5 py-0.5 rounded ${magnification === 1500 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
-              >
-                1500x
-              </button>
-              <button
-                onClick={() => setMagnification(2500)}
-                className={`px-1.5 py-0.5 rounded ${magnification === 2500 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
-              >
-                2500x
-              </button>
-              <button
-                onClick={() => setMagnification(5000)}
-                className={`px-1.5 py-0.5 rounded ${magnification === 5000 ? 'bg-rose-600 text-white font-bold' : 'text-slate-400'}`}
-              >
-                5000x
-              </button>
+                  5000x
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Right: Scientific Breakdown & Histology Data */}
           <div className="lg:col-span-6 space-y-4">

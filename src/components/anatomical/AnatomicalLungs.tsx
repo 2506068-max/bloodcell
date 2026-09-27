@@ -73,15 +73,37 @@ export default function AnatomicalLungs() {
   const [selected, setSelected] = useState<LungStructure | null>(null)
   const [isBreathing, setIsBreathing] = useState(true)
   const [imageError, setImageError] = useState(false)
+  const [viewMode, setViewMode] = useState<'bronchial' | 'atlas'>('bronchial')
 
   return (
     <div className="relative flex flex-col items-center w-full">
       {/* Controls */}
-      <div className="mb-4 flex items-center justify-between w-full max-w-lg px-2">
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-          <Wind size={14} className="text-sky-500" />
-          Anatomi Paru & Sirkulasi Pulmonalis
-        </span>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 w-full max-w-lg px-2">
+        <div className="inline-flex rounded-full border border-slate-200 bg-slate-100/80 p-0.5 text-xs font-semibold dark:border-slate-800 dark:bg-slate-900/80">
+          <button
+            type="button"
+            onClick={() => setViewMode('bronchial')}
+            className={`px-3 py-1 rounded-full transition-all ${
+              viewMode === 'bronchial'
+                ? 'bg-white text-sky-700 shadow-sm dark:bg-slate-800 dark:text-sky-300'
+                : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+            }`}
+          >
+            Pohon Bronkial & Alveolus
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('atlas')}
+            className={`px-3 py-1 rounded-full transition-all ${
+              viewMode === 'atlas'
+                ? 'bg-white text-sky-700 shadow-sm dark:bg-slate-800 dark:text-sky-300'
+                : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+            }`}
+          >
+            Atlas Lobus Pulmo
+          </button>
+        </div>
+
         <button
           onClick={() => setIsBreathing(!isBreathing)}
           className="text-xs px-3 py-1 rounded-full border border-slate-200 bg-white/90 text-slate-700 hover:bg-slate-50 font-medium dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
@@ -106,7 +128,7 @@ export default function AnatomicalLungs() {
         >
           {!imageError ? (
             <img
-              src="/assets/lungs_anatomical.png"
+              src={viewMode === 'bronchial' ? '/assets/lungs_anatomical.svg' : '/assets/lungs_openstax_optimized.jpg'}
               alt="Anatomi Paru-Paru Manusia dan Percabangan Bronkial"
               onError={() => setImageError(true)}
               className="w-auto h-[92%] max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(2,132,199,0.18)] rounded-2xl"
