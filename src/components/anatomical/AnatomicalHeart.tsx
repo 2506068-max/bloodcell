@@ -256,42 +256,42 @@ export default function AnatomicalHeart({
   }
 
   const containerSizes = {
-    sm: 'max-w-[280px] h-[300px]',
-    md: 'max-w-[400px] h-[420px]',
-    lg: 'max-w-[520px] h-[540px]',
+    sm: 'max-w-[280px] w-full aspect-[500/550]',
+    md: 'max-w-[400px] w-full aspect-[500/550]',
+    lg: 'max-w-[480px] w-full aspect-[500/550]',
   }
 
   return (
-    <div className="relative flex flex-col items-center w-full">
+    <div className="relative flex flex-col items-center w-full max-w-full">
       {/* View Mode Switcher */}
-      <div className="mb-4 inline-flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 text-xs font-semibold shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90">
+      <div className="mb-4 inline-flex max-w-full items-center justify-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 text-[11px] sm:text-xs font-semibold shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90 mx-auto">
         <button
           onClick={() => handleViewModeChange('surface')}
-          className={`rounded-full px-3.5 py-1.5 transition-all ${
+          className={`rounded-full px-3 sm:px-3.5 py-1.5 transition-all text-center whitespace-nowrap ${
             viewMode === 'surface'
               ? 'bg-rose-600 text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
           }`}
         >
-          Anatomi Luar (Anterior)
+          <span>Anatomi Luar<span className="hidden sm:inline"> (Anterior)</span></span>
         </button>
         <button
           onClick={() => handleViewModeChange('cutaway')}
-          className={`rounded-full px-3.5 py-1.5 transition-all ${
+          className={`rounded-full px-3 sm:px-3.5 py-1.5 transition-all text-center whitespace-nowrap ${
             viewMode === 'cutaway'
               ? 'bg-rose-600 text-white shadow-sm'
               : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
           }`}
         >
-          Potongan Ruang (Internal)
+          <span>Potongan Ruang<span className="hidden sm:inline"> (Internal)</span></span>
         </button>
       </div>
 
       {/* Main Heart Canvas Container */}
-      <div className={`relative w-full ${containerSizes[size]} flex items-center justify-center select-none`}>
+      <div className={`relative w-full ${containerSizes[size]} flex items-center justify-center select-none mx-auto`}>
         {/* Subtle biological heartbeat pulsation */}
         <motion.div
-          className="relative aspect-[500/550] h-full max-h-full max-w-full flex items-center justify-center"
+          className="relative w-full h-full max-h-full max-w-full aspect-[500/550] flex items-center justify-center"
           animate={{
             scale: [1, 1.025, 0.995, 1.015, 1],
           }}
@@ -373,7 +373,7 @@ export default function AnatomicalHeart({
                   {/* Desktop Hover Label */}
                   {showLabels && (
                     <div
-                      className={`pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-1 transition-all duration-200 ${
+                      className={`pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-1 transition-all duration-200 hidden sm:block ${
                         isSelected ? 'opacity-100 scale-100' : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'
                       }`}
                     >
@@ -396,7 +396,7 @@ export default function AnatomicalHeart({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
             transition={{ duration: 0.25 }}
-            className="mt-4 w-full max-w-xl rounded-2xl border border-slate-200/90 bg-white/95 p-5 shadow-xl backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/95 text-left"
+            className="mt-4 w-full max-w-xl rounded-2xl border border-slate-200/90 bg-white/95 p-4 sm:p-5 shadow-xl backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/95 text-left"
           >
             <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-3 dark:border-slate-800">
               <div>

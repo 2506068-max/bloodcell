@@ -294,7 +294,7 @@ export default function Mascot({ section, mood = 'idle' }: MascotProps) {
               setPositionVertical(rect.top < 240 ? 'top' : 'bottom')
             }
           }}
-          className={`pointer-events-auto absolute bottom-6 right-3 sm:bottom-8 sm:right-6 flex max-w-[calc(100vw-2rem)] sm:max-w-[16rem] gap-2 touch-none select-none ${
+          className={`pointer-events-auto absolute bottom-20 right-3 sm:bottom-8 sm:right-6 flex max-w-[calc(100vw-2.5rem)] sm:max-w-[16rem] gap-2 touch-none select-none ${
             isTop ? 'flex-col-reverse' : 'flex-col'
           } ${isLeft ? 'items-start' : 'items-end'}`}
         >
