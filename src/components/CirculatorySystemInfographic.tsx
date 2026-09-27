@@ -1,64 +1,24 @@
-import { motion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 
 interface CirculationState {
   activeSystem: 'all' | 'pulmonary' | 'systemic'
   hoveredOrgan: string | null
+  modalDetail: { title: string; subtitle: string; description: string; role: string; type: 'oxygenated' | 'deoxygenated' | 'neutral' } | null
 }
 
 export default function CirculatorySystemInfographic() {
   const [state, setState] = useState<CirculationState>({
     activeSystem: 'all',
     hoveredOrgan: null,
+    modalDetail: null,
   })
-  const svgRef = useRef<SVGSVGElement>(null)
 
-  // Animation variants
-  const pulseVariants = {
-    pulse: {
-      scale: [1, 1.05, 1],
-      transition: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' },
-    },
-  }
-
-  const flowVariants = {
-    flow: {
-      strokeDashoffset: [0, -20],
-      transition: { duration: 2, repeat: Infinity, ease: 'linear' },
-    },
-  }
+  const isPulmonaryActive = state.activeSystem === 'all' || state.activeSystem === 'pulmonary'
+  const isSystemicActive = state.activeSystem === 'all' || state.activeSystem === 'systemic'
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-[#F8FAFC] via-[#FFF5F8] to-[#E8F3FF] overflow-hidden flex items-center justify-center p-4 lg:p-8">
-      {/* Background floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`bg-particle-${i}`}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: `${30 + i * 15}px`,
-              height: `${30 + i * 15}px`,
-              left: `${10 + i * 11}%`,
-              top: `${15 + i * 10}%`,
-              background: `radial-gradient(circle, ${
-                i % 3 === 0
-                  ? 'rgba(255,77,109,0.08)'
-                  : i % 3 === 1
-                    ? 'rgba(78,205,196,0.08)'
-                    : 'rgba(205,180,219,0.08)'
-              }, transparent)`,
-            }}
-            animate={{ y: [0, 20, 0], opacity: [0.3, 0.6, 0.3] }}
-            transition={{
-              duration: 6 + i * 0.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-
       <div className="relative w-full max-w-6xl">
         {/* Header */}
         <motion.div
@@ -67,640 +27,595 @@ export default function CirculatorySystemInfographic() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-3">
-            Sistem Peredaran Darah
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-100/80 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+            Infografis Alur Sirkulasi Ganda
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">
+            Sirkulasi Pulmonal & Sistemik
           </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            Jelajahi perjalanan menakjubkan darah melalui jantung, paru-paru, dan seluruh tubuh Anda
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Alur horizontal satu arah: Darah terdeoksigenasi (biru) dioksigenasi di paru-paru, kemudian dipompa ke jaringan tubuh dan kembali lagi ke jantung.
           </p>
         </motion.div>
 
         {/* Main infographic container */}
-        <div className="relative bg-white/70 backdrop-blur-2xl rounded-[3rem] border border-white/40 shadow-[0_50px_100px_-30px_rgba(15,23,42,0.2)] p-8 lg:p-12">
-          {/* SVG Infographic */}
-          <svg
-            ref={svgRef}
-            viewBox="0 0 1200 800"
-            className="w-full max-w-5xl mx-auto"
-            style={{ filter: 'drop-shadow(0 0 20px rgba(255,77,109,0.1))' }}
-          >
-            {/* Define filters */}
-            <defs>
-              <filter id="glow-red" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-
-              <filter id="glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-
-              <linearGradient id="blood-rich" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#FF4D6D', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#FF8FA3', stopOpacity: 1 }} />
-              </linearGradient>
-
-              <linearGradient id="blood-poor" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#4ECDC4', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#A0E7E5', stopOpacity: 1 }} />
-              </linearGradient>
-
-              <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#FF4D6D', stopOpacity: 1 }} />
-                <stop offset="50%" style={{ stopColor: '#FF8FA3', stopOpacity: 0.9 }} />
-                <stop offset="100%" style={{ stopColor: '#FF4D6D', stopOpacity: 1 }} />
-              </linearGradient>
-
-              {/* Realistic Anatomical Organ Gradients */}
-              <radialGradient id="info-lung-grad" cx="45%" cy="35%" r="65%">
-                <stop offset="0%" stopColor="#FDA4AF" />
-                <stop offset="45%" stopColor="#F43F5E" />
-                <stop offset="85%" stopColor="#BE123C" />
-                <stop offset="100%" stopColor="#881337" />
-              </radialGradient>
-
-              <radialGradient id="info-myo-grad" cx="45%" cy="38%" r="65%">
-                <stop offset="0%" stopColor="#E11D48" />
-                <stop offset="45%" stopColor="#BE123C" />
-                <stop offset="80%" stopColor="#881337" />
-                <stop offset="100%" stopColor="#4C0519" />
-              </radialGradient>
-
-              <pattern id="alveoli" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="6" fill="#4ECDC4" opacity="0.6" />
-              </pattern>
-            </defs>
-
-            {/* Background grid */}
-            <rect width="1200" height="800" fill="none" opacity="0.02" />
-
-            {/* ===== MAJOR VESSELS ===== */}
-
-            {/* Superior Vena Cava (Blue) */}
-            <motion.path
-              d="M 600 120 L 600 220"
-              stroke="url(#blood-poor)"
-              strokeWidth="18"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="100"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-cyan)"
-            />
-
-            {/* Aorta (Red) */}
-            <motion.path
-              d="M 600 320 L 600 680"
-              stroke="url(#blood-rich)"
-              strokeWidth="16"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="100"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Left carotid artery (Red) */}
-            <motion.path
-              d="M 600 320 Q 450 280 380 180"
-              stroke="url(#blood-rich)"
-              strokeWidth="12"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Right carotid artery (Red) */}
-            <motion.path
-              d="M 600 320 Q 750 280 820 180"
-              stroke="url(#blood-rich)"
-              strokeWidth="12"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Left subclavian artery (Red) */}
-            <motion.path
-              d="M 600 340 Q 450 380 320 420"
-              stroke="url(#blood-rich)"
-              strokeWidth="11"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Right subclavian artery (Red) */}
-            <motion.path
-              d="M 600 340 Q 750 380 880 420"
-              stroke="url(#blood-rich)"
-              strokeWidth="11"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Left iliac artery (Red) */}
-            <motion.path
-              d="M 600 680 Q 480 720 400 760"
-              stroke="url(#blood-rich)"
-              strokeWidth="10"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="70"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Right iliac artery (Red) */}
-            <motion.path
-              d="M 600 680 Q 720 720 800 760"
-              stroke="url(#blood-rich)"
-              strokeWidth="10"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="70"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-red)"
-            />
-
-            {/* Return vessels (Blue) */}
-            <motion.path
-              d="M 380 180 Q 450 240 500 280"
-              stroke="url(#blood-poor)"
-              strokeWidth="10"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="70"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-cyan)"
-            />
-
-            <motion.path
-              d="M 820 180 Q 750 240 700 280"
-              stroke="url(#blood-poor)"
-              strokeWidth="10"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="70"
-              variants={flowVariants}
-              animate="flow"
-              filter="url(#glow-cyan)"
-            />
-
-            {/* ===== LUNGS (Anatomical Respiratory Organs) ===== */}
-
-            {/* Right Lung (Pulmo Dexter - 3 Lobes, located on Patient's Right / Viewer's Left) */}
-            <g
-              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'right-lung' }))}
-              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
-              className="cursor-pointer"
-            >
-              <motion.g
-                animate={state.hoveredOrgan === 'right-lung' ? { scale: 1.05 } : { scale: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                <path
-                  d="M 330 260 
-                     C 300 262 278 286 270 320 
-                     C 262 355 266 395 280 422 
-                     C 298 438 335 432 355 410 
-                     C 358 385 352 355 355 330 
-                     C 358 300 355 265 330 260 Z"
-                  fill="url(#info-lung-grad)"
-                  stroke="#881337"
-                  strokeWidth="2.2"
-                  filter="url(#glow-red)"
-                />
-
-                {/* Fissura Horizontalis & Fissura Obliqua (3 lobes) */}
-                <path d="M 272 335 Q 310 338 354 345" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
-                <path d="M 278 385 Q 315 400 352 418" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
-
-                {/* Bronchial Tree Arborization */}
-                <path d="M 350 310 Q 320 325 295 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
-                <path d="M 320 328 Q 305 305 295 285" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
-                <path d="M 315 340 Q 295 380 288 410" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
-
-                {/* Pulmonary microvascular branch (Cyan venous / Red arterial) */}
-                <path d="M 345 320 Q 315 338 290 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
-                <path d="M 292 365 Q 320 350 348 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
-
-                <g transform="translate(315, 455)">
-                  <rect x="-65" y="-12" width="130" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
-                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                    Paru Kanan (3 Lobus)
-                  </text>
-                </g>
-              </motion.g>
-            </g>
-
-            {/* Left Lung (Pulmo Sinister - 2 Lobes & Incisura Cardiaca, located on Patient's Left / Viewer's Right) */}
-            <g
-              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'left-lung' }))}
-              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
-              className="cursor-pointer"
-            >
-              <motion.g
-                animate={state.hoveredOrgan === 'left-lung' ? { scale: 1.05 } : { scale: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                <path
-                  d="M 870 260 
-                     C 900 262 922 286 930 320 
-                     C 938 355 934 395 920 422 
-                     C 902 438 865 432 845 410 
-                     C 842 385 848 355 845 330 
-                     C 842 300 845 265 870 260 Z"
-                  fill="url(#info-lung-grad)"
-                  stroke="#881337"
-                  strokeWidth="2.2"
-                  filter="url(#glow-red)"
-                />
-
-                {/* Fissura Obliqua (2 lobes) */}
-                <path d="M 924 345 Q 885 375 846 405" stroke="#4C0519" strokeWidth="1.6" fill="none" opacity="0.6" />
-
-                {/* Bronchial Tree Arborization */}
-                <path d="M 850 310 Q 880 325 905 345" stroke="#F1F5F9" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.85" />
-                <path d="M 880 328 Q 895 305 905 285" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
-                <path d="M 885 340 Q 905 380 912 410" stroke="#F1F5F9" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.8" />
-
-                {/* Pulmonary microvascular branch */}
-                <path d="M 855 320 Q 885 338 910 360" stroke="#38BDF8" strokeWidth="2" fill="none" opacity="0.8" />
-                <path d="M 908 365 Q 880 350 852 330" stroke="#FFE4E6" strokeWidth="1.6" fill="none" opacity="0.8" />
-
-                <g transform="translate(885, 455)">
-                  <rect x="-65" y="-12" width="130" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
-                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                    Paru Kiri (2 Lobus)
-                  </text>
-                </g>
-              </motion.g>
-            </g>
-
-            {/* ===== HEART (Cor Humanum) ===== */}
-            <g
-              onMouseEnter={() => setState(s => ({ ...s, hoveredOrgan: 'heart' }))}
-              onMouseLeave={() => setState(s => ({ ...s, hoveredOrgan: null }))}
-              className="cursor-pointer"
-            >
-              {/* Anatomical Heart Structure */}
-              <motion.g
-                variants={pulseVariants}
-                animate={state.hoveredOrgan === 'heart' ? ['pulse'] : 'pulse'}
-              >
-                {/* Aorta Arch atop heart with 3 branches */}
-                <path
-                  d="M 578 270 C 578 230 600 215 620 215 C 640 215 646 235 646 270"
-                  fill="none"
-                  stroke="#BE123C"
-                  strokeWidth="11"
-                  strokeLinecap="round"
-                />
-                <path d="M 602 222 L 598 198" stroke="#E11D48" strokeWidth="4.5" strokeLinecap="round" />
-                <path d="M 618 217 L 618 195" stroke="#E11D48" strokeWidth="4" strokeLinecap="round" />
-                <path d="M 632 220 L 636 198" stroke="#E11D48" strokeWidth="3.5" strokeLinecap="round" />
-
-                {/* Vena cava superior root */}
-                <path d="M 562 230 L 562 270" stroke="#0284C7" strokeWidth="9" strokeLinecap="round" fill="none" />
-
-                {/* Anatomical Heart Body Profile */}
-                <path
-                  d="M 552 270 
-                     C 525 292 525 340 550 378 
-                     C 572 414 602 442 622 452 
-                     C 648 426 680 372 680 312 
-                     C 674 272 642 268 612 274 
-                     C 588 268 565 264 552 270 Z"
-                  fill="url(#info-myo-grad)"
-                  stroke="#4C0519"
-                  strokeWidth="2.5"
-                  filter="url(#glow-red)"
-                />
-
-                {/* Internal chambers cutaway tint */}
-                {/* Right Atrium & Ventricle */}
-                <path d="M 548 280 C 538 300 542 330 558 350 C 568 335 568 300 558 280 Z" fill="#0284C7" opacity="0.35" />
-                {/* Left Atrium & Ventricle */}
-                <path d="M 615 280 C 625 305 625 345 615 365 C 645 350 658 320 652 280 Z" fill="#E11D48" opacity="0.4" />
-
-                {/* Interventricular Septum */}
-                <path d="M 598 280 Q 604 360 618 446" stroke="#4C0519" strokeWidth="4" fill="none" opacity="0.5" />
-
-                {/* Coronary Vessels (Arteria Coronaria) */}
-                <path d="M 602 285 Q 608 350 620 442" stroke="#450A0A" strokeWidth="2.5" fill="none" opacity="0.5" />
-                <path d="M 604 290 Q 612 345 618 435" stroke="#F43F5E" strokeWidth="2" fill="none" />
-                <path d="M 608 312 Q 624 330 638 348" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
-                <path d="M 605 355 Q 594 374 582 390" stroke="#F43F5E" strokeWidth="1.5" fill="none" />
-                <path d="M 606 300 Q 614 365 620 440" stroke="#38BDF8" strokeWidth="1.5" fill="none" opacity="0.85" />
-
-                {/* Latin Medical Label */}
-                <g transform="translate(614, 475)">
-                  <rect x="-55" y="-12" width="110" height="24" rx="6" fill="#FFFFFF" stroke="#FECDD3" strokeWidth="1" className="dark:fill-slate-900 dark:stroke-slate-700" />
-                  <text x="0" y="4" textAnchor="middle" className="text-xs font-bold font-sans" fill="#881337">
-                    Cor Humanum
-                  </text>
-                </g>
-              </motion.g>
-            </g>
-
-            {/* ===== BLOOD CELLS & EDUCATIONAL ELEMENTS ===== */}
-
-            {/* Red blood cells (along arteries) */}
-            {[...Array(12)].map((_, i) => {
-              const progress = (i + performance?.now?.() / 1000 || 0) % 12
-              const angle = (progress / 12) * Math.PI * 2
-              const x = 600 + Math.cos(angle) * 200
-              const y = 400 + Math.sin(angle) * 200
-              return (
-                <motion.circle
-                  key={`rbc-${i}`}
-                  cx={x}
-                  cy={y}
-                  r="4"
-                  fill="#FF4D6D"
-                  opacity="0.7"
-                  filter="url(#glow-red)"
-                  animate={{
-                    opacity: [0.5, 0.9, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    delay: i * 0.15,
-                    repeat: Infinity,
-                  }}
-                />
-              )
-            })}
-
-            {/* Oxygen molecules at right lung (pulmonary gas exchange) */}
-            {[...Array(5)].map((_, i) => (
-              <motion.g
-                key={`o2-${i}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <motion.circle
-                  cx={290 + i * 16}
-                  cy={370 + Math.sin(i) * 15}
-                  r="5"
-                  fill="#FF4D6D"
-                  opacity="0.65"
-                  animate={{
-                    x: [0, Math.cos(i) * 10, 0],
-                    y: [0, Math.sin(i) * 10, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    delay: i * 0.2,
-                    repeat: Infinity,
-                  }}
-                />
-                <text
-                  x={290 + i * 16}
-                  y={374 + Math.sin(i) * 15}
-                  fill="#FFFFFF"
-                  fontSize="7.5"
-                  textAnchor="middle"
-                  fontWeight="bold"
-                >
-                  O₂
-                </text>
-              </motion.g>
-            ))}
-
-            {/* Carbon dioxide molecules at left lung */}
-            {[...Array(5)].map((_, i) => (
-              <motion.g
-                key={`co2-${i}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <motion.circle
-                  cx={860 + i * 16}
-                  cy={370 + Math.sin(i + 1) * 15}
-                  r="5"
-                  fill="#0284C7"
-                  opacity="0.65"
-                  animate={{
-                    x: [0, Math.cos(i + 1) * 10, 0],
-                    y: [0, Math.sin(i + 1) * 10, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    delay: i * 0.2,
-                    repeat: Infinity,
-                  }}
-                />
-                <text
-                  x={860 + i * 16}
-                  y={374 + Math.sin(i + 1) * 15}
-                  fill="#FFFFFF"
-                  fontSize="7"
-                  textAnchor="middle"
-                  fontWeight="bold"
-                >
-                  CO₂
-                </text>
-              </motion.g>
-            ))}
-
-            {/* ===== NON-OVERLAPPING CLEAR LABELS ===== */}
-
-            {/* Header labels with dedicated stylish badges */}
-            <g transform="translate(315, 220)">
-              <rect x="-75" y="-14" width="150" height="28" rx="8" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-sm" />
-              <text
-                x="0"
-                y="4"
-                fill="#0284C7"
-                fontSize="12.5"
-                fontWeight="bold"
-                textAnchor="middle"
-              >
-                Paru-Paru Kanan
-              </text>
-            </g>
-
-            <g transform="translate(885, 220)">
-              <rect x="-75" y="-14" width="150" height="28" rx="8" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700" />
-              <text
-                x="0"
-                y="4"
-                fill="#0284C7"
-                fontSize="12.5"
-                fontWeight="bold"
-                textAnchor="middle"
-              >
-                Paru-Paru Kiri
-              </text>
-            </g>
-
-            {/* Circulation labels positioned away from vessels */}
-            <g transform="translate(420, 110)">
-              <rect x="-65" y="-16" width="130" height="36" rx="10" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-md" />
-              <text
-                x="0"
-                y="-1"
-                fill="#0284C7"
-                fontSize="11.5"
-                fontWeight="bold"
-                textAnchor="middle"
-              >
-                Sirkulasi Kecil
-              </text>
-              <text
-                x="0"
-                y="12"
-                fill="#64748B"
-                fontSize="9.5"
-                textAnchor="middle"
-              >
-                (Pulmonal)
-              </text>
-            </g>
-
-            <g transform="translate(780, 110)">
-              <rect x="-65" y="-16" width="130" height="36" rx="10" fill="#FFFFFF" stroke="#E11D48" strokeWidth="1.2" className="dark:fill-slate-900 dark:stroke-slate-700 filter drop-shadow-md" />
-              <text
-                x="0"
-                y="-1"
-                fill="#BE123C"
-                fontSize="11.5"
-                fontWeight="bold"
-                textAnchor="middle"
-              >
-                Sirkulasi Besar
-              </text>
-              <text
-                x="0"
-                y="12"
-                fill="#64748B"
-                fontSize="9.5"
-                textAnchor="middle"
-              >
-                (Sistemik)
-              </text>
-            </g>
-          </svg>
-
-          {/* Legend and info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/20">
-            {/* Legend item 1 */}
-            <motion.div
-              className="p-4 rounded-2xl bg-gradient-to-br from-[#FF4D6D]/10 to-[#FF8FA3]/10 border border-[#FF4D6D]/30 backdrop-blur-sm hover:border-[#FF4D6D]/60 transition-all cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#FF4D6D] to-[#FF8FA3]" />
-                <h4 className="font-semibold text-slate-900">Darah Kaya Oksigen</h4>
-              </div>
-              <p className="text-sm text-slate-600">Darah merah segar dari paru-paru</p>
-            </motion.div>
-
-            {/* Legend item 2 */}
-            <motion.div
-              className="p-4 rounded-2xl bg-gradient-to-br from-[#4ECDC4]/10 to-[#A0E7E5]/10 border border-[#4ECDC4]/30 backdrop-blur-sm hover:border-[#4ECDC4]/60 transition-all cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#4ECDC4] to-[#A0E7E5]" />
-                <h4 className="font-semibold text-slate-900">Darah Miskin Oksigen</h4>
-              </div>
-              <p className="text-sm text-slate-600">Darah biru ke paru-paru untuk oksigenasi</p>
-            </motion.div>
-
-            {/* Legend item 3 */}
-            <motion.div
-              className="p-4 rounded-2xl bg-gradient-to-br from-[#CDB4DB]/10 to-[#E8D5F2]/10 border border-[#CDB4DB]/30 backdrop-blur-sm hover:border-[#CDB4DB]/60 transition-all cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <motion.div
-                  className="w-3 h-3 rounded-full bg-gradient-to-r from-[#FF4D6D] to-[#4ECDC4]"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <h4 className="font-semibold text-slate-900">Jantung & Sirkulasi</h4>
-              </div>
-              <p className="text-sm text-slate-600">Pompa utama dan aliran darah</p>
-            </motion.div>
+        <div className="relative bg-white/80 backdrop-blur-2xl rounded-[2.5rem] border border-white/60 shadow-[0_30px_90px_-20px_rgba(15,23,42,0.12)] p-4 sm:p-8 lg:p-10 overflow-hidden">
+          {/* Mobile swipe helper hint */}
+          <div className="flex sm:hidden items-center justify-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-100/90 border border-slate-200/60 rounded-full py-1 px-3.5 mb-3 mx-auto w-fit shadow-xs">
+            <span className="text-rose-500 font-bold">⇄</span> Geser horizontal untuk melihat seluruh alur (Paru ⇄ Jantung ⇄ Tubuh)
           </div>
 
-          {/* Educational info box */}
-          <motion.div
-            className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-slate-50 to-slate-100/50 border border-slate-200/50"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <span className="text-xl">🫀</span> Bagaimana Sistem Peredaran Darah Bekerja?
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* SVG Unfolded Horizontal Dual-Loop Diagram */}
+          <div className="w-full overflow-x-auto pb-2">
+            <svg
+              viewBox="0 0 1200 620"
+              className="w-full min-w-[850px] max-w-5xl mx-auto select-none"
+              style={{ filter: 'drop-shadow(0 10px 30px rgba(15,23,42,0.06))' }}
+            >
+              <defs>
+                {/* 3D Cylindrical Tube Gradients for Realistic Blood Vessels */}
+                <linearGradient id="tube-artery" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#9F1239" />
+                  <stop offset="25%" stopColor="#E11D48" />
+                  <stop offset="50%" stopColor="#FB7185" />
+                  <stop offset="75%" stopColor="#E11D48" />
+                  <stop offset="100%" stopColor="#881337" />
+                </linearGradient>
+
+                <linearGradient id="tube-vein" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#0369A1" />
+                  <stop offset="25%" stopColor="#0284C7" />
+                  <stop offset="50%" stopColor="#38BDF8" />
+                  <stop offset="75%" stopColor="#0284C7" />
+                  <stop offset="100%" stopColor="#0C4A6E" />
+                </linearGradient>
+
+                {/* Organ Gradients */}
+                <radialGradient id="lung-mesh-grad" cx="40%" cy="35%" r="65%">
+                  <stop offset="0%" stopColor="#FDA4AF" />
+                  <stop offset="50%" stopColor="#F43F5E" />
+                  <stop offset="85%" stopColor="#BE123C" />
+                  <stop offset="100%" stopColor="#881337" />
+                </radialGradient>
+
+                <radialGradient id="heart-muscle-grad" cx="45%" cy="38%" r="65%">
+                  <stop offset="0%" stopColor="#E11D48" />
+                  <stop offset="45%" stopColor="#BE123C" />
+                  <stop offset="80%" stopColor="#881337" />
+                  <stop offset="100%" stopColor="#4C0519" />
+                </radialGradient>
+
+                <radialGradient id="body-tissue-grad" cx="50%" cy="40%" r="70%">
+                  <stop offset="0%" stopColor="#F8FAFC" />
+                  <stop offset="60%" stopColor="#E2E8F0" />
+                  <stop offset="100%" stopColor="#CBD5E1" />
+                </radialGradient>
+
+                {/* Filters */}
+                <filter id="organ-drop-shadow" x="-10%" y="-10%" width="125%" height="125%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#0F172A" floodOpacity="0.15" />
+                </filter>
+                <filter id="glow-badge" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.25" />
+                </filter>
+              </defs>
+
+              {/* ============================================================== */}
+              {/* ZONE 1: SIRKULASI KECIL / PULMONAL (SISI KIRI: X 40 - 450)     */}
+              {/* ============================================================== */}
+              <g
+                id="pulmonary-zone"
+                style={{
+                  opacity: isPulmonaryActive ? 1 : 0.25,
+                  transition: 'opacity 0.4s ease',
+                }}
+              >
+                {/* Background Zone Card */}
+                <rect
+                  x="30"
+                  y="30"
+                  width="440"
+                  height="550"
+                  rx="28"
+                  fill="#F0F9FF"
+                  fillOpacity="0.65"
+                  stroke="#BAE6FD"
+                  strokeWidth="1.5"
+                />
+
+                {/* Zone Header Plaque */}
+                <g transform="translate(250, 65)">
+                  <rect x="-140" y="-18" width="280" height="36" rx="18" fill="#0284C7" fillOpacity="0.95" />
+                  <text x="0" y="4" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
+                    Sirkulasi Kecil (Pulmonal)
+                  </text>
+                  <text x="0" y="32" fill="#0369A1" fontSize="9.5" fontWeight="bold" textAnchor="middle">
+                    Ventrikel Kanan (RV) ➔ Paru-Paru ➔ Atrium Kiri (LA)
+                  </text>
+                </g>
+
+                {/* Organ: Paru-Paru (Pulmones & Alveoli) */}
+                <g
+                  id="pulmo-organ"
+                  transform="translate(170, 310)"
+                  className="cursor-pointer"
+                  onClick={() =>
+                    setState(s => ({
+                      ...s,
+                      modalDetail: {
+                        title: 'Paru-Paru & Mikrosirkulasi Alveolar',
+                        subtitle: 'Sirkulasi Pulmonal (Hematosis)',
+                        description:
+                          'Tempat terjadinya difusi gas hematosis: Darah dari arteri pulmonalis yang kaya CO₂ melepaskan gas karbon dioksida ke rongga alveolus untuk diekspirasi, dan menyerap molekul oksigen segar dari udara pernapasan untuk diikat oleh hemoglobin eritrosit.',
+                        role: 'Pertukaran Gas Alveolar: CO₂ Dilepas ➔ O₂ Diikat',
+                        type: 'deoxygenated',
+                      },
+                    }))
+                  }
+                  filter="url(#organ-drop-shadow)"
+                >
+                  {/* Trachea & Bronchi Tree */}
+                  <path d="M 0 -95 L 0 -50 M 0 -50 Q -25 -35 -45 -10 M 0 -50 Q 25 -35 45 -10" stroke="#94A3B8" strokeWidth="5" strokeLinecap="round" fill="none" />
+                  {[ -85, -75, -65, -55 ].map(y => (
+                    <line key={y} x1="-6" y1={y} x2="6" y2={y} stroke="#CBD5E1" strokeWidth="1.8" strokeLinecap="round" />
+                  ))}
+
+                  {/* Right Lung (Viewer's Left) */}
+                  <path
+                    d="M -20 -40 C -45 -38 -80 -10 -85 30 C -90 70 -75 105 -50 115 C -25 125 -10 100 -12 70 C -15 30 -5 -20 -20 -40 Z"
+                    fill="url(#lung-mesh-grad)"
+                    stroke="#881337"
+                    strokeWidth="2"
+                  />
+                  {/* Left Lung (Viewer's Right) */}
+                  <path
+                    d="M 20 -40 C 45 -38 80 -10 85 30 C 90 70 75 105 50 115 C 25 125 10 100 12 70 C 15 30 5 -20 20 -40 Z"
+                    fill="url(#lung-mesh-grad)"
+                    stroke="#881337"
+                    strokeWidth="2"
+                  />
+
+                  {/* Alveolar Capillary Mesh Texture */}
+                  <g stroke="#F8FAFC" strokeWidth="1" strokeDasharray="3 2" opacity="0.6" fill="none">
+                    <path d="M -60 10 Q -35 30 -50 70" />
+                    <path d="M -75 40 Q -40 50 -30 85" />
+                    <path d="M 60 10 Q 35 30 50 70" />
+                    <path d="M 75 40 Q 40 50 30 85" />
+                  </g>
+
+                  {/* Organ Label Plaque */}
+                  <rect x="-85" y="125" width="170" height="34" rx="10" fill="#FFFFFF" fillOpacity="0.95" stroke="#0284C7" strokeWidth="1.4" />
+                  <text x="0" y="140" fill="#0C4A6E" fontSize="11" fontWeight="bold" textAnchor="middle">
+                    Paru-Paru (Pulmo)
+                  </text>
+                  <text x="0" y="152" fill="#0284C7" fontSize="8" fontWeight="bold" textAnchor="middle">
+                    Alveolus: CO₂ Lepas ↑ • O₂ Masuk ↓
+                  </text>
+                </g>
+
+                {/* ===== PIPELINE 1 (ATAS): ARTERI PULMONALIS (RV ➔ PARU-PARU) ===== */}
+                {/* Horizontal Directional 3D Tube (Darah Biru Kaya CO₂) */}
+                <g id="pipeline-arteri-pulmonalis">
+                  {/* Outer Glow */}
+                  <path d="M 520 220 L 255 220" stroke="#0284C7" strokeWidth="16" strokeLinecap="round" opacity="0.25" />
+                  {/* 3D Cylindrical Vessel Tube */}
+                  <path d="M 520 220 L 255 220" stroke="url(#tube-vein)" strokeWidth="12" strokeLinecap="round" />
+                  {/* Repeated Directional Chevrons (<<< Flow Leftwards) */}
+                  <g fill="none" stroke="#E0F2FE" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    {[ 470, 420, 370, 320, 275 ].map(x => (
+                      <path key={`chev-pulm-art-${x}`} d={`M ${x + 6} 214 L ${x} 220 L ${x + 6} 226`} />
+                    ))}
+                  </g>
+
+                  {/* Informational Vessel Label Badge */}
+                  <g transform="translate(385, 190)">
+                    <rect x="-80" y="-12" width="160" height="24" rx="12" fill="#0C4A6E" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1" />
+                    <text x="0" y="4" fill="#E0F2FE" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                      Arteri Pulmonalis (Kaya CO₂)
+                    </text>
+                  </g>
+                </g>
+
+                {/* ===== PIPELINE 2 (BAWAH): VENA PULMONALIS (PARU-PARU ➔ LA) ===== */}
+                {/* Horizontal Directional 3D Tube (Darah Merah Kaya O₂) */}
+                <g id="pipeline-vena-pulmonalis">
+                  {/* Outer Glow */}
+                  <path d="M 255 420 L 520 420" stroke="#E11D48" strokeWidth="16" strokeLinecap="round" opacity="0.25" />
+                  {/* 3D Cylindrical Vessel Tube */}
+                  <path d="M 255 420 L 520 420" stroke="url(#tube-artery)" strokeWidth="12" strokeLinecap="round" />
+                  {/* Repeated Directional Chevrons (>>> Flow Rightwards) */}
+                  <g fill="none" stroke="#FFE4E6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    {[ 285, 335, 385, 435, 485 ].map(x => (
+                      <path key={`chev-pulm-vein-${x}`} d={`M ${x - 6} 414 L ${x} 420 L ${x - 6} 426`} />
+                    ))}
+                  </g>
+
+                  {/* Informational Vessel Label Badge */}
+                  <g transform="translate(385, 450)">
+                    <rect x="-80" y="-12" width="160" height="24" rx="12" fill="#881337" fillOpacity="0.95" stroke="#FB7185" strokeWidth="1" />
+                    <text x="0" y="4" fill="#FFE4E6" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                      Vena Pulmonalis (Kaya O₂)
+                    </text>
+                  </g>
+                </g>
+              </g>
+
+              {/* ============================================================== */}
+              {/* ZONE 2: COR HUMANUM / JANTUNG 4 RUANG (TENGAH: X 480 - 720)     */}
+              {/* ============================================================== */}
+              <g
+                id="heart-center-zone"
+                className="cursor-pointer"
+                onClick={() =>
+                  setState(s => ({
+                    ...s,
+                    modalDetail: {
+                      title: 'Jantung (Cor Humanum) - Pompa Ganda',
+                      subtitle: 'Pusat Hemodinamika 4 Ruang',
+                      description:
+                        'Jantung bekerja sebagai pompa ganda terintegrasi. Sisi kanan (RA & RV) memompa darah miskin oksigen ke paru-paru dalam Sirkulasi Kecil. Sisi kiri (LA & LV) menerima darah beroksigen dan memompakannya ke seluruh tubuh dalam Sirkulasi Besar.',
+                      role: 'Pompa Sinkron: RA➔RV (Pulmonal) & LA➔LV (Sistemik)',
+                      type: 'neutral',
+                    },
+                  }))
+                }
+                filter="url(#organ-drop-shadow)"
+              >
+                {/* Anatomical Heart Silhouette Container */}
+                <path
+                  d="M 500 210 C 475 250 480 380 520 440 C 560 500 600 520 600 520 C 600 520 640 500 680 440 C 720 380 725 250 700 210 C 680 180 620 180 600 200 C 580 180 520 180 500 210 Z"
+                  fill="url(#heart-muscle-grad)"
+                  stroke="#4C0519"
+                  strokeWidth="2.5"
+                />
+
+                {/* Septum Interventriculare (Central Dividing Wall) */}
+                <path d="M 600 200 L 600 515" stroke="#4C0519" strokeWidth="5" strokeLinecap="round" opacity="0.75" />
+                <path d="M 600 200 L 600 515" stroke="#BE123C" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+
+                {/* Internal Flow Pathways inside Heart */}
+                {/* Right Heart Flow (RA to RV) */}
+                <path d="M 545 390 L 545 250" stroke="#38BDF8" strokeWidth="3" strokeDasharray="4 3" strokeLinecap="round" />
+                <polygon points="545,242 541,250 549,250" fill="#38BDF8" />
+
+                {/* Left Heart Flow (LA to LV) */}
+                <path d="M 655 390 L 655 250" stroke="#FB7185" strokeWidth="3" strokeDasharray="4 3" strokeLinecap="round" />
+                <polygon points="655,242 651,250 659,250" fill="#FB7185" />
+
+                {/* ===== 4 ANATOMICAL CHAMBER BADGES (SPACIOUS & INTERACTIVE) ===== */}
+                {/* 1. RV: Ventrikel Kanan (Kiri Atas Jantung Diagram) */}
+                <g transform="translate(545, 220)">
+                  <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#0C4A6E" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1.2" />
+                  <text x="0" y="4" fill="#E0F2FE" fontSize="12" fontWeight="extrabold" textAnchor="middle">RV</text>
+                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Ventrikel Knn</text>
+                </g>
+
+                {/* 2. RA: Atrium Kanan (Kiri Bawah Jantung Diagram) */}
+                <g transform="translate(545, 420)">
+                  <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#075985" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1.2" />
+                  <text x="0" y="4" fill="#E0F2FE" fontSize="12" fontWeight="extrabold" textAnchor="middle">RA</text>
+                  <text x="0" y="24" fill="#BAE6FD" fontSize="7" fontWeight="bold" textAnchor="middle">Atrium Knn</text>
+                </g>
+
+                {/* 3. LV: Ventrikel Kiri (Kanan Atas Jantung Diagram) */}
+                <g transform="translate(655, 220)">
+                  <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#9F1239" fillOpacity="0.95" stroke="#FB7185" strokeWidth="1.2" />
+                  <text x="0" y="4" fill="#FFE4E6" fontSize="12" fontWeight="extrabold" textAnchor="middle">LV</text>
+                  <text x="0" y="24" fill="#FECDD3" fontSize="7" fontWeight="bold" textAnchor="middle">Ventrikel Kiri</text>
+                </g>
+
+                {/* 4. LA: Atrium Kiri (Kanan Bawah Jantung Diagram) */}
+                <g transform="translate(655, 420)">
+                  <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#881337" fillOpacity="0.95" stroke="#FB7185" strokeWidth="1.2" />
+                  <text x="0" y="4" fill="#FFE4E6" fontSize="12" fontWeight="extrabold" textAnchor="middle">LA</text>
+                  <text x="0" y="24" fill="#FECDD3" fontSize="7" fontWeight="bold" textAnchor="middle">Atrium Kiri</text>
+                </g>
+
+                {/* Central Title Plaque */}
+                <g transform="translate(600, 320)">
+                  <rect x="-65" y="-14" width="130" height="28" rx="14" fill="#0F172A" fillOpacity="0.95" stroke="#FFFFFF" strokeWidth="1.2" />
+                  <text x="0" y="4" fill="#FFFFFF" fontSize="10.5" fontWeight="extrabold" textAnchor="middle" letterSpacing="0.5">
+                    COR HUMANUM
+                  </text>
+                </g>
+              </g>
+
+              {/* ============================================================== */}
+              {/* ZONE 3: SIRKULASI BESAR / SISTEMIK (SISI KANAN: X 730 - 1170)  */}
+              {/* ============================================================== */}
+              <g
+                id="systemic-zone"
+                style={{
+                  opacity: isSystemicActive ? 1 : 0.25,
+                  transition: 'opacity 0.4s ease',
+                }}
+              >
+                {/* Background Zone Card */}
+                <rect
+                  x="730"
+                  y="30"
+                  width="440"
+                  height="550"
+                  rx="28"
+                  fill="#FFF1F2"
+                  fillOpacity="0.65"
+                  stroke="#FECDD3"
+                  strokeWidth="1.5"
+                />
+
+                {/* Zone Header Plaque */}
+                <g transform="translate(950, 65)">
+                  <rect x="-140" y="-18" width="280" height="36" rx="18" fill="#E11D48" fillOpacity="0.95" />
+                  <text x="0" y="4" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle" letterSpacing="0.4">
+                    Sirkulasi Besar (Sistemik)
+                  </text>
+                  <text x="0" y="32" fill="#BE123C" fontSize="9.5" fontWeight="bold" textAnchor="middle">
+                    Ventrikel Kiri (LV) ➔ Seluruh Tubuh ➔ Atrium Kanan (RA)
+                  </text>
+                </g>
+
+                {/* Organ: Jaringan Tubuh / Sistemik (Systemic Microcirculation) */}
+                <g
+                  id="body-organ"
+                  transform="translate(1030, 310)"
+                  className="cursor-pointer"
+                  onClick={() =>
+                    setState(s => ({
+                      ...s,
+                      modalDetail: {
+                        title: 'Jaringan Tubuh & Mikrosirkulasi Sistemik',
+                        subtitle: 'Sirkulasi Sistemik (Respirasi Internal)',
+                        description:
+                          'Darah kaya oksigen dan glukosa dari ventrikel kiri dipompakan melalui Aorta menuju anyaman kapiler mikrosirkulasi di otak, ginjal, saluran cerna, dan otot. Di sini oksigen berdifusi ke sel untuk produksi energi (ATP), dan sisa metabolisme (CO₂) diangkut kembali oleh vena kava ke jantung.',
+                        role: 'Respirasi Seluler: O₂ Diberikan ke Sel ➔ CO₂ Diambil Vena',
+                        type: 'oxygenated',
+                      },
+                    }))
+                  }
+                  filter="url(#organ-drop-shadow)"
+                >
+                  {/* Systemic Organ Capsule Body */}
+                  <rect x="-90" y="-75" width="180" height="180" rx="36" fill="url(#body-tissue-grad)" stroke="#94A3B8" strokeWidth="2" />
+
+                  {/* Peripheral Organs Mini Vector Motifs */}
+                  {/* Brain Silhouette Motif */}
+                  <g transform="translate(-45, -35)" stroke="#64748B" strokeWidth="1.4" fill="none">
+                    <path d="M -15 0 C -20 -15 0 -20 0 -5 C 0 -20 20 -15 15 0 C 18 10 5 15 0 10 C -5 15 -18 10 -15 0 Z" />
+                    <text x="0" y="20" fill="#475569" fontSize="7" fontWeight="bold" textAnchor="middle">Otak</text>
+                  </g>
+                  {/* Kidney Motif */}
+                  <g transform="translate(45, -35)" stroke="#64748B" strokeWidth="1.4" fill="none">
+                    <path d="M 0 -12 C 12 -12 16 0 12 12 C 8 20 -4 16 -8 8 C -12 0 -8 -12 0 -12 Z" />
+                    <text x="0" y="20" fill="#475569" fontSize="7" fontWeight="bold" textAnchor="middle">Ginjal</text>
+                  </g>
+                  {/* Systemic Capillary Bed Grid */}
+                  <g stroke="#E11D48" strokeWidth="1" strokeDasharray="3 2" opacity="0.75" fill="none">
+                    <path d="M -65 40 Q 0 25 65 40" />
+                    <path d="M -70 55 Q 0 40 70 55" />
+                    <path d="M -60 70 Q 0 55 60 70" />
+                  </g>
+
+                  {/* Organ Label Plaque */}
+                  <rect x="-85" y="125" width="170" height="34" rx="10" fill="#FFFFFF" fillOpacity="0.95" stroke="#E11D48" strokeWidth="1.4" />
+                  <text x="0" y="140" fill="#881337" fontSize="11" fontWeight="bold" textAnchor="middle">
+                    Jaringan Tubuh (Sistemik)
+                  </text>
+                  <text x="0" y="152" fill="#E11D48" fontSize="8" fontWeight="bold" textAnchor="middle">
+                    Metabolisme: O₂ Dilepas ↓ • CO₂ Diserap ↑
+                  </text>
+                </g>
+
+                {/* ===== PIPELINE 3 (ATAS): AORTA SISTEMIK (LV ➔ JARINGAN TUBUH) ===== */}
+                {/* Horizontal Directional 3D Tube (Darah Merah Kaya O₂) */}
+                <g id="pipeline-aorta">
+                  {/* Outer Glow */}
+                  <path d="M 680 220 L 945 220" stroke="#E11D48" strokeWidth="16" strokeLinecap="round" opacity="0.25" />
+                  {/* 3D Cylindrical Vessel Tube */}
+                  <path d="M 680 220 L 945 220" stroke="url(#tube-artery)" strokeWidth="12" strokeLinecap="round" />
+                  {/* Repeated Directional Chevrons (>>> Flow Rightwards) */}
+                  <g fill="none" stroke="#FFE4E6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    {[ 715, 765, 815, 865, 915 ].map(x => (
+                      <path key={`chev-aorta-${x}`} d={`M ${x - 6} 214 L ${x} 220 L ${x - 6} 226`} />
+                    ))}
+                  </g>
+
+                  {/* Informational Vessel Label Badge */}
+                  <g transform="translate(815, 190)">
+                    <rect x="-80" y="-12" width="160" height="24" rx="12" fill="#881337" fillOpacity="0.95" stroke="#FB7185" strokeWidth="1" />
+                    <text x="0" y="4" fill="#FFE4E6" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                      Aorta Sistemik (Kaya O₂)
+                    </text>
+                  </g>
+                </g>
+
+                {/* ===== PIPELINE 4 (BAWAH): VENA KAVA SISTEMIK (JARINGAN TUBUH ➔ RA) ===== */}
+                {/* Horizontal Directional 3D Tube (Darah Biru Kaya CO₂) */}
+                <g id="pipeline-vena-kava">
+                  {/* Outer Glow */}
+                  <path d="M 945 420 L 680 420" stroke="#0284C7" strokeWidth="16" strokeLinecap="round" opacity="0.25" />
+                  {/* 3D Cylindrical Vessel Tube */}
+                  <path d="M 945 420 L 680 420" stroke="url(#tube-vein)" strokeWidth="12" strokeLinecap="round" />
+                  {/* Repeated Directional Chevrons (<<< Flow Leftwards) */}
+                  <g fill="none" stroke="#E0F2FE" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    {[ 915, 865, 815, 765, 715 ].map(x => (
+                      <path key={`chev-cava-${x}`} d={`M ${x + 6} 414 L ${x} 420 L ${x + 6} 426`} />
+                    ))}
+                  </g>
+
+                  {/* Informational Vessel Label Badge */}
+                  <g transform="translate(815, 450)">
+                    <rect x="-80" y="-12" width="160" height="24" rx="12" fill="#0C4A6E" fillOpacity="0.95" stroke="#38BDF8" strokeWidth="1" />
+                    <text x="0" y="4" fill="#E0F2FE" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                      Vena Kava Sistemik (Kaya CO₂)
+                    </text>
+                  </g>
+                </g>
+              </g>
+
+              {/* ============================================================== */}
+              {/* DYNAMIC BLOOD CELL FLOW PARTICLES (ERYTHROCYTES ON TRACKS)     */}
+              {/* ============================================================== */}
+              {/* Pipeline 1: RV ➔ Paru-Paru (Blue, X: 520 ➔ 255) */}
+              {isPulmonaryActive && [0, 1, 2].map(i => (
+                <motion.circle
+                  key={`erythro-pulm-art-${i}`}
+                  cy={220}
+                  r="5.5"
+                  fill="#38BDF8"
+                  stroke="#FFFFFF"
+                  strokeWidth="1.2"
+                  animate={{ cx: [520, 255] }}
+                  transition={{ duration: 3.5, delay: i * 1.15, repeat: Infinity, ease: 'linear' }}
+                />
+              ))}
+
+              {/* Pipeline 2: Paru-Paru ➔ LA (Red, X: 255 ➔ 520) */}
+              {isPulmonaryActive && [0, 1, 2].map(i => (
+                <motion.circle
+                  key={`erythro-pulm-vein-${i}`}
+                  cy={420}
+                  r="5.5"
+                  fill="#FB7185"
+                  stroke="#FFFFFF"
+                  strokeWidth="1.2"
+                  animate={{ cx: [255, 520] }}
+                  transition={{ duration: 3.5, delay: i * 1.15, repeat: Infinity, ease: 'linear' }}
+                />
+              ))}
+
+              {/* Pipeline 3: LV ➔ Jaringan Tubuh (Red, X: 680 ➔ 945) */}
+              {isSystemicActive && [0, 1, 2].map(i => (
+                <motion.circle
+                  key={`erythro-aorta-${i}`}
+                  cy={220}
+                  r="5.5"
+                  fill="#FB7185"
+                  stroke="#FFFFFF"
+                  strokeWidth="1.2"
+                  animate={{ cx: [680, 945] }}
+                  transition={{ duration: 3.5, delay: i * 1.15, repeat: Infinity, ease: 'linear' }}
+                />
+              ))}
+
+              {/* Pipeline 4: Jaringan Tubuh ➔ RA (Blue, X: 945 ➔ 680) */}
+              {isSystemicActive && [0, 1, 2].map(i => (
+                <motion.circle
+                  key={`erythro-cava-${i}`}
+                  cy={420}
+                  r="5.5"
+                  fill="#38BDF8"
+                  stroke="#FFFFFF"
+                  strokeWidth="1.2"
+                  animate={{ cx: [945, 680] }}
+                  transition={{ duration: 3.5, delay: i * 1.15, repeat: Infinity, ease: 'linear' }}
+                />
+              ))}
+            </svg>
+          </div>
+
+          {/* Interactive Flow Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8 pt-6 border-t border-slate-200/60">
+            {[
+              { label: 'Semua Sirkulasi (Ganda)', value: 'all' as const },
+              { label: 'Sirkulasi Kecil (Pulmonal)', value: 'pulmonary' as const },
+              { label: 'Sirkulasi Besar (Sistemik)', value: 'systemic' as const },
+            ].map(btn => (
+              <motion.button
+                key={btn.value}
+                onClick={() => setState(s => ({ ...s, activeSystem: btn.value }))}
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-xs ${
+                  state.activeSystem === btn.value
+                    ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white shadow-md shadow-rose-500/25 scale-105'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-200'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                {btn.label}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Educational Legend Footer */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-100">
+            <div className="flex items-start gap-3 p-4 rounded-2xl bg-sky-50/70 border border-sky-100">
+              <span className="flex h-3 w-3 rounded-full bg-sky-500 shrink-0 mt-1" />
               <div>
-                <p className="text-slate-700 text-sm leading-relaxed">
-                  <strong className="text-[#FF4D6D]">Sirkulasi Besar:</strong> Jantung memompa darah kaya oksigen melalui aorta ke seluruh tubuh, mengirimkan oksigen ke jaringan dan mengambil karbon dioksida.
-                </p>
-              </div>
-              <div>
-                <p className="text-slate-700 text-sm leading-relaxed">
-                  <strong className="text-[#4ECDC4]">Sirkulasi Kecil:</strong> Darah yang miskin oksigen kembali ke jantung melalui vena cava dan dipompa ke paru-paru untuk dioksigenasi kembali.
+                <h4 className="font-bold text-sm text-sky-950">Darah Miskin Oksigen (Kaya CO₂)</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Mengalir dari jaringan tubuh melalui Vena Kava ke atrium & ventrikel kanan, lalu diteruskan via Arteri Pulmonalis menuju paru-paru.
                 </p>
               </div>
             </div>
-          </motion.div>
+
+            <div className="flex items-start gap-3 p-4 rounded-2xl bg-rose-50/70 border border-rose-100">
+              <span className="flex h-3 w-3 rounded-full bg-rose-500 shrink-0 mt-1" />
+              <div>
+                <h4 className="font-bold text-sm text-rose-950">Darah Kaya Oksigen (Kaya O₂)</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Kembali dari alveoli paru melalui Vena Pulmonalis ke atrium & ventrikel kiri, lalu dipompa bertekanan tinggi via Aorta ke seluruh organ tubuh.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Interactive buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          {[
-            { label: 'Semua Sistem', value: 'all' as const },
-            { label: 'Sirkulasi Pulmonal', value: 'pulmonary' as const },
-            { label: 'Sirkulasi Sistemik', value: 'systemic' as const },
-          ].map(btn => (
-            <motion.button
-              key={btn.value}
-              onClick={() => setState(s => ({ ...s, activeSystem: btn.value }))}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                state.activeSystem === btn.value
-                  ? 'bg-gradient-to-r from-[#FF4D6D] to-[#FF8FA3] text-white shadow-lg shadow-[#FF4D6D]/40'
-                  : 'bg-white/50 text-slate-700 border border-white/40 hover:border-[#FF4D6D]/30 hover:bg-white/70'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+        {/* Modal Detail Organ Dialog */}
+        <AnimatePresence>
+          {state.modalDetail && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setState(s => ({ ...s, modalDetail: null }))}
             >
-              {btn.label}
-            </motion.button>
-          ))}
-        </div>
+              <motion.div
+                className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-slate-100 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white"
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="flex items-start justify-between gap-4 mb-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+                  <div>
+                    <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mb-1.5">
+                      {state.modalDetail.subtitle}
+                    </span>
+                    <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
+                      {state.modalDetail.title}
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setState(s => ({ ...s, modalDetail: null }))}
+                    className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-5">
+                  {state.modalDetail.description}
+                </p>
+
+                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span className="text-slate-400 mr-2 font-bold">Fungsi Fisiologis:</span>
+                  {state.modalDetail.role}
+                </div>
+
+                <div className="mt-6 flex justify-end">
+                  <button
+                    onClick={() => setState(s => ({ ...s, modalDetail: null }))}
+                    className="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition dark:bg-white dark:text-slate-900"
+                  >
+                    Tutup Telaah
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )
