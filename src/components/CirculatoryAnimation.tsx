@@ -438,7 +438,11 @@ export default function CirculatoryAnimation() {
               {/* SISI KIRI (Jalur Vena Biru & Sisi Kanan Pasien) */}
               <g id="labels-left" className="select-none">
                 {/* Pulmo Dexter */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('pulmo-dexter')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="85" textAnchor="end" fontSize="11" fontWeight="bold" fill="#0F172A">Pulmo Dexter</text>
                   <text x="175" y="99" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#64748B">(Paru Kanan - 3 Lobus)</text>
                   <line x1="185" y1="92" x2="360" y2="92" stroke="#94A3B8" strokeWidth="1.2" />
@@ -446,7 +450,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Arteri Pulmonalis */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('arteri-pulmonalis')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="150" textAnchor="end" fontSize="11" fontWeight="bold" fill="#0284C7">Arteri Pulmonalis</text>
                   <text x="175" y="164" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#0369A1">(Darah kaya CO₂)</text>
                   <line x1="185" y1="157" x2="418" y2="135" stroke="#0284C7" strokeWidth="1.2" />
@@ -454,7 +462,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Vena Kava Superior/Inferior */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('vena-cava')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="235" textAnchor="end" fontSize="11" fontWeight="bold" fill="#0284C7">Vena Kava</text>
                   <text x="175" y="249" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#64748B">Superior & Inferior</text>
                   <line x1="185" y1="242" x2="336" y2="242" stroke="#0284C7" strokeWidth="1.2" />
@@ -462,7 +474,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Atrium Dextrum (RA) */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('heart')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="300" textAnchor="end" fontSize="11" fontWeight="bold" fill="#0C4A6E">Atrium Dextrum</text>
                   <text x="175" y="314" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#0284C7">(Serambi Kanan / RA)</text>
                   <line x1="185" y1="307" x2="385" y2="250" stroke="#0284C7" strokeWidth="1.2" strokeDasharray="3 2" />
@@ -470,7 +486,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Ventriculus Dexter (RV) */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('heart')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="365" textAnchor="end" fontSize="11" fontWeight="bold" fill="#075985">Ventriculus Dexter</text>
                   <text x="175" y="379" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#0284C7">(Bilik Kanan / RV)</text>
                   <line x1="185" y1="372" x2="395" y2="305" stroke="#0284C7" strokeWidth="1.2" strokeDasharray="3 2" />
@@ -478,7 +498,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Vena Sistemik */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('capillary-systemic')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="175" y="470" textAnchor="end" fontSize="11" fontWeight="bold" fill="#0284C7">Vena Sistemik</text>
                   <text x="175" y="484" textAnchor="end" fontSize="9" fontWeight="semibold" fill="#0369A1">(Biru - Darah miskin O₂)</text>
                   <line x1="185" y1="477" x2="336" y2="477" stroke="#0284C7" strokeWidth="1.2" />
@@ -489,7 +513,11 @@ export default function CirculatoryAnimation() {
               {/* SISI KANAN (Jalur Arteri Merah & Sisi Kiri Pasien) */}
               <g id="labels-right" className="select-none">
                 {/* Pulmo Sinister */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('pulmo-sinister')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="85" textAnchor="start" fontSize="11" fontWeight="bold" fill="#0F172A">Pulmo Sinister</text>
                   <text x="705" y="99" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#64748B">(Paru Kiri - 2 Lobus)</text>
                   <line x1="695" y1="92" x2="520" y2="92" stroke="#94A3B8" strokeWidth="1.2" />
@@ -497,7 +525,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Arkus Aorta */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('aorta')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="150" textAnchor="start" fontSize="11" fontWeight="bold" fill="#E11D48">Arkus Aorta</text>
                   <text x="705" y="164" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#64748B">(Lengkung Aorta)</text>
                   <line x1="695" y1="157" x2="488" y2="142" stroke="#E11D48" strokeWidth="1.2" />
@@ -505,7 +537,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Vena Pulmonalis */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('vena-pulmonalis')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="210" textAnchor="start" fontSize="11" fontWeight="bold" fill="#E11D48">Vena Pulmonalis</text>
                   <text x="705" y="224" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#BE123C">(Darah kaya O₂)</text>
                   <line x1="695" y1="217" x2="475" y2="185" stroke="#E11D48" strokeWidth="1.2" />
@@ -513,7 +549,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Atrium Sinistrum (LA) */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('heart')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="300" textAnchor="start" fontSize="11" fontWeight="bold" fill="#881337">Atrium Sinistrum</text>
                   <text x="705" y="314" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#E11D48">(Serambi Kiri / LA)</text>
                   <line x1="695" y1="307" x2="480" y2="250" stroke="#E11D48" strokeWidth="1.2" strokeDasharray="3 2" />
@@ -521,7 +561,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Ventriculus Sinister (LV) */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('heart')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="365" textAnchor="start" fontSize="11" fontWeight="bold" fill="#9F1239">Ventriculus Sinister</text>
                   <text x="705" y="379" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#E11D48">(Bilik Kiri / LV)</text>
                   <line x1="695" y1="372" x2="475" y2="305" stroke="#E11D48" strokeWidth="1.2" strokeDasharray="3 2" />
@@ -529,7 +573,11 @@ export default function CirculatoryAnimation() {
                 </g>
 
                 {/* Aorta Descendens */}
-                <g>
+                <g
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredLabel('aorta')}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <text x="705" y="470" textAnchor="start" fontSize="11" fontWeight="bold" fill="#E11D48">Aorta Descendens</text>
                   <text x="705" y="484" textAnchor="start" fontSize="9" fontWeight="semibold" fill="#9F1239">(Merah - Darah kaya O₂)</text>
                   <line x1="695" y1="477" x2="545" y2="477" stroke="#E11D48" strokeWidth="1.2" />

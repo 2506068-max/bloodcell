@@ -26,5 +26,6 @@
   },
 
   "include": ["src"],
+  "exclude": ["src/**/*.backup.tsx", "node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Wind, Activity, Info } from 'lucide-react'
+import { Activity, Info } from 'lucide-react'
 
 export interface LungStructure {
   id: string

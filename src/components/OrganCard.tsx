@@ -392,7 +392,7 @@ export default function OrganCards() {
   )
 }
 
-function LungsVignetteSVG() {
+export function LungsVignetteSVG() {
   return (
     <svg viewBox="0 0 240 180" className="w-48 h-36">
       <defs>
@@ -431,7 +431,7 @@ function LungsVignetteSVG() {
   )
 }
 
-function VascularNetworkSVG() {
+export function VascularNetworkSVG() {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       <img
